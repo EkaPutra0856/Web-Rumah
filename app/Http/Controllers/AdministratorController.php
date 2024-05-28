@@ -90,14 +90,16 @@ class AdministratorController extends Controller
 
     
 
-    public function dashboard()
-    {
-        if (Auth::guard('administrators')->check()) {
-            return view('dashboard');
-        }
-
+public function dashboard()
+{
+    if (Auth::guard('administrators')->check()) {
+        $user = Auth::guard('administrators')->user();
+        return view('dashboard', ['user' => $user]);
+    } else {
         return redirect("/")->withErrors('You are not allowed to access');
     }
+}
+
 
     public function logout(Request $request)
     {

@@ -8,6 +8,7 @@
 <body>
     <h1>Welcome to Dashboard</h1>
     <p>You are logged in as an administrator.</p>
+    <p>Email: {{ $user->email }}</p>
 
     <form action="{{ route('admin.logout') }}" method="POST">
         @csrf
