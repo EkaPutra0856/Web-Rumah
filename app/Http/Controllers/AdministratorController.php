@@ -104,7 +104,8 @@ class AdministratorController extends Controller
         Auth::guard('administrators')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
+    
         return redirect('/login')->withSuccess('Logged out successfully');
     }
+    
 }
