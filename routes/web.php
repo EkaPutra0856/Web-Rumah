@@ -10,9 +10,7 @@ Route::get('/register', function () {
     return view('register');
 });
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+Route::get('/login', [AdministratorController::class,'index'])->name ('login');
 
 Route::post('/register-administrator', [AdministratorController::class, 'register']);
 Route::post('/login-administrator', [AdministratorController::class, 'login']);

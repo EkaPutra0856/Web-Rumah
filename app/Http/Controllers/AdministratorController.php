@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Validator;
 
 class AdministratorController extends Controller
 {
+
+    public function index (){
+        if (Auth::guard('administrators')->check()) {
+            return redirect()->intended('/dashboard');
+        }
+        return view("login");
+    }
     public function sendResponse($result, $message)
     {
         $response = [
@@ -63,6 +70,7 @@ class AdministratorController extends Controller
 
     public function login(Request $request)
 {
+    
     $validator = Validator::make($request->all(), [
         'email' => 'required|email',
         'password' => 'required',
@@ -73,6 +81,7 @@ class AdministratorController extends Controller
     }
 
     $credentials = $request->only('email', 'password');
+    
 
     if (Auth::guard('administrators')->attempt($credentials)) {
         /** @var \App\Models\Administrator $administrator **/
@@ -84,6 +93,7 @@ class AdministratorController extends Controller
     
         return redirect()->intended('/dashboard')->withSuccess('Logged in successfully');
     }
+
 
     return redirect()->back()->withErrors('Login details are not valid')->withInput();
 }
