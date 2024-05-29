@@ -25,4 +25,14 @@ class Administrator extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function regions()
+    {
+        return $this->hasMany(Region::class);
+    }
+
+    public function regionalAdmins()
+    {
+        return $this->hasMany(RegionalAdmin::class);
+    }
 }

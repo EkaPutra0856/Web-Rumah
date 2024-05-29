@@ -17,6 +17,9 @@ class CreateAdminWilayahsTable extends Migration
             $table->id();
             $table->foreignId('administrator_id')->constrained('administrators')->onDelete('cascade');
             $table->foreignId('wilayah_id')->constrained('wilayahs')->onDelete('cascade');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
             $table->timestamps();
         });
     }

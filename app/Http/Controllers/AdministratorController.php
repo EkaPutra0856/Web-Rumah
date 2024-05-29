@@ -10,7 +10,12 @@ use Illuminate\Support\Facades\Validator;
 
 class AdministratorController extends Controller
 {
-
+    public function indexRegister (){
+        if (Auth::guard('administrators')->check()) {
+            return redirect()->intended('/dashboard');
+        }
+        return view("register");
+    }
     public function index (){
         if (Auth::guard('administrators')->check()) {
             return redirect()->intended('/dashboard');
@@ -52,7 +57,8 @@ class AdministratorController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return $this->sendError('Validation Error.', $validator->errors());
+            session()->flash('fail', $validator->errors());
+            return redirect('/register');
         }
 
         $input = $request->all();
