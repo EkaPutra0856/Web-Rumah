@@ -1,23 +1,16 @@
-@foreach ($region as $p)
+@foreach ($kk as $p)
     <div id="editModal{{  $p->id }}"
         class="hidden fixed inset-0 bg-gray-400 bg-opacity-60 justify-center items-center ">
         <div class="bg-gray-800 rounded-lg w-1/2">
-            <form method="POST" action="{{ url('/' . $p->id . '/update-region') }}" class=" w-5/6 mx-auto my-5">
+            <form method="POST" action="{{ url('/' . $p->id . '/update-kk') }}" class=" w-5/6 mx-auto my-5">
                 @csrf
-                <h2 class=" text-center font-semibold text-lg text-white">Edit Wilayah</h2><br>
+                <h2 class=" text-center font-semibold text-lg text-white">Edit KK</h2><br>
 
                 <div class="basis-1/2 mb-5">
-                    <label for="name" class="block mb-2 text-sm font-medium  text-white">Nama Wilayah</label>
-                    <input name="name" type="text" id="name"
+                    <label for="nokk" class="block mb-2 text-sm font-medium  text-white">No KK</label>
+                    <input name="nokk" type="number" id="nokk"
                         class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                        value="{{ $p->name }}" required>
-                </div>
-                
-                <div class="basis-1/2 mb-5">
-                    <label for="id" class="block mb-2 text-sm font-medium  text-white">ID</label>
-                    <input name="id" type="text" id="id"
-                        class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                        value="{{ $p->id }}" required>
+                        value="{{ $p->nokk }}" required>
                 </div>
                 
                 <div class="flex flex-row gap-3">

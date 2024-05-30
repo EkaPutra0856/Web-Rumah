@@ -23,5 +23,10 @@ class Region extends Model
     {
         return $this->belongsTo(Administrator::class);
     }
+
+    public function rumah()
+    {
+        return $this->hasMany(Rumah::class);
+    }
 }
 

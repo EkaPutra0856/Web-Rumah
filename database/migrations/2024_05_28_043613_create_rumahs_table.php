@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('rumahs', function (Blueprint $table) {
             $table->id();
+            
+            // $table->foreignId('wilayah_id')->constrained()->onDelete('cascade');
+            $table->string('norumah');
+            $table->string('alamat');
             $table->timestamps();
         });
     }

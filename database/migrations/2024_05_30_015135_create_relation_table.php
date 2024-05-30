@@ -8,14 +8,11 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-    */
+     */
     public function up(): void
     {
-        Schema::create('kks', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('admin_wilayahs_id')->constrained()->onDelete('cascade');
-            $table->integer('nokk');
-            $table->timestamps();
+        Schema::table('rumahs', function (Blueprint $table) {
+            $table->foreignId('wilayah_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -24,6 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kks');
+        Schema::dropIfExists('relation');
     }
 };

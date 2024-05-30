@@ -2,11 +2,16 @@
     <div class="bg-gray-800 rounded-lg w-1/2">
         <form method="POST" action="insert-wilayah" class=" w-5/6 mx-auto my-5">
             @csrf
-            <h2 class=" text-center font-semibold text-lg text-white">Insert Pendidikan</h2><br>
+            <h2 class=" text-center font-semibold text-lg text-white">Insert Wilayah</h2><br>
 
             <div class=" basis-1/2 mb-5">
                 <label for="name" class="block mb-2 text-sm font-medium  text-white">Name</label>
-                <input name="name" type="text" id="name"
+                <input name="name" type="text" id="name" required
+                    class="border ext-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <div class=" basis-1/2 mb-5">
+                <label for="id" class="block mb-2 text-sm font-medium  text-white">ID</label>
+                <input name="id" type="text" id="id" required
                     class="border ext-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
             </div>
             <div class="flex flex-row gap-3">

@@ -24,19 +24,21 @@ class RegionController extends Controller
         $data = new Region();
             $data->name = $request->name;
             $data->administrator_id = $userId;
+            $data->id = $request->id;
 
         $data -> save();
         session()->flash('success', 'Save Data Successfully!');
-        return Redirect('/dashboard');
+        return Redirect('/wilayah');
     }
 
     public function update(Request $request, $id)
     {
         $data = Region::where('id', $id)->first();
             $data->name = $request->name;
+            $data->id = $request->id;
         $data -> save();
         session()->flash('success', 'Edit Data Successfully!');
-        return Redirect('/dashboard');
+        return Redirect('/wilayah');
     }
 
     public function delete(Request $request, $id)
@@ -44,7 +46,7 @@ class RegionController extends Controller
         $penduduk = Region::where('id', $id);
         $penduduk->delete();
         session()->flash('success', 'Delete Data Successfully!');
-        return redirect('/dashboard');
+        return redirect('/wilayah');
     }
 
 

@@ -124,6 +124,44 @@ public function dashboard()
         $request->session()->regenerateToken();
     
         return redirect('/login')->withSuccess('Logged out successfully');
+
+
+    }
+    public function loginFormRegAdmin(){
+        if (Auth::guard('administrators')->check() || Auth::guard('regadmin')->check()) {
+            return redirect()->intended('/dashboard-adminwilayah');
+        }
+        return view('loginRegionalAdmin');
+    }
+
+    public function loginRegAdmin (Request $request) {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::guard('regadmin')->attempt($credentials)) {
+            /** @var \App\Models\RegionalAdmin $regadmin **/
+            $regadmin = Auth::guard('regadmin')->user();
+            $token = $regadmin->createToken('MyApp')->plainTextToken;
+        
+            // Store the token for later use, if needed
+            session(['token' => $token]);
+        
+            return redirect()->intended('/dashboard-adminwilayah')->withSuccess('Logged in successfully');
+        }
+
+        return redirect()->intended('/login-regadmin')->withSuccess('Logged in Failed');
+
+    }
+
+    public function adminwilayah (){
+        if (Auth::guard('regadmin')->check()) {
+            return view('dashboardAdmin');
+        }
+        return view("loginRegionalAdmin");
     }
     
 }

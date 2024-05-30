@@ -3,10 +3,11 @@
 
 <head>
     <title>DATABASE PROJECT</title>
+    
     @vite('resources/css/app.css')
 </head>
 
-<body class=" min-h-screen bg-gradient-to-tr from-gray-950 from-60% to-gray-800 ">
+<body class=" min-h-screen bg-gradient-to-tr from-gray-100 from-40% to-blue-800 ">
     @include('Layout.navbar')
     <div class="sm:flex sm:justify-center sm:items-center ">
         <div class="w-full">

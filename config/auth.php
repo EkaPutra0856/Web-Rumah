@@ -23,6 +23,10 @@ return [
             'driver' => 'session',
             'provider' => 'administrators',
         ],
+        'regadmin' => [
+            'driver' => 'session',
+            'provider' => 'regadmin',
+        ],
     ],
 
     'providers' => [
@@ -35,6 +39,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Administrator::class,
         ],
+        'regadmin' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', App\Models\RegionalAdmin::class),
+        ],
     ],
 
     'passwords' => [
@@ -44,6 +52,7 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        
     ],
 
     'password_timeout' => 10800,

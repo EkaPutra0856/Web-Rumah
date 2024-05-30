@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Administrator;
 use App\Models\RegionalAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,12 @@ class RegAdminController extends Controller
         }
     }
     public function insert(Request $request){
+        $existingEmail = Administrator::where('email', $request->email)->first();
+
+        if ($existingEmail) {
+            session()->flash('fail', 'Save Data Failed!');
+            return redirect('/adminwilayah');
+        }
 
         $userId = Auth::guard('administrators')->user()->id;
 
@@ -25,13 +32,13 @@ class RegAdminController extends Controller
             $data->name = $request->name;
             $data->email = $request->email;
             $data->wilayah_id = $request->wilayah_id;
-            $data->password = $request->password;
+            $data->password = bcrypt($request->password);
             
             $data->administrator_id = $userId;
 
         $data -> save();
         session()->flash('success', 'Save Data Successfully!');
-        return Redirect('/dashboard');
+        return Redirect('/adminwilayah');
     }
 
     public function update(Request $request, $id)
@@ -40,7 +47,7 @@ class RegAdminController extends Controller
             $data->name = $request->name;
         $data -> save();
         session()->flash('success', 'Edit Data Successfully!');
-        return Redirect('/dashboard');
+        return Redirect('/adminwilayah');
     }
 
     public function delete(Request $request, $id)
@@ -48,6 +55,6 @@ class RegAdminController extends Controller
         $penduduk = RegionalAdmin::where('id', $id);
         $penduduk->delete();
         session()->flash('success', 'Delete Data Successfully!');
-        return redirect('/dashboard');
+        return redirect('/adminwilayah');
     }
 }
