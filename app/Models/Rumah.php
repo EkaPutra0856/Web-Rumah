@@ -15,7 +15,11 @@ protected $primaryKey='id';
         'id',
         'wilayah_id',
         'norumah',
-        'alamat'
+        'alamat',
+        'luas',
+        'status',
+        'tahun',
+        'renov'
     ];
 
     

@@ -41,6 +41,9 @@ Route::post('/insert-kk', [KKController::class, 'insert']);
 Route::post('/{id}/update-kk', [KKController::class, 'update']);
 Route::post('/{id}/delete-kk', [KKController::class, 'delete']);
 
+Route::post('/insert-rumah', [RumahController::class, 'insert']);
+Route::post('/{id}/update-rumah', [RumahController::class, 'update']);
+Route::post('/{id}/delete-rumah', [RumahController::class, 'delete']);
 
 Route::middleware('auth:regadmin')->group(function (){
     Route::get('/dashboard-adminwilayah', [AdministratorController::class, 'adminwilayah'])->name('admin.dashboard');

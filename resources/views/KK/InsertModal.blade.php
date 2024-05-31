@@ -9,6 +9,21 @@
                 <input name="nokk" type="number" id="nokk"
                     class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
             </div>
+            <div class="basis-1/2 mb-5">
+                <label for="namakk" class="block mb-2 text-sm font-medium text-white">Nama Kepala Keluarga</label>
+                <input name="namakk" type="text" id="namakk"
+                    class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <div class="basis-1/2 mb-5">
+                <label for="anggota" class="block mb-2 text-sm font-medium text-white">Jumlah Anggota Keluarga</label>
+                <input name="anggota" type="number" id="anggota"
+                    class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <div class="basis-1/2 mb-5">
+                <label for="rumah_id" class="block mb-2 text-sm font-medium text-white">ID Rumah</label>
+                <input name="rumah_id" type="number" id="rumah_id"
+                    class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+            </div>
 
             <!-- Hidden input for admin_wilayahs_id -->
             <input type="hidden" name="admin_wilayahs_id" value="{{ Auth::guard('regadmin')->user()->admin_wilayahs_id }}">

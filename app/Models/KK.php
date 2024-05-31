@@ -17,7 +17,10 @@ protected $primaryKey = 'id';
     protected $fillable = [
         'id',
         'admin_wilayahs_id',
-        'nokk'
+        'rumahs_id',
+        'nokk',
+        'namakk',
+        'anggota'
     ];
 
     
@@ -25,6 +28,10 @@ protected $primaryKey = 'id';
     public function regionalAdmin()
     {
         return $this->belongsTo(RegionalAdmin::class);
+    }
+    public function rumah()
+    {
+        return $this->belongsTo(Rumah::class);
     }
 
   

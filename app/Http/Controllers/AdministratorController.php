@@ -51,6 +51,7 @@ class AdministratorController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
+            'notelp' => 'required',
             'email' => 'required|email|unique:administrators',
             'password' => 'required',
             'c_password' => 'required|same:password'

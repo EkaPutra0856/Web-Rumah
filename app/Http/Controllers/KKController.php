@@ -21,10 +21,18 @@ class KKController extends Controller
     public function insert(Request $request){
 
         $regadmin = Auth::guard('regadmin')->user()->id;
+            // Memeriksa apakah semua input terisi
+    if(!$request->filled(['nokk', 'namakk', 'anggota'])) {
+        return redirect()->back()->withErrors('Input cannot be empty.');
+    }
+
 
         $kk = new KK();
             $kk->nokk = $request->nokk;
-            $kk->admin_wilayahs_id = $regadmin;
+            $kk->rumah_id = $request->rumah_id;
+            $kk->namakk = $request->namakk;
+            $kk->anggota = $request->anggota;
+            $kk->admin_wilayah_id = $regadmin;
         $kk -> save();
         
         session()->flash('success', 'Save Data Successfully!');
@@ -34,8 +42,12 @@ class KKController extends Controller
     public function update(KK $request, $id)
     {
         $kk = KK::where('id', $id)->first();
+       
         $kk->nokk = $request->nokk;
-        $kk->admin_wilayahs_id =  $request->admin_wilayahs_id;
+        $kk->rumah_id = $request->rumah_id;
+        $kk->namakk = $request->namakk;
+        $kk->anggota = $request->anggota;
+        
         $kk -> save();
         session()->flash('success', 'Edit Data Successfully!');
         return Redirect('/kk');

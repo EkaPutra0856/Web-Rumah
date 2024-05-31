@@ -14,7 +14,12 @@ return new class extends Migration
         Schema::create('wilayahs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('administrator_id')->constrained()->onDelete('cascade');
-            $table->string('name');
+            // $table->string('name');
+            $table->string('provinsi');
+            $table->string('kabupaten_kota');
+            $table->string('kecamatan');
+            $table->string('kelurahan_desa');
+            $table->string('kode_pos');
             $table->timestamps();
         });
     }

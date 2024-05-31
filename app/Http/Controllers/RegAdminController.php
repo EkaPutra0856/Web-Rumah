@@ -31,6 +31,7 @@ class RegAdminController extends Controller
         $data = new RegionalAdmin();
             $data->name = $request->name;
             $data->email = $request->email;
+            $data->notelp = $request->notelp;
             $data->wilayah_id = $request->wilayah_id;
             $data->password = bcrypt($request->password);
             
@@ -44,7 +45,10 @@ class RegAdminController extends Controller
     public function update(Request $request, $id)
     {
         $data = RegionalAdmin::where('id', $id)->first();
-            $data->name = $request->name;
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->notelp = $request->notelp;
+        $data->wilayah_id = $request->wilayah_id;
         $data -> save();
         session()->flash('success', 'Edit Data Successfully!');
         return Redirect('/adminwilayah');

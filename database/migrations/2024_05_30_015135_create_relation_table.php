@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::table('rumahs', function (Blueprint $table) {
             $table->foreignId('wilayah_id')->constrained()->onDelete('cascade');
         });
+        Schema::table('kks', function (Blueprint $table) {
+            $table->foreignId('rumah_id')->constrained()->onDelete('cascade');
+            $table->foreignId('admin_wilayah_id')->constrained()->onDelete('cascade');
+        });
     }
 
     /**

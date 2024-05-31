@@ -24,9 +24,14 @@ class RumahController extends Controller
         $regadmin = Auth::guard('regadmin')->user()->id;
 
         $rumah = new Rumah();
+        $rumah->id = $request->id;
         $rumah->norumah = $request->norumah;
         $rumah->alamat = $request->alamat;
-        $rumah->wilayah_id = $request->wilayah_id;
+        $rumah->luas = $request->luas;
+        $rumah->status = $request->status;
+        $rumah->tahun = $request->tahun;
+        $rumah->renov = $request->renov;
+        $rumah->wilayah_id =  $request->wilayah_id;
         $rumah -> save();
         
         session()->flash('success', 'Save Data Successfully!');
@@ -38,7 +43,13 @@ class RumahController extends Controller
         $rumah = Rumah::where('id', $id)->first();
         $rumah->norumah = $request->norumah;
         $rumah->alamat = $request->alamat;
-        $rumah->wilayah_id = $request->wilayah_id;
+        $rumah->luas = $request->luas;
+        $rumah->status = $request->status;
+        $rumah->tahun = $request->tahun;
+        $rumah->renov = $request->renov;
+        $rumah->id = $request->id;
+        $rumah->norumah = $request->norumah;
+        
         $rumah -> save();
         session()->flash('success', 'Edit Data Successfully!');
         return Redirect('/rumah');

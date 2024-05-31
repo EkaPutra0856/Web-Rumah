@@ -16,7 +16,12 @@ class Region extends Model
     protected $fillable = [
         'id',
         'administrator_id',
-        'name',
+        // 'name',
+        'provinsi',
+        'kabupaten_kota',
+        'kecamatan',
+        'kelurahan_desa',
+        'kode_pos'
     ];
 
     public function administrator()

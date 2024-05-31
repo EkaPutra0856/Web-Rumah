@@ -22,7 +22,13 @@ class RegionController extends Controller
         $userId = Auth::guard('administrators')->user()->id;
 
         $data = new Region();
-            $data->name = $request->name;
+            // $data->name = $request->name;
+            $data->provinsi = $request->provinsi;
+            $data->kabupaten_kota = $request->kabupaten_kota;
+            $data->kecamatan = $request->kecamatan;
+            $data->kelurahan_desa = $request->kelurahan_desa;
+            $data->kode_pos = $request->kode_pos;
+           
             $data->administrator_id = $userId;
             $data->id = $request->id;
 
@@ -34,7 +40,12 @@ class RegionController extends Controller
     public function update(Request $request, $id)
     {
         $data = Region::where('id', $id)->first();
-            $data->name = $request->name;
+            // $data->name = $request->name;
+            $data->provinsi = $request->provinsi;
+            $data->kabupaten_kota = $request->kabupaten_kota;
+            $data->kecamatan = $request->kecamatan;
+            $data->kelurahan_desa = $request->kelurahan_desa;
+            $data->kode_pos = $request->kode_pos;
             $data->id = $request->id;
         $data -> save();
         session()->flash('success', 'Edit Data Successfully!');
@@ -43,8 +54,8 @@ class RegionController extends Controller
 
     public function delete(Request $request, $id)
     {
-        $penduduk = Region::where('id', $id);
-        $penduduk->delete();
+        $data = Region::where('id', $id);
+        $data->delete();
         session()->flash('success', 'Delete Data Successfully!');
         return redirect('/wilayah');
     }

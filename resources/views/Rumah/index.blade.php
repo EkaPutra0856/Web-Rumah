@@ -9,7 +9,7 @@
     <thead>
         <tr>
             <th class="py-2 px-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
-                Id
+                ID  Rumah
             </th>
             <th class="py-2 px-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
                 No Rumah
@@ -18,7 +18,19 @@
                 Alamat
             </th>
             <th class="py-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
-                Wilayah ID
+                Luas Rumah (m<sup>2</sup>)
+            </th>
+            <th class="py-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
+                Status Kepemilikan
+            </th>
+            <th class="py-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
+                Tahun Dibangun
+            </th>
+            <th class="py-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
+                Tahun Terakhir Renovasi
+            </th>
+            <th class="py-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
+                Action
             </th>
         </tr>
     </thead>
@@ -28,7 +40,12 @@
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->id }}
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->norumah }}
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->alamat }}
-                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->wilayah_id }}
+                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->luas }}
+                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->status }}
+                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->tahun }}
+                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->renov }}
+                
+                
                 </td>
                
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">

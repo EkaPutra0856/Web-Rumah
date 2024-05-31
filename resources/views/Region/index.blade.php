@@ -11,8 +11,23 @@
             <th class="py-3 px-3 border-b-2 text-md border-b-blue-300 font-bold text-blue-600">
                 ID
             </th>
-            <th class="py-3 px-3 border-b-2 text-md border-b-blue-300 font-bold text-blue-600">
+            {{-- <th class="py-3 px-3 border-b-2 text-md border-b-blue-300 font-bold text-blue-600">
                 Region Name
+            </th> --}}
+            <th class="py-3 px-3 border-b-2 text-md border-b-blue-300 font-bold text-blue-600">
+                Provinsi
+            </th>
+            <th class="py-3 px-3 border-b-2 text-md border-b-blue-300 font-bold text-blue-600">
+                Kabupaten/Kota
+            </th>
+            <th class="py-3 px-3 border-b-2 text-md border-b-blue-300 font-bold text-blue-600">
+                Kecamatan
+            </th>
+            <th class="py-3 px-3 border-b-2 text-md border-b-blue-300 font-bold text-blue-600">
+               Kelurahan/Desa
+            </th>
+            <th class="py-3 px-3 border-b-2 text-md border-b-blue-300 font-bold text-blue-600">
+                Kode Pos
             </th>
             <th class="py-3 border-b-2 text-md border-b-blue-300 font-bold text-blue-600">
                 Action
@@ -24,7 +39,12 @@
             <tr class="hover:bg-blue-100">
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->id }}
                 </td>
-                <td class="p-3 text-center border-b-2 text-sm border-b-blue-700 font-normal text-gray-400">{{ $p->name }}</td>
+                {{-- <td class="p-3 text-center border-b-2 text-sm border-b-blue-700 font-normal text-gray-400">{{ $p->name }}</td> --}}
+                <td class="p-3 text-center border-b-2 text-sm border-b-blue-700 font-normal text-gray-400">{{ $p->provinsi }}</td>
+                <td class="p-3 text-center border-b-2 text-sm border-b-blue-700 font-normal text-gray-400">{{ $p->kabupaten_kota }}</td>
+                <td class="p-3 text-center border-b-2 text-sm border-b-blue-700 font-normal text-gray-400">{{ $p->kecamatan }}</td>
+                <td class="p-3 text-center border-b-2 text-sm border-b-blue-700 font-normal text-gray-400">{{ $p->kelurahan_desa }}</td>
+                <td class="p-3 text-center border-b-2 text-sm border-b-blue-700 font-normal text-gray-400">{{ $p->kode_pos }}</td>
                 <td class="p-3 text-center border-b-2 text-sm border-b-blue-700 font-normal text-gray-400">
                     <div class="flex flex-row gap-x-3 justify-center">
                         <button type="button" onclick="openEditModal('{{ $p->id }}')"

@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('kks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('admin_wilayahs_id')->constrained()->onDelete('cascade');
-            $table->integer('nokk');
+            // $table->foreignId('admin_wilayahs_id')->constrained()->onDelete('cascade');
+            // $table->foreignId('rumahs_id')->constrained()->onDelete('cascade');
+            $table->string('nokk');
+            $table->string('namakk');
+            $table->integer('anggota');
             $table->timestamps();
         });
     }

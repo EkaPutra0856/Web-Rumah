@@ -57,6 +57,10 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="notelp" type="notelp" name="notelp" placeholder="name@example.com" />
+                                                <label for="inputEmail">No Telp</label>
+                                            </div>
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid"><button type="submit" class="btn btn-primary btn-block">Create Account</button></div>
                                             </div>

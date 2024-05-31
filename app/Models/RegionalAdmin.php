@@ -20,6 +20,7 @@ class RegionalAdmin extends Authenticatable
         'name',
         'email',
         'password',
+        'notelp'
     ];
 
     protected $hidden = [

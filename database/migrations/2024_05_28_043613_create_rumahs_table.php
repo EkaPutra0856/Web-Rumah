@@ -17,6 +17,10 @@ return new class extends Migration
             // $table->foreignId('wilayah_id')->constrained()->onDelete('cascade');
             $table->string('norumah');
             $table->string('alamat');
+            $table->string('luas');
+            $table->string('status');
+            $table->string('tahun');
+            $table->string('renov');
             $table->timestamps();
         });
     }

@@ -8,9 +8,27 @@
 
                 <div class="basis-1/2 mb-5">
                     <label for="nokk" class="block mb-2 text-sm font-medium  text-white">No KK</label>
-                    <input name="nokk" type="number" id="nokk"
+                    <input name="nokk" type="text" id="nokk"
                         class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                        value="{{ $p->nokk }}" required>
+                        value="{{ $p->nokk }}" >
+                </div>
+                <div class="basis-1/2 mb-5">
+                    <label for="namakk" class="block mb-2 text-sm font-medium  text-white">Nama Kepala Keluarga</label>
+                    <input name="namakk" type="text" id="namakk"
+                        class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                        value="{{ $p->namakk }}" >
+                </div>
+                <div class="basis-1/2 mb-5">
+                    <label for="anggota" class="block mb-2 text-sm font-medium  text-white">Jumlah Anggota Keluarga</label>
+                    <input name="anggota" type="number" id="anggota"
+                        class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                        value="{{ $p->anggota }}" >
+                </div>
+                <div class="basis-1/2 mb-5">
+                    <label for="rumah_id" class="block mb-2 text-sm font-medium text-white">ID Rumah</label>
+                    <input name="rumah_id" type="text" id="rumah_id"
+                        class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                        value="{{ $p->rumah_id }}" >
                 </div>
                 
                 <div class="flex flex-row gap-3">

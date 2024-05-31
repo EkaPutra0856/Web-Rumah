@@ -9,10 +9,16 @@
     <thead>
         <tr>
             <th class="py-2 px-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
-                Id
+                Id Rumah
             </th>
             <th class="py-2 px-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
                 No KK
+            </th>
+            <th class="py-2 px-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
+                Nama Kepala Keluarga
+            </th>
+            <th class="py-2 px-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
+                Jumlah Anggota Keluarga
             </th>
             <th class="py-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
                 Action
@@ -22,9 +28,11 @@
     <tbody>
         @foreach ($kk as $p)
             <tr class="hover:bg-[#f5f5f5]">
-                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->admin_wilayahs_id }}
+                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->rumah_id}}
                 </td>
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->nokk }}
+                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->namakk }}
+                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->anggota }}
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">
                     <div class="flex flex-row gap-x-2 justify-center">
                         <button type="button" onclick="openEditModal('{{ $p->id }}')"
