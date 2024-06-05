@@ -18,7 +18,7 @@
                 Name Email
             </th>
             <th class="py-2 px-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
-                 No Telepon
+                No Telepon
             </th>
             <th class="py-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
                 Action
@@ -28,11 +28,15 @@
     <tbody>
         @foreach ($regionAdmin as $p)
             <tr class="hover:bg-[#f5f5f5]">
-                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->wilayah_id }}
+                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">
+                    {{ $p->wilayah_id }}
                 </td>
-                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->name }}
-                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->email }}  
-                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->notelp }}
+                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">
+                    {{ $p->name }}
+                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">
+                    {{ $p->email }}
+                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">
+                    {{ $p->notelp }}
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">
                     <div class="flex flex-row gap-x-2 justify-center">
                         <button type="button" onclick="openEditModal('{{ $p->id }}')"
@@ -53,4 +57,3 @@
 @section('Edit Modal')
     @include('AdminWilayah.EditModal')
 @endsection
-
