@@ -38,7 +38,7 @@ class RumahController extends Controller
         return Redirect('/rumah');
     }
 
-    public function update(rumah $request, $id)
+    public function update(Request $request, $id)
     {
         $rumah = Rumah::where('id', $id)->first();
         $rumah->norumah = $request->norumah;

@@ -16,8 +16,8 @@ protected $table='kks';
 protected $primaryKey = 'id';
     protected $fillable = [
         'id',
-        'admin_wilayahs_id',
-        'rumahs_id',
+        'admin_wilayah_id',
+        'rumah_id',
         'nokk',
         'namakk',
         'anggota'
