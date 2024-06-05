@@ -41,7 +41,7 @@
                     <div class="flex flex-row gap-x-2 justify-center">
                         <button type="button" onclick="openEditModal('{{ $p->id }}')"
                             class=" text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-xs w-12 py-2.5 text-center bg-green-600 hover:bg-green-700 focus:ring-green-500">Edit</button>
-                        <button type="button" onclick="openDeleteModal('{{ url('/' . $p->id . '/delete-region') }}')"
+                        <button type="button" onclick="openDeleteModal('{{ url('/' . $p->id . '/delete-adminwilayah') }}')"
                             class=" text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-xs w-12 py-2.5 text-center bg-red-600 hover:bg-red-700 focus:ring-red-500">Delete</button>
                     </div>
                 </td>
