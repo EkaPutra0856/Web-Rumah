@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\Auth;
 class AdministratorCRUDController extends Controller
 {
 
-    
-    public function index(){
+
+    public function index()
+    {
         if (Auth::guard('administrators')->check()) {
-          
+
             $userId = Auth::guard('administrators')->user()->id;
             $admin = Administrator::where('id', $userId)->get();
             // $admin = Administrator::all();
@@ -22,19 +23,20 @@ class AdministratorCRUDController extends Controller
             return redirect("/")->withErrors('You are not allowed to access');
         }
     }
-    public function insert(Request $request){
+    public function insert(Request $request)
+    {
 
         $userId = Auth::guard('administrators')->user()->id;
 
         $admin = new Administrator();
-       
-            $admin->name = $request->name;
-            $admin->email = $request->email;
-            $admin->password = $request->password;
-            $admin->notelp = $request->notelp;
-        
 
-        $admin -> save();
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+        $admin->password = bcrypt($request->password);
+        $admin->notelp = $request->notelp;
+
+
+        $admin->save();
         session()->flash('success', 'Save Data Successfully!');
         return Redirect('/admintable');
     }
@@ -46,7 +48,7 @@ class AdministratorCRUDController extends Controller
         $admin->email = $request->email;
         $admin->password = bcrypt($request->password);
         $admin->notelp = $request->notelp;
-        $admin -> save();
+        $admin->save();
         session()->flash('success', 'Edit Data Successfully!');
         return Redirect('/admintable');
     }
@@ -55,56 +57,56 @@ class AdministratorCRUDController extends Controller
     {
         // Temukan administrator yang dipilih untuk dihapus
         $admin = Administrator::find($id);
-    
+
         // Pastikan administrator ditemukan
         if (!$admin) {
             return redirect('/admintable')->withErrors('Administrator not found!');
         }
-    
+
         // Periksa apakah administrator yang dipilih adalah administrator yang saat ini masuk
         if ($admin->id == Auth::guard('administrators')->user()->id) {
             // Lakukan logout otomatis
             Auth::guard('administrators')->logout();
-    
+
             // Redirect ke halaman login
             return redirect('/login')->with('success', 'Your account has been deleted. Please login again.');
         }
-    
+
         // Hapus administrator jika tidak ada masalah
         $admin->delete();
-    
+
         // Redirect kembali ke halaman indeks dengan pesan sukses
         return redirect('/admintable')->with('success', 'Administrator deleted successfully!');
     }
-    
 
 
 
-// public function delete(Request $request, $id)
-// {
-//     // Temukan administrator yang dipilih untuk dihapus
-//     $admin = Administrator::find($id);
 
-//     // Pastikan administrator ditemukan
-//     if (!$admin) {
-//         return redirect('/admintable')->withErrors('Administrator not found!');
-//     }
+    // public function delete(Request $request, $id)
+    // {
+    //     // Temukan administrator yang dipilih untuk dihapus
+    //     $admin = Administrator::find($id);
 
-//     // Periksa apakah administrator yang dipilih adalah administrator yang saat ini masuk
-//     if ($admin->id == Auth::guard('administrators')->user()->id) {
-//         // Lakukan logout otomatis
-//         Auth::guard('administrators')->logout();
+    //     // Pastikan administrator ditemukan
+    //     if (!$admin) {
+    //         return redirect('/admintable')->withErrors('Administrator not found!');
+    //     }
 
-//         // Redirect ke halaman login
-//         return redirect('/login')->with('success', 'Your account has been deleted. Please login again.');
-//     }
+    //     // Periksa apakah administrator yang dipilih adalah administrator yang saat ini masuk
+    //     if ($admin->id == Auth::guard('administrators')->user()->id) {
+    //         // Lakukan logout otomatis
+    //         Auth::guard('administrators')->logout();
 
-//     // Hapus administrator jika tidak ada masalah
-//     $admin->delete();
+    //         // Redirect ke halaman login
+    //         return redirect('/login')->with('success', 'Your account has been deleted. Please login again.');
+    //     }
 
-//     // Redirect kembali ke halaman indeks dengan pesan sukses
-//     return redirect('/admintable')->with('success', 'Administrator deleted successfully!');
-// }
+    //     // Hapus administrator jika tidak ada masalah
+    //     $admin->delete();
+
+    //     // Redirect kembali ke halaman indeks dengan pesan sukses
+    //     return redirect('/admintable')->with('success', 'Administrator deleted successfully!');
+    // }
 
 
 
