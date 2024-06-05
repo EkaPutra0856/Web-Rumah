@@ -12,12 +12,6 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
-        'api' => [
-            'driver' => 'sanctum',
-            'provider' => 'administrators',
-            'hash' => false,
-        ],
         
         'administrators' => [
             'driver' => 'session',

@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\AdministratorController;
+use App\Http\Controllers\AdministratorCRUDController;
 use App\Http\Controllers\KKController;
 use App\Http\Controllers\RegAdminController;
 use App\Http\Controllers\RegionController;
@@ -23,7 +24,7 @@ Route::middleware('auth:administrators')->group(function () {
     Route::get('/dashboard', [AdministratorController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/wilayah', [RegionController::class, 'index']);
     Route::get('/adminwilayah', [RegAdminController::class, 'index']);
-    
+    Route::get('/admintable', [AdministratorCRUDController::class, 'index']);
 });
 
 Route::post('/logout', [AdministratorController::class, 'logout'])->name('admin.logout');
@@ -44,6 +45,10 @@ Route::post('/{id}/delete-kk', [KKController::class, 'delete']);
 Route::post('/insert-rumah', [RumahController::class, 'insert']);
 Route::post('/{id}/update-rumah', [RumahController::class, 'update']);
 Route::post('/{id}/delete-rumah', [RumahController::class, 'delete']);
+
+Route::post('/insert-administrator', [AdministratorCRUDController::class, 'insert']);
+Route::post('/{id}/update-administrator', [AdministratorCRUDController::class, 'update']);
+Route::post('/{id}/delete-administrator', [AdministratorCRUDController::class, 'delete']);
 
 Route::middleware('auth:regadmin')->group(function (){
     Route::get('/dashboard-adminwilayah', [AdministratorController::class, 'adminwilayah'])->name('admin.dashboard');

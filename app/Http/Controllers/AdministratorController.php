@@ -77,15 +77,10 @@ class AdministratorController extends Controller
 
     public function login(Request $request)
 {
-    
-    $validator = Validator::make($request->all(), [
-        'email' => 'required|email',
+    $request->validate([
+        'email' => 'required',
         'password' => 'required',
     ]);
-
-    if ($validator->fails()) {
-        return redirect()->back()->withErrors($validator)->withInput();
-    }
 
     $credentials = $request->only('email', 'password');
     
@@ -165,4 +160,53 @@ public function dashboard()
         return view("loginRegionalAdmin");
     }
     
+
+
+    // public function indextable(){
+    //     if (Auth::guard('administrators')->check()) {
+    //         $userId = Auth::guard('administrators')->user()->id;
+    //         $admin = Administrator::where('id', $userId)->get();
+    //         return view('Administrator.index', compact('admin'));
+    //     } else {
+    //         return redirect("/")->withErrors('You are not allowed to access');
+    //     }
+    // }
+    // public function insert(Request $request){
+
+    //     $userId = Auth::guard('administrators')->user()->id;
+
+    //     $admin = new Administrator();
+       
+    //         $admin->name = $request->name;
+    //         $admin->email = $request->email;
+    //         $admin->password = $request->password;
+    //         $admin->notelp = $request->notelp;
+        
+
+    //     $admin -> save();
+    //     session()->flash('success', 'Save Data Successfully!');
+    //     return Redirect('/admintable');
+    // }
+
+    // public function update(Request $request, $id)
+    // {
+    //     $admin = Administrator::where('id', $id)->first();
+    //     $admin->name = $request->name;
+    //     $admin->email = $request->email;
+    //     $admin->password = $request->password;
+    //     $admin->notelp = $request->notelp;
+    //     $admin -> save();
+    //     session()->flash('success', 'Edit Data Successfully!');
+    //     return Redirect('/admintable');
+    // }
+
+    // public function delete(Request $request, $id)
+    // {
+    //     $admin = Administrator::where('id', $id);
+    //     $admin->delete();
+    //     session()->flash('success', 'Delete Data Successfully!');
+    //     return redirect('/admintable');
+    // }
+
+
 }
