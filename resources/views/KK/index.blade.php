@@ -1,4 +1,4 @@
-@extends('Layout.dashboard')
+@extends('Layout.dashboardAdmin')
 @extends('Layout.notif')
 
 @section('Title')
