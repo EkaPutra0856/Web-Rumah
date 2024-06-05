@@ -7,7 +7,7 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class=" min-h-screen bg-gradient-to-tr from-gray-100 from-40% to-blue-800 ">
+<body class="bg-white dark:bg-gray-900 astro-FLTEP2YP">
     @include('Layout.navbar')
     <div class="sm:flex sm:justify-center sm:items-center ">
         <div class="w-full">
@@ -26,7 +26,10 @@
                             data-toggle="modal" data-target="#myModal">Insert</button>
                         <form action="/logout" method="POST" class='flex flex-row justify-center items-center'>
                             @csrf
-                            <button type="submit" class='text-white font-semibold text-lg'>LOG OUT</button>
+                            <button type="submit"
+                                class="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max">
+                                <span
+                                    class="relative text-base font-semibold text-primary dark:text-white">LOGOUT</span></button>
                         </form>
                     </div>
                 </div>
