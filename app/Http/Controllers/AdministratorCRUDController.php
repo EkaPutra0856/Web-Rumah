@@ -17,7 +17,7 @@ class AdministratorCRUDController extends Controller
 
             $userId = Auth::guard('administrators')->user()->id;
             $admin = Administrator::where('id', $userId)->get();
-            // $admin = Administrator::all();
+            $admin = Administrator::all();
             return view('Administrator.index', compact('admin'));
         } else {
             return redirect("/")->withErrors('You are not allowed to access');
