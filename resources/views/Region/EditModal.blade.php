@@ -1,4 +1,4 @@
-@foreach ($region as $p)
+@foreach ($regions as $p)
     <div id="editModal{{  $p->id }}"
         class="hidden fixed inset-0 bg-gray-400 bg-opacity-60 justify-center items-center ">
         <div class="bg-gray-800 rounded-lg w-1/2">
@@ -7,20 +7,6 @@
                 <h2 class="text-center font-semibold text-lg text-white">Edit Wilayah</h2><br>
                 
                 <div class="flex flex-wrap">
-                    <div class="w-1/2 p-2">
-                        <label for="provinsi" class="block mb-2 text-sm font-medium text-white">Provinsi</label>
-                        <input name="provinsi" type="text" id="provinsi"
-                            class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                            value="{{ $p->provinsi }}" required>
-                    </div>
-
-                    <div class="w-1/2 p-2">
-                        <label for="kabupaten_kota" class="block mb-2 text-sm font-medium text-white">Kabupaten/Kota</label>
-                        <input name="kabupaten_kota" type="text" id="kabupaten_kota"
-                            class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                            value="{{ $p->kabupaten_kota }}" required>
-                    </div>
-
                     <div class="w-1/2 p-2">
                         <label for="kecamatan" class="block mb-2 text-sm font-medium text-white">Kecamatan</label>
                         <input name="kecamatan" type="text" id="kecamatan"
@@ -41,25 +27,20 @@
                             class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                             value="{{ $p->kode_pos }}" required>
                     </div>
-                    <div class="w-1/2 p-2">
-                        <label for="id" class="block mb-2 text-sm font-medium text-white">ID Wilayah</label>
-                        <input name="id" type="text" id="id"
-                            class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                            value="{{ $p->id }}" required>
-                    </div>
-                    {{-- <div class="w-1/2 p-2">
-                        <label for="name" class="block mb-2 text-sm font-medium text-white">Nama Wilayah</label>
-                        <input name="name" type="text" id="name"
-                            class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                            value="{{ $p->name }}" required>
-                    </div> --}}
 
-                    {{-- <div class="w-full p-2">
-                        <label for="id" class="block mb-2 text-sm font-medium text-white text-center">ID</label>
-                        <input name="id" type="text" id="id"
-                            class="border text-sm rounded-lg block mx-auto w-1/3 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                            value="{{ $p->id }}" required>
-                    </div> --}}
+                    <div class="w-1/2 p-2">
+                        <label for="latitude" class="block mb-2 text-sm font-medium text-white">Latitude</label>
+                        <input name="latitude" type="text" id="latitude"
+                            class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                            value="{{ $p->latitude }}" required>
+                    </div>
+
+                    <div class="w-1/2 p-2">
+                        <label for="longitude" class="block mb-2 text-sm font-medium text-white">Longitude</label>
+                        <input name="longitude" type="text" id="longitude"
+                            class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                            value="{{ $p->longitude }}" required>
+                    </div>
                 </div>
 
                 <div class="flex flex-row gap-3 mt-5">
