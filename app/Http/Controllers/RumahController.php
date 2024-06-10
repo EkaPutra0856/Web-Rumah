@@ -31,7 +31,9 @@ class RumahController extends Controller
         $rumah->status = $request->status;
         $rumah->tahun = $request->tahun;
         $rumah->renov = $request->renov;
-        $rumah->wilayah_id =  $request->wilayah_id;
+        $rumah->region_id =  $request->region_id;
+        $rumah->latitude =  $request->latitude1;
+        $rumah->longitude =  $request->longitude1;
         $rumah -> save();
         
         session()->flash('success', 'Save Data Successfully!');

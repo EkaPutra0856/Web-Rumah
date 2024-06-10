@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('status');
             $table->string('tahun');
             $table->string('renov');
+            $table->decimal('latitude', 10, 7);
+            $table->decimal('longitude', 10, 7);
             $table->timestamps();
         });
     }

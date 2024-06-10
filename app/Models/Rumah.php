@@ -13,12 +13,14 @@ protected $table='rumahs';
 protected $primaryKey='id';
     protected $fillable = [
         'id',
-        'wilayah_id',
+        'region_id',
         'norumah',
         'alamat',
         'luas',
         'status',
         'tahun',
+        'latitude', 
+        'longitude',
         'renov'
     ];
 

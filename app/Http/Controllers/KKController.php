@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\KK;
 use App\Models\Region;
+use App\Models\Rumah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,9 +12,11 @@ class KKController extends Controller
 {
     public function index(){
         if (Auth::guard('regadmin')->check()) {
-            $regadmin = Auth::guard('regadmin')->user()->id;
-            $kk = KK::all();
-            return view('KK.index', compact('kk'));
+            $userId = Auth::guard('regadmin')->user()->id;
+            $rumah = Rumah::all();
+            $kk = KK::where('regional_admins_id', $userId)->with('rumah')->get();
+         
+            return view('KK.index', compact('kk', 'rumah'));
         } else {
             return redirect("/")->withErrors('You are not allowed to access');
         }
@@ -31,7 +34,7 @@ class KKController extends Controller
             $kk->rumah_id = $request->rumah_id;
             $kk->namakk = $request->namakk;
             $kk->anggota = $request->anggota;
-            $kk->admin_wilayah_id = $regadmin;
+            $kk->regional_admins_id = $regadmin;
         $kk -> save();
         
         session()->flash('success', 'Save Data Successfully!');

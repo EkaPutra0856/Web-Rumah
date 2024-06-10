@@ -27,7 +27,11 @@
                 </div>
                 <div class="w-full md:w-1/2 p-2">
                     <label for="status" class="block mb-2 text-sm font-medium text-white">Status Rumah</label>
-                    <input name="status" type="text" id="status" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" value="{{ $p->status }}" >
+                    <select name="status" type="text" id="status" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                        <option disabled selected ></option>
+                        <option value="Sehat" >Sehat</option>
+                    <option value="tidak layak">tidak layak</option>
+                    </select>
                 </div>
                 <div class="w-full md:w-1/2 p-2">
                     <label for="tahun" class="block mb-2 text-sm font-medium text-white">Tahun Dibangun</label>

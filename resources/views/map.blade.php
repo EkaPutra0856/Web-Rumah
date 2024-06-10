@@ -47,9 +47,17 @@
                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(leafletMap);
 
+            var greenIcon = L.icon({
+                iconUrl: 'https://icons.iconarchive.com/icons/icons-land/vista-map-markers/128/Map-Marker-Marker-Outside-{{$color}}-icon.png',
+                iconSize: [34, 34],
+                iconAnchor: [10, 34],
+                popupAnchor: [-10, -34]
+            });
+
             // Tampilkan marker
             @foreach($markers as $marker)
-                L.marker([{{ $marker['latitude'] }}, {{ $marker['longitude'] }}]).addTo(leafletMap);
+            
+                L.marker([{{ $marker['latitude'] }}, {{ $marker['longitude'] }}], {icon: greenIcon}).addTo(leafletMap);
             @endforeach
 
             // Warna-warna yang akan digunakan secara berulang
