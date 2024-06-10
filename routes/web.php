@@ -2,14 +2,16 @@
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\AdministratorCRUDController;
 use App\Http\Controllers\KKController;
-use App\Http\Controllers\RegAdminController;
+use App\Http\Controllers\RegionalAdminController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\RumahController;
+use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/map',[WebController::class,'map'])->name('map');
 
 Route::get('/register',[AdministratorController::class,'indexRegister']);
 Route::get('/login-regadmin', [AdministratorController::class, 'loginFormRegAdmin']);
@@ -23,20 +25,24 @@ Route::post('/login-administrator', [AdministratorController::class, 'login']);
 Route::middleware('auth:administrators')->group(function () {
     Route::get('/dashboard', [AdministratorController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/wilayah', [RegionController::class, 'index']);
-    Route::get('/adminwilayah', [RegAdminController::class, 'index']);
+    Route::get('/adminwilayah', [RegionalAdminController::class, 'index']);
     Route::get('/admintable', [AdministratorCRUDController::class, 'index']);
 });
 
 Route::post('/logout', [AdministratorController::class, 'logout'])->name('admin.logout');
 
+
+
+Route::get('/wilayah', [RegionController::class, 'index']);
 Route::post('/insert-wilayah', [RegionController::class, 'insert']);
 Route::post('/{id}/update-region', [RegionController::class, 'update']);
 Route::post('/{id}/delete-region', [RegionController::class, 'delete']);
+Route::get('/markers', [RegionController::class, 'getMarkers']);
 
 
-Route::post('/insert-adminwilayah', [RegAdminController::class, 'insert']);
-Route::post('/{id}/update-adminwilayah', [RegAdminController::class, 'update']);
-Route::post('/{id}/delete-adminwilayah', [RegAdminController::class, 'delete']);
+Route::post('/insert-adminwilayah', [RegionalAdminController::class, 'insert']);
+Route::post('/{id}/update-adminwilayah', [RegionalAdminController::class, 'update']);
+Route::post('/{id}/delete-adminwilayah', [RegionalAdminController::class, 'delete']);
 
 Route::post('/insert-kk', [KKController::class, 'insert']);
 Route::post('/{id}/update-kk', [KKController::class, 'update']);

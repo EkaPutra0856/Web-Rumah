@@ -21,6 +21,9 @@
                 No Telepon
             </th>
             <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">
+                ID Wilayah
+            </th>
+            <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">
                 Action
             </th>
         </tr>
@@ -29,7 +32,7 @@
         @foreach ($regionAdmin as $p)
             <tr class="hover:bg-[#f5f5f5]">
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-500">
-                    {{ $p->wilayah_id }}
+                    {{ $p->region_id }}
                 </td>
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-500">
                     {{ $p->name }}
@@ -37,6 +40,8 @@
                     {{ $p->email }}
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-500">
                     {{ $p->notelp }}
+                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-500">
+                    {{ $p->region_id  }} : {{$p->region->kecamatan}}
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-500">
                     <div class="flex flex-row gap-x-2 justify-center">
                         <button type="button" onclick="openEditModal('{{ $p->id }}')"

@@ -123,10 +123,19 @@ class AdministratorController extends Controller
 
         return redirect('/')->withSuccess('Logged out successfully');
     }
+
+
+
+
     public function loginFormRegAdmin()
     {
-        if (Auth::guard('administrators')->check() || Auth::guard('regadmin')->check()) {
+        // if (Auth::guard('administrators')->check() || Auth::guard('regadmin')->check()) {
+            if (Auth::guard('regadmin')->check()) {
+            
             return redirect()->intended('/dashboard-adminwilayah');
+        }
+        else if (Auth::guard('administrators')->check()) {
+
         }
         return view('loginRegionalAdmin');
     }

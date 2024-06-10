@@ -9,19 +9,18 @@ class Region extends Model
 {
     use HasFactory;
 
-    protected $table = "wilayahs";
+    protected $table = "regions";
 
     protected $primaryKey = 'id';
 
     protected $fillable = [
         'id',
         'administrator_id',
-        // 'name',
-        'provinsi',
-        'kabupaten_kota',
         'kecamatan',
         'kelurahan_desa',
-        'kode_pos'
+        'kode_pos',
+        // 'latitude',
+        // 'longitude'
     ];
 
     public function administrator()
@@ -32,6 +31,15 @@ class Region extends Model
     public function rumah()
     {
         return $this->hasMany(Rumah::class);
+    }
+
+    public function regionalAdmin()
+    {
+        return $this->hasMany(RegionalAdmin::class);
+    }
+    public function coordinates()
+    {
+        return $this->hasMany(Coordinate::class);
     }
 }
 

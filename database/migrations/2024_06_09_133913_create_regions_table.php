@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wilayahs', function (Blueprint $table) {
+        Schema::create('regions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('administrator_id')->constrained()->onDelete('cascade');
             // $table->string('name');
-            $table->string('provinsi');
-            $table->string('kabupaten_kota');
             $table->string('kecamatan');
             $table->string('kelurahan_desa');
             $table->string('kode_pos');
-            $table->timestamps();
-        });
+       
+            $table->timestamps();        });
     }
 
     /**
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wilayahs');
+        Schema::dropIfExists('regions');
     }
 };

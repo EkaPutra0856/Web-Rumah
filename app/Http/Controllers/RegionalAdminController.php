@@ -8,7 +8,7 @@ use App\Models\RegionalAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class RegAdminController extends Controller
+class RegionalAdminController extends Controller
 {
     public function index(){
         if (Auth::guard('administrators')->check()) {
@@ -34,7 +34,7 @@ class RegAdminController extends Controller
             $data->name = $request->name;
             $data->email = $request->email;
             $data->notelp = $request->notelp;
-            $data->wilayah_id = $request->wilayah_id;
+            $data->region_id = $request->region_id;
             $data->password = bcrypt($request->password);
             
             $data->administrator_id = $userId;
@@ -50,7 +50,7 @@ class RegAdminController extends Controller
         $data->name = $request->name;
         $data->email = $request->email;
         $data->notelp = $request->notelp;
-        $data->wilayah_id = $request->wilayah_id;
+        $data->region_id = $request->region_id;
         $data -> save();
         session()->flash('success', 'Edit Data Successfully!');
         return Redirect('/adminwilayah');

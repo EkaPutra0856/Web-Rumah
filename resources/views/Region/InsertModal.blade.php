@@ -1,22 +1,10 @@
 <div id="insertModal" class="hidden fixed inset-0 bg-gray-400 bg-opacity-60 justify-center items-center">
-    <div class="bg-gray-800 rounded-lg w-1/2">
-        <form method="POST" action="insert-wilayah" class="w-5/6 mx-auto my-5">
+    <div class="bg-gray-800 rounded-lg w-1/2 ">
+        <form method="POST" action="insert-wilayah" class="w-5/6 mx-auto my-5 ">
             @csrf
             <h2 class="text-center font-semibold text-lg text-white">Insert Wilayah</h2><br>
 
             <div class="flex flex-wrap">
-                <div class="w-1/2 p-2">
-                    <label for="provinsi" class="block mb-2 text-sm font-medium text-white">Provinsi</label>
-                    <input name="provinsi" type="text" id="provinsi" required
-                        class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
-                <div class="w-1/2 p-2">
-                    <label for="kabupaten_kota" class="block mb-2 text-sm font-medium text-white">Kabupaten/Kota</label>
-                    <input name="kabupaten_kota" type="text" id="kabupaten_kota" required
-                        class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
-                </div>
-
                 <div class="w-1/2 p-2">
                     <label for="kecamatan" class="block mb-2 text-sm font-medium text-white">Kecamatan</label>
                     <input name="kecamatan" type="text" id="kecamatan" required
@@ -34,22 +22,25 @@
                     <input name="kode_pos" type="text" id="kode_pos" required
                         class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                 </div>
+            </div>
+
+            <div id="coordinates-container" class="flex flex-wrap h-20 overflow-hidden overscroll-y-auto overflow-y-scroll">
                 <div class="w-1/2 p-2">
-                    <label for="id" class="block mb-2 text-sm font-medium text-white">ID Wilayah</label>
-                    <input name="id" type="text" id="id" required
+                    <label for="latitude1" class="block mb-2 text-sm font-medium text-white">Latitude 1</label>
+                    <input name="latitude1" type="text" id="latitude1" required
                         class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                 </div>
-                {{-- <div class="w-1/2 p-2">
-                    <label for="name" class="block mb-2 text-sm font-medium text-white">Nama Wilayah</label>
-                    <input name="name" type="text" id="name" required
+                
+                <div class="w-1/2 p-2">
+                    <label for="longitude1" class="block mb-2 text-sm font-medium text-white">Longitude 1</label>
+                    <input name="longitude1" type="text" id="longitude1" required
                         class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
-                </div> --}}
+                </div>
+            </div>
 
-                {{-- <div class="w-full p-2">
-                    <label for="id" class="block mb-2 text-sm font-medium text-white text-center">ID</label>
-                    <input name="id" type="text" id="id" required
-                        class="border text-sm rounded-lg block mx-auto w-1/3 p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
-                </div> --}}
+            <div class="w-full p-2 text-center">
+                <button type="button" onclick="addCoordinatesField()"
+                    class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mb-5">Add Coordinates</button>
             </div>
 
             <div class="flex flex-row gap-3 mt-5">
@@ -61,3 +52,32 @@
         </form>
     </div>
 </div>
+
+<script>
+    let coordinateIndex = 2;
+
+    function addCoordinatesField() {
+        const container = document.getElementById('coordinates-container');
+
+        const newLatitudeDiv = document.createElement('div');
+        newLatitudeDiv.className = 'w-1/2 p-2';
+        newLatitudeDiv.innerHTML = `
+            <label for="latitude${coordinateIndex}" class="block mb-2 text-sm font-medium text-white">Latitude ${coordinateIndex}</label>
+            <input name="latitude${coordinateIndex}" type="text" id="latitude${coordinateIndex}" required
+                class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+        `;
+
+        const newLongitudeDiv = document.createElement('div');
+        newLongitudeDiv.className = 'w-1/2 p-2';
+        newLongitudeDiv.innerHTML = `
+            <label for="longitude${coordinateIndex}" class="block mb-2 text-sm font-medium text-white">Longitude ${coordinateIndex}</label>
+            <input name="longitude${coordinateIndex}" type="text" id="longitude${coordinateIndex}" required
+                class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+        `;
+
+        container.appendChild(newLatitudeDiv);
+        container.appendChild(newLongitudeDiv);
+
+        coordinateIndex++;
+    }
+</script>

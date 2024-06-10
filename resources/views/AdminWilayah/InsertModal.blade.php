@@ -27,9 +27,14 @@
                         class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                 </div>
                 <div class="w-1/2 mb-5 px-2">
-                    <label for="wilayah_id" class="block mb-2 text-sm font-medium text-white">ID Wilayah</label>
-                    <input name="wilayah_id" type="text" id="wilayah_id"
-                        class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                    <label for="region_id" class="block mb-2 text-sm font-medium text-white">ID Wilayah</label>
+                    <select name="region_id" type="text" id="region_id"
+                        class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" >
+                    <option disabled selected>select id region</option>
+                    @foreach ($regions as $p)
+                    <option value="{{$p->id}}">{{$p->kecamatan}}</option>
+                    @endforeach
+                    </select>
                 </div>
             </div>
 

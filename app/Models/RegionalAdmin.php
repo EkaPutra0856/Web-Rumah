@@ -10,7 +10,7 @@ class RegionalAdmin extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
-    protected $table = "admin_wilayahs";
+    protected $table = "regional_admins";
 
     protected $primaryKey = 'id';
     protected $fillable = [
