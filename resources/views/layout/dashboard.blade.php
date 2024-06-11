@@ -41,6 +41,7 @@
         </div>
 
         <script>
+            
             function openInsertModal() {
                 var insertModal = document.getElementById('insertModal');
                 insertModal.classList.remove('hidden');
@@ -111,6 +112,7 @@
                     closeEditModal(idNumber);
                 }
             });
+            
         </script>
 </body>
 

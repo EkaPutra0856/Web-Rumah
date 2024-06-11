@@ -16,7 +16,7 @@ class RegionalAdmin extends Authenticatable
     protected $fillable = [
         'id',
         'administrator_id',
-        'wilayah_id',
+        'region_id',
         'name',
         'email',
         'password',

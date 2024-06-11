@@ -21,10 +21,15 @@
             </div>
             <div class="basis-1/2 mb-5">
                 <label for="rumah_id" class="block mb-2 text-sm font-medium text-white">ID Rumah</label>
-                <input name="rumah_id" type="number" id="rumah_id"
-                    class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
-            </div>
-
+             
+            <select name="rumah_id" type="text" id="rumah_id"
+                        class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" >
+                    <option disabled selected>select id rumah</option>
+                    @foreach ($rumah as $p)
+                    <option value="{{$p->id}}">{{$p->id}}</option>
+                    @endforeach
+                    </select>
+                </div>
             <!-- Hidden input for admin_wilayahs_id -->
             <input type="hidden" name="admin_wilayahs_id" value="{{ Auth::guard('regadmin')->user()->admin_wilayahs_id }}">
 

@@ -6,6 +6,7 @@ use App\Models\Coordinate;
 use Illuminate\Http\Request;
 use App\Models\Marker; // Sesuaikan dengan nama model Anda
 use App\Models\Region;
+use App\Models\Rumah;
 
 class WebController extends Controller
 {
@@ -36,6 +37,29 @@ class WebController extends Controller
                 }
             }
         }
+        $rumah = Rumah::all();
+        foreach ($rumah as $rumah) {
+            // Ambil semua marker berdasarkan region_id
+            $rumahMarkers = Rumah::where('id', $rumah->id)->get();
+
+            $color = 'Chartreuse';
+
+            
+
+           
+            
+                // Jika kurang dari 3, tambahkan ke markers
+                foreach ($rumahMarkers as $marker) {
+                    $markers[] = [
+                        'latitude' => $marker->latitude,
+                        'longitude' => $marker->longitude,
+                        'status' => $marker->status
+                    ];
+                    
+                    
+                }
+            }
+        
 
         return view('map', compact('markers', 'polygons'));
     }

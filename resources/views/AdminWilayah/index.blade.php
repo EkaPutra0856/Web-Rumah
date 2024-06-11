@@ -24,6 +24,9 @@
                 ID Wilayah
             </th>
             <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">
+                Nama Wilayah
+            </th>
+            <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">
                 Action
             </th>
         </tr>
@@ -41,7 +44,9 @@
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-500">
                     {{ $p->notelp }}
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-500">
-                    {{ $p->region_id  }} : {{$p->region->kecamatan}}
+                    {{ $p->region_id  }}
+                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-500">
+                    {{$p->region->kecamatan}}
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-500">
                     <div class="flex flex-row gap-x-2 justify-center">
                         <button type="button" onclick="openEditModal('{{ $p->id }}')"
