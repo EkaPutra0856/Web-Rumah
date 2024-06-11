@@ -44,13 +44,7 @@ class WebController extends Controller
 
             $color = 'Chartreuse';
 
-            if($rumah->status == 'Sehat'){
-                $color = 'Chartreuse';
-            } else if ($rumah->status == 'tidak layak'){
-                $color = 'Pink';
-            } else {
-                $color = 'black';
-            }
+            
 
            
             
@@ -59,11 +53,14 @@ class WebController extends Controller
                     $markers[] = [
                         'latitude' => $marker->latitude,
                         'longitude' => $marker->longitude,
+                        'status' => $marker->status
                     ];
+                    
+                    
                 }
             }
         
 
-        return view('map', compact('markers', 'polygons', 'color'));
+        return view('map', compact('markers', 'polygons'));
     }
 }

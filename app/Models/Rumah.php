@@ -13,7 +13,7 @@ protected $table='rumahs';
 protected $primaryKey='id';
     protected $fillable = [
         'id',
-        'region_id',
+        'regional_admins_id',
         'norumah',
         'alamat',
         'luas',

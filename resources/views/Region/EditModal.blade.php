@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="w-full p-2 text-center">
-                    <button type="button" onclick="addCoordinatesField()"
+                    <button type="button" onclick="addCoordinatesFieldEdit()"
                         class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mb-5">Add
                         Coordinates</button>
                 </div>
@@ -72,7 +72,7 @@
 <script>
     let coordinateIndexEdit = 2;
 
-    function addCoordinatesField() {
+    function addCoordinatesFieldEdit() {
         const container = document.getElementById('coordinates-container-edit');
 
         const newLatitudeDiv = document.createElement('div');
