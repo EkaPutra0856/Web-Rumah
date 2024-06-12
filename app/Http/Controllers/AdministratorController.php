@@ -166,7 +166,8 @@ class AdministratorController extends Controller
     public function adminwilayah()
     {
         if (Auth::guard('regadmin')->check()) {
-            return view('dashboardAdmin');
+            $regadmin = Auth::guard('regadmin')->user();
+            return view('dashboardAdmin', ['regadmin' => $regadmin]);
         }
         return view("loginRegionalAdmin");
     }

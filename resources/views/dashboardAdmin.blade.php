@@ -16,14 +16,14 @@
 
         <div class="lg:w-2/3 text-center mx-auto">
             <h1 class="text-gray-900 dark:text-white font-bold text-5xl md:text-6xl xl:text-5xl mt-20">Welcome to
-                Dashboard Reg-Admin
+                Dashboard Region Admin
             </h1>
         </div>
 
         <div class="hidden py-8 mt-16 border-y border-gray-100 dark:border-gray-800 sm:flex justify-center">
             <div class="text-center">
-                <h6 class="text-center font-semibold text-gray-700 dark:text-white">Halo <!-- $user->name --></h6>
-                <p class="mt-2 text-gray-500">You are logged in as an regional admin with email <!-- $user->email --></p>
+                <h6 class="text-center font-semibold text-gray-700 dark:text-white">Halo, {{ $regadmin->name }}!</h6>
+                <p class="mt-2 text-gray-500">You are logged in as an region admin with email {{ $regadmin->email }}</p>
             </div>
         </div>
 

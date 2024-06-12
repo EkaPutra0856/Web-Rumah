@@ -42,3 +42,18 @@
         </form>
     </div>
 </div>
+<script>
+    function validateForm() {
+        const tahunDibangun = document.getElementById('tahun').value;
+        const tahunRenovasi = document.getElementById('renov').value;
+        const errorMessage = document.getElementById('error-message');
+
+        if (tahunRenovasi && tahunRenovasi < tahunDibangun) {
+            errorMessage.classList.remove('hidden');
+            return false;
+        } else {
+            errorMessage.classList.add('hidden');
+            return true;
+        }
+    }
+</script>

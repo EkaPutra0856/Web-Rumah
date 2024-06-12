@@ -63,4 +63,5 @@ class RegionalAdminController extends Controller
         session()->flash('success', 'Delete Data Successfully!');
         return redirect('/adminwilayah');
     }
+
 }

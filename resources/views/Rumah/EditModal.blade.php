@@ -27,8 +27,8 @@
                     <label for="status" class="block mb-2 text-sm font-medium text-white">Status Rumah</label>
                     <select name="status" type="text" id="status" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                         <option disabled selected ></option>
-                        <option value="Sehat" >Sehat</option>
-                    <option value="tidak layak">tidak layak</option>
+                        <option>Sehat</option>
+                        <option>Tidak Layak</option>
                     </select>
                 </div>
                 <div class="w-full md:w-1/2 p-2">
@@ -38,10 +38,11 @@
                 <div class="w-full md:w-1/2 p-2">
                     <label for="renov" class="block mb-2 text-sm font-medium text-white">Tahun Terakhir Renovasi</label>
                     <input name="renov" type="text" id="renov" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" value="{{ $p->renov }}" >
+                    <span id="error-message" class="text-red-500 text-sm hidden">Tahun Terakhir Renovasi harus lebih baru atau sama dengan Tahun Dibangun</span>
                 </div>
             </div>
 
-            <div id="coordinates-container" class="flex flex-wrap h-20 overflow-hidden overscroll-y-auto overflow-y-scroll">
+            <div id="coordinates-container" class="flex flex-wrap h-20 overflow-hidden">
                 <div class="w-1/2 p-2">
                     <label for="latitude1" class="block mb-2 text-sm font-medium text-white">Latitude 1</label>
                     <input name="latitude1" type="text" id="latitude1" required
@@ -63,4 +64,19 @@
         </form>
     </div>
 </div>
+<script>
+    function validateForm() {
+        const tahunDibangun = document.getElementById('tahun').value;
+        const tahunRenovasi = document.getElementById('renov').value;
+        const errorMessage = document.getElementById('error-message');
+
+        if (tahunRenovasi && tahunRenovasi < tahunDibangun) {
+            errorMessage.classList.remove('hidden');
+            return false;
+        } else {
+            errorMessage.classList.add('hidden');
+            return true;
+        }
+    }
+</script>
 @endforeach
