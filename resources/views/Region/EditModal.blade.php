@@ -48,15 +48,38 @@
                         <input name="longitude1" type="text" id="longitude1"
                             class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
                             value="{{ $p->longitude1 }}" required>
+                    </div>
 
+                    <div class="w-1/2 p-2">
+                        <label for="latitude2" class="block mb-2 text-sm font-medium text-white">Latitude 2</label>
+                        <input name="latitude2" type="text" id="latitude2" required
+                            class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                    </div>
 
+                    <div class="w-1/2 p-2">
+                        <label for="longitude2" class="block mb-2 text-sm font-medium text-white">Longitude 2</label>
+                        <input name="longitude2" type="text" id="longitude2" required
+                            class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div class="w-1/2 p-2">
+                        <label for="latitude3" class="block mb-2 text-sm font-medium text-white">Latitude 3</label>
+                        <input name="latitude3" type="text" id="latitude3" required
+                            class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div class="w-1/2 p-2">
+                        <label for="longitude3" class="block mb-2 text-sm font-medium text-white">Longitude 3</label>
+                        <input name="longitude3" type="text" id="longitude3" required
+                            class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                     </div>
                 </div>
 
                 <div class="w-full p-2 text-center">
                     <button type="button" onclick="addCoordinatesFieldEdit()"
-                        class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mb-5">Add
-                        Coordinates</button>
+                        class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 mb-5">Add Coordinates</button>
+                    <button type="button" onclick="removeCoordinatesFieldEdit()"
+                        class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 mb-5">Remove Coordinates</button>
                 </div>
 
                 <div class="flex flex-row gap-3 mt-5">
@@ -70,7 +93,7 @@
     </div>
 @endforeach
 <script>
-    let coordinateIndexEdit = 2;
+    let coordinateIndexEdit = 4;
 
     function addCoordinatesFieldEdit() {
         const container = document.getElementById('coordinates-container-edit');
@@ -94,6 +117,22 @@
         container.appendChild(newLatitudeDiv);
         container.appendChild(newLongitudeDiv);
 
+        newLatitudeDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
+
         coordinateIndexEdit++;
+    }
+
+    function removeCoordinatesFieldEdit() {
+        const container = document.getElementById('coordinates-container-edit');
+
+        if (coordinateIndexEdit > 4) {
+            const latitudeDiv = container.lastElementChild.previousElementSibling;
+            const longitudeDiv = container.lastElementChild;
+
+            container.removeChild(latitudeDiv);
+            container.removeChild(longitudeDiv);
+
+            coordinateIndexEdit--;
+        }
     }
 </script>
