@@ -141,11 +141,25 @@ class AdministratorController extends Controller
     }
 
     public function loginRegAdmin(Request $request)
+
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|min:6',
+    ]);
+
+    // Cek apakah email terdaftar
+    $regadmin = \App\Models\RegionalAdmin::where('email', $request->email)->first();
+    if (!$regadmin) {
+        return redirect()->back()->withErrors(['email' => 'Email belum terdaftar.'])->withInput();
+    }
+
     {
         $request->validate([
             'email' => 'required',
             'password' => 'required|min:6',
         ]);
+
 
         $credentials = $request->only('email', 'password');
 
