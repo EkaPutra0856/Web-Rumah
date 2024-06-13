@@ -141,32 +141,27 @@ class AdministratorController extends Controller
     }
 
     public function loginRegAdmin(Request $request)
-{
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required|min:1',
-    ]);
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
 
-    // Cek apakah email terdaftar
-    $regadmin = \App\Models\RegionalAdmin::where('email', $request->email)->first();
-    if (!$regadmin) {
-        return redirect()->back()->withErrors(['email' => 'Email belum terdaftar.'])->withInput();
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::guard('regadmin')->attempt($credentials)) {
+            /** @var \App\Models\RegionalAdmin $regadmin **/
+            $regadmin = Auth::guard('regadmin')->user();
+            $token = $regadmin->createToken('MyApp')->plainTextToken;
+
+            // Store the token for later use, if needed
+            session(['token' => $token]);
+
+            return redirect()->intended('/dashboard-adminwilayah')->withSuccess('Logged in successfully');
+        }
+
+        return redirect()->intended('/login-regadmin')->withSuccess('Logged in Failed');
     }
-
-    // Cek apakah password benar
-    if (!Auth::guard('regadmin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-        return redirect()->back()->withErrors(['password' => 'Password salah.'])->withInput();
-    }
-
-    // Jika login berhasil
-    $regadmin = Auth::guard('regadmin')->user();
-    $token = $regadmin->createToken('MyApp')->plainTextToken;
-
-    // Simpan token untuk digunakan nanti jika diperlukan
-    session(['token' => $token]);
-
-    return redirect()->intended('/dashboard-adminwilayah')->withSuccess('Logged in successfully');
-}
 
     public function adminwilayah()
     {
