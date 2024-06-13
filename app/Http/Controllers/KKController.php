@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\KK;
-use App\Models\Region;
+use App\Models\RegionalAdmin;
 use App\Models\Rumah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,14 +13,25 @@ class KKController extends Controller
     public function index(){
         if (Auth::guard('regadmin')->check()) {
             $userId = Auth::guard('regadmin')->user()->id;
-            $rumah = Rumah::all();
-            $kk = KK::where('regional_admins_id', $userId)->with('rumah')->get();
-         
+    
+            // Mengambil region_id dari regadmin yang sedang login
+            $regadmin = RegionalAdmin::findOrFail($userId);
+            $regionId = $regadmin->region_id;
+    
+            // Mengambil KK yang terkait dengan region_id dari regadmin yang sedang login
+            $kk = KK::whereHas('rumah', function ($query) use ($regionId) {
+                $query->where('region_id', $regionId);
+            })->with('rumah')->get();
+    
+            // Mengambil semua rumah yang terkait dengan wilayah yang dikelola oleh regadmin
+            $rumah = Rumah::where('region_id', $regionId)->get();
+    
             return view('KK.index', compact('kk', 'rumah'));
         } else {
             return redirect("/")->withErrors('You are not allowed to access');
         }
     }
+
     public function insert(Request $request){
 
         $regadmin = Auth::guard('regadmin')->user()->id;
