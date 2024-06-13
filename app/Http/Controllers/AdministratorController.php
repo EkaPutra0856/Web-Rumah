@@ -144,7 +144,7 @@ class AdministratorController extends Controller
     {
         $request->validate([
             'email' => 'required',
-            'password' => 'required'
+            'password' => 'required|min:6',
         ]);
 
         $credentials = $request->only('email', 'password');
