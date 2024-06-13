@@ -171,6 +171,8 @@ class AdministratorController extends Controller
         return view("loginRegionalAdmin");
     }
 
+    
+
 
 
     // public function indextable(){
