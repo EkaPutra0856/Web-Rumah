@@ -144,7 +144,7 @@ class AdministratorController extends Controller
 {
     $request->validate([
         'email' => 'required|email',
-        'password' => 'required|min:1',
+        'password' => 'required|min:6',
     ]);
 
     // Cek apakah email terdaftar
