@@ -176,6 +176,7 @@ class AdministratorController extends Controller
 
         return redirect()->intended('/login-regadmin')->withSuccess('Logged in Failed');
     }
+}
 
     public function adminwilayah()
     {
