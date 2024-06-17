@@ -6,6 +6,7 @@
 @endsection
 
 @section('table')
+
     <thead>
         <tr>
             <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">
@@ -24,6 +25,12 @@
                 Action
             </th>
         </tr>
+        <div class="flex justify-end mb-4 p-3 justify-center">
+            <a href="/export-administrators"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Export to Excel
+            </a>
+        </div>
     </thead>
     <tbody>
         @foreach ($admin as $p)
@@ -48,6 +55,7 @@
                 </td>
             </tr>
         @endforeach
+        
     </tbody>
 @endsection
 
@@ -58,3 +66,5 @@
 @section('Edit Modal')
     @include('Administrator.EditModal')
 @endsection
+
+

@@ -8,6 +8,11 @@ use App\Http\Controllers\RumahController;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ExportController;
+
+Route::get('/export-administrators', [ExportController::class, 'exportAdministrators'])->name('export.administrators');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
