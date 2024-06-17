@@ -74,9 +74,9 @@
 <body class="font-family-karla h-screen flex items-center justify-center background-image">
 <div class="scroll">
     <div class="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-8 overlay rounded-lg shadow-lg ">
-        <div class="flex justify-center mb-8">
+        {{-- <div class="flex justify-center mb-8">
             <a href="#" class="bg-white text-black font-bold text-xl p-4" alt="Logo">Logo</a>
-        </div>
+        </div> --}}
 
         <div class="flex flex-col justify-center px-8 md:px-16">
             <p class="text-center text-3xl mb-6">Create your account!</p>
@@ -94,34 +94,47 @@
 
             <form class="flex flex-col" action="{{ url('/register-administrator') }}" method="POST">
                 @csrf    
-                <div class="flex flex-col pt-4">
-                    <label for="name" class="text-lg">Name</label>
-                    <input type="text" id="name" name="name" placeholder="John Smith" class="shadow appearance-none border rounded w-full py-2 px-3 dark-navy mt-1 leading-tight focus:outline-none focus:shadow-outline" value="{{ old('name') }}" />
-                </div>
-
-                <div class="flex flex-col pt-4">
-                    <label for="email" class="text-lg">Email</label>
-                    <input type="email" id="email" name="email" placeholder="your@email.com" class="shadow appearance-none border rounded w-full py-2 px-3 dark-navy mt-1 leading-tight focus:outline-none focus:shadow-outline" value="{{ old('email') }}" />
-                </div>
-
-                <div class="flex flex-col pt-4">
-                    <label for="notelp" class="text-lg">Phone Number</label>
-                    <input type="notelp" id="notelp" name="notelp" placeholder="08xxxxxxxxxx" class="shadow appearance-none border rounded w-full py-2 px-3 dark-navy mt-1 leading-tight focus:outline-none focus:shadow-outline" value="{{ old('notelp') }}" />
-                </div>
-
-                <div class="flex flex-col pt-4">
-                    <label for="password" class="text-lg">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 dark-navy mt-1 leading-tight focus:outline-none focus:shadow-outline" />
-                </div>
-
-                <div class="flex flex-col pt-4">
-                    <label for="c_password" class="text-lg">Confirm Password</label>
-                    <input type="password" id="c_password" name="c_password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 dark-navy mt-1 leading-tight focus:outline-none focus:shadow-outline" />
-                </div>
+                <form class="flex flex-col w-full md:w-2/3" action="{{ url('/register-administrator') }}" method="POST">
+                    @csrf    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                        <div class="flex flex-col pt-4">
+                            <label for="name" class="text-lg">Name</label>
+                            <input type="text" id="name" name="name" placeholder="John Smith" class="shadow appearance-none border rounded w-full py-2 px-3 dark-navy mt-1 leading-tight focus:outline-none focus:shadow-outline" value="{{ old('name') }}" />
+                        </div>
+    
+                        <div class="flex flex-col pt-4">
+                            <label for="email" class="text-lg">Email</label>
+                            <input type="email" id="email" name="email" placeholder="your@email.com" class="shadow appearance-none border rounded w-full py-2 px-3 dark-navy mt-1 leading-tight focus:outline-none focus:shadow-outline" value="{{ old('email') }}" />
+                        </div>
+    
+                        <div class="flex flex-col pt-4">
+                            <label for="gender" class="text-lg">Gender</label>
+                            <select name="gender" id="gender" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                                <option disabled selected>Pria</option>
+                                <option>Pria</option>
+                                <option>Wanita</option>
+                            </select>
+                        </div>
+    
+                        <div class="flex flex-col pt-4">
+                            <label for="notelp" class="text-lg">Phone Number</label>
+                            <input type="notelp" id="notelp" name="notelp" placeholder="08xxxxxxxxxx" class="shadow appearance-none border rounded w-full py-2 px-3 dark-navy mt-1 leading-tight focus:outline-none focus:shadow-outline" value="{{ old('notelp') }}" />
+                        </div>
+    
+                        <div class="flex flex-col pt-4">
+                            <label for="password" class="text-lg">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 dark-navy mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        </div>
+    
+                        <div class="flex flex-col pt-4">
+                            <label for="c_password" class="text-lg">Confirm Password</label>
+                            <input type="password" id="c_password" name="c_password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 dark-navy mt-1 leading-tight focus:outline-none focus:shadow-outline" />
+                        </div>
+                    </div>
 
                 <button type="submit" class="bg-white text-black font-bold text-lg hover:bg-gray-700 p-2 mt-8">REGISTER</button>
             </form>
-            <div class="text-center pt-12 pb-12">
+            <div class="text-center pb-12">
                 <p>Already have an account? <a href="/login" class="underline font-semibold">Log in here.</a></p>
             </div>
         </div>

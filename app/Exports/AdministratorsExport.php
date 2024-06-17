@@ -10,7 +10,7 @@ class AdministratorsExport implements FromCollection, WithHeadings
 {
     public function collection()
     {
-        return Administrator::all(['id','name', 'email', 'notelp']); // Sesuaikan dengan nama kolom yang ingin diekspor
+        return Administrator::all(['id','name', 'email', 'notelp', 'gender']); // Sesuaikan dengan nama kolom yang ingin diekspor
     }
 
     public function headings(): array
@@ -20,6 +20,7 @@ class AdministratorsExport implements FromCollection, WithHeadings
             'Name',
             'Email',
             'No Telp',
+            'Gender'
         ];
     }
 }

@@ -56,9 +56,9 @@
 <body class="bg-dark-navy font-family-karla h-screen flex items-center justify-center background-image">
 
     <div class="w-full max-w-md p-8 overlay rounded-lg shadow-lg dark-navy">
-        <div class="flex justify-center mb-8">
+        {{-- <div class="flex justify-center mb-8">
             <a href="#" class="bg-black text-white font-bold text-xl p-4">Logo</a>
-        </div>
+        </div> --}}
 
         <div class="flex flex-col justify-center px-8">
             <p class="text-center text-3xl mb-6">Welcome back!</p>
