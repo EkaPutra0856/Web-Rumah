@@ -12,17 +12,21 @@ class AdministratorCRUDController extends Controller
 
 
     public function index()
-    {
-        if (Auth::guard('administrators')->check()) {
-
-            $userId = Auth::guard('administrators')->user()->id;
-            $admin = Administrator::where('id', $userId)->get();
-            $admin = Administrator::all();
-            return view('Administrator.index', compact('admin'));
-        } else {
-            return redirect("/")->withErrors('You are not allowed to access');
-        }
+{
+    if (Auth::guard('administrators')->check()) {
+        $userId = Auth::guard('administrators')->user()->id;
+        $admin = Administrator::all();
+        
+        // Hitung jumlah pria dan wanita
+        $maleCount = $admin->where('gender', 'Pria')->count();
+        $femaleCount = $admin->where('gender', 'Wanita')->count();
+        
+        return view('Administrator.index', compact('admin', 'maleCount', 'femaleCount'));
+    } else {
+        return redirect("/")->withErrors('You are not allowed to access');
     }
+}
+
     public function insert(Request $request)
     {
 

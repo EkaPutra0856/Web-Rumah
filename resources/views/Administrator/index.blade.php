@@ -37,6 +37,9 @@
             class="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
         Import from Excel
     </button>
+    <button type="button" onclick="showGenderChart()" class="ml-4 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+        Distribution Chart
+    </button>
         </div>
     </thead>
     <tbody>
@@ -78,4 +81,7 @@
 
 @section('Import Modal')
     @include('Administrator.ImportModal')
+@endsection
+@section('Gender Chart Modal')
+    @include('Administrator.GenderChartModal')
 @endsection
