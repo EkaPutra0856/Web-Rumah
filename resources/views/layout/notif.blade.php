@@ -40,4 +40,18 @@
         // Panggil fungsi hideAlert setelah 1 detik
         setTimeout(hideAlert, 500);
     });
+
+     // Script untuk menangkap dan menampilkan alert dari session flash
+     document.addEventListener('DOMContentLoaded', function () {
+            let successMessage = '{{ session('success') }}';
+            let errorMessage = '{{ session('error') }}';
+
+            if (successMessage) {
+                alert(successMessage);
+            }
+
+            if (errorMessage) {
+                alert(errorMessage);
+            }
+        });
 </script>

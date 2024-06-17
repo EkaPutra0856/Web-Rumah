@@ -32,6 +32,7 @@ class AdministratorCRUDController extends Controller
 
         $admin->name = $request->name;
         $admin->email = $request->email;
+        $admin->gender = $request->gender;
         $admin->password = bcrypt($request->password);
         $admin->notelp = $request->notelp;
 
@@ -46,6 +47,7 @@ class AdministratorCRUDController extends Controller
         $admin = Administrator::where('id', $id)->first();
         $admin->name = $request->name;
         $admin->email = $request->email;
+        $admin->gender = $request->gender;
         $admin->password = bcrypt($request->password);
         $admin->notelp = $request->notelp;
         $admin->save();

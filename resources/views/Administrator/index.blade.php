@@ -16,6 +16,9 @@
                 Email
             </th>
             <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">
+                Gender
+            </th>
+            <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">
                 Password
             </th>
             <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">
@@ -30,6 +33,10 @@
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Export to Excel
             </a>
+            <button type="button" onclick="openImportModal()"
+            class="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        Import from Excel
+    </button>
         </div>
     </thead>
     <tbody>
@@ -40,6 +47,8 @@
                 </td>
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-500">
                     {{ $p->email }}
+                <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-500">
+                    {{ $p->gender }}
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-500">
                     {{ $p->password }}
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-500">
@@ -67,4 +76,6 @@
     @include('Administrator.EditModal')
 @endsection
 
-
+@section('Import Modal')
+    @include('Administrator.ImportModal')
+@endsection

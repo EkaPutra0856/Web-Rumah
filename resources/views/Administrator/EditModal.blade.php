@@ -17,9 +17,14 @@
                         class="border ext-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
-
-
-
+                <div class=" basis-1/2 mb-5 px-2">
+                <label for="Gender{{ $p->id }}" class="block mb-2 text-sm font-medium text-white">Gender</label>
+                <select name="Gender" type="text" id="Gender{{ $p->id }}" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                    <option disabled selected>Pria</option>
+                    <option>Pria</option>
+                    <option>Wanita</option>
+                </select>
+                </div>
                 <div class="flex flex-wrap ">
 
                     <div class=" basis-1/2 mb-5 px-2">

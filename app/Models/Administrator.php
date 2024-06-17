@@ -20,6 +20,7 @@ class Administrator extends Authenticatable
         'name',
         'email',
         'password',
+        'gender',
         'notelp',
     ];
 

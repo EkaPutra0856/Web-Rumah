@@ -8,9 +8,10 @@ use App\Http\Controllers\RumahController;
 use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\ExportController;
+use App\Http\Controllers\ImportExportController;
 
-Route::get('/export-administrators', [ExportController::class, 'exportAdministrators'])->name('export.administrators');
+Route::get('/export-administrators', [ImportExportController::class, 'exportAdministrators'])->name('export.administrators');
+Route::post('/import-administrators', [ImportExportController::class, 'importAdministrators'])->name('import.administrators');
 
 
 Route::get('/', function () {
