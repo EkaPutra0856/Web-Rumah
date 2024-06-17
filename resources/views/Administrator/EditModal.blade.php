@@ -8,33 +8,35 @@
 
                 <div class=" basis-1/2 mb-5 px-2">
                     <label for="name" class="block mb-2 text-sm font-medium  text-white">Name</label>
-                    <input name="name" type="text" id="name" value="{{ $p->name }}"
+                    <input name="name" type="text" id="name" value="{{ $p->name }}" required
                         class="border ext-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                 </div>
                 <div class=" basis-1/2 mb-5 px-2">
                     <label for="email" class="block mb-2 text-sm font-medium  text-white">Email</label>
-                    <input name="email" type="text" id="email" value="{{ $p->email }}"
+                    <input name="email" type="text" id="email" value="{{ $p->email }}" required
                         class="border ext-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
                 <div class=" basis-1/2 mb-5 px-2">
-                <label for="Gender{{ $p->id }}" class="block mb-2 text-sm font-medium text-white">Gender</label>
-                <select name="Gender" type="text" id="Gender{{ $p->id }}" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
-                    <option disabled selected>Pria</option>
-                    <option>Pria</option>
-                    <option>Wanita</option>
+                <label for="gender" class="block mb-2 text-sm font-medium text-white">gender</label>
+                <select name="gender" type="text" id="gender" required class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                    <option value="" disabled {{ !$p->gender ? 'selected' : '' }}>Select Gender</option>
+                    <option value="Pria" {{ $p->gender == 'Pria' ? 'selected' : '' }}>Pria</option>
+                    <option value="Wanita" {{ $p->gender == 'Wanita' ? 'selected' : '' }}>Wanita</option>
+                  
                 </select>
+                <span id="error-message-status{{ $p->id }}" class="text-red-500 text-sm hidden">Silakan Gender</span>
                 </div>
                 <div class="flex flex-wrap ">
 
                     <div class=" basis-1/2 mb-5 px-2">
                         <label for="password" class="block mb-2 text-sm font-medium  text-white">password</label>
-                        <input name="password" type="text" id="password" value="{{ $p->password }}"
+                        <input name="password" type="text" id="password"  required
                             class="border ext-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                     </div>
                     <div class="w-1/2 mb-5 px-2">
                         <label for="notelp" class="block mb-2 text-sm font-medium  text-white">No Telepon</label>
-                        <input name="notelp" type="text" id="notelp" value="{{ $p->notelp }}"
+                        <input name="notelp" type="text" id="notelp" value="{{ $p->notelp }}" required
                             class="border ext-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
 
                     </div>

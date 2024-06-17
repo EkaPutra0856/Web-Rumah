@@ -16,12 +16,13 @@
             </div>
             <div class="basis-1/2 mb-5">
                 <label for="gender" class="block mb-2 text-sm font-medium text-white">Gender</label>
-                <select name="gender" type="text" id="gender" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
-                    <option disabled selected>Pria</option>
-                    <option>Pria</option>
-                    <option>Wanita</option>
+                <select name="gender" id="gender" required class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                    <option value="" disabled selected>Pilih Gender</option>
+                    <option value="Pria">Pria</option>
+                    <option value="Wanita">Wanita</option>
                 </select>
             </div>
+            
             <div class="basis-1/2 mb-5">
                 <label for="password" class="block mb-2 text-sm font-medium text-white">Password</label>
                 <input name="password" type="password" id="password"
