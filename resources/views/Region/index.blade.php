@@ -14,6 +14,15 @@
             <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">Kode Pos</th>
             <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">Action</th>
         </tr>
+        <div class="flex justify-end mb-4 p-3 justify-center">
+            <a href="/wilayah-export" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Export to Excel
+            </a>
+            <button type="button" onclick="openImportModal()"
+                class="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                Import from Excel
+            </button>
+        </div>
     </thead>
     <tbody>
         @foreach ($regions as $p)
@@ -35,11 +44,6 @@
                     </div>
                 </td>
             </tr>
-            <div class="flex justify-end mb-4 p-3 justify-center">
-                <a href="/wilayah-export" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Export to Excel
-                </a>
-            </div>
         @endforeach
     </tbody>
 @endsection
@@ -50,4 +54,8 @@
 
 @section('Edit Modal')
     @include('Region.EditModal')
+@endsection
+
+@section('Import Modal')
+    @include('Region.ImportModal')
 @endsection

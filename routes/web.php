@@ -11,12 +11,17 @@ use App\Http\Controllers\RumahExportController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ImportExportController;
+use App\Http\Controllers\ImportExportKKController;
 
 Route::get('/export-administrators', [ImportExportController::class, 'exportAdministrators'])->name('export.administrators');
 Route::post('/import-administrators', [ImportExportController::class, 'importAdministrators'])->name('import.administrators');
 
 Route::get('/export-rumah', [RumahExportController::class, 'exportRumah'])->name('export.rumah');
 Route::post('/import-rumah', [ImportExportController::class, 'importRumah'])->name('import.rumah');
+
+
+Route::get('/export-kk', [ImportExportKKController::class, 'exportKK'])->name('export.kk');
+Route::post('/import-kk', [ImportExportKKController::class, 'importKK'])->name('import.kk');
 
 
 Route::get('/', function () {
@@ -50,11 +55,13 @@ Route::post('/{id}/update-region', [RegionController::class, 'update']);
 Route::post('/{id}/delete-region', [RegionController::class, 'delete']);
 Route::get('/markers', [RegionController::class, 'getMarkers']);
 Route::get('/wilayah-export', [RegionController::class, 'export']);
+Route::post('/wilayah-import', [RegionController::class, 'import'])->name('import.region');
 
 
 Route::post('/insert-adminwilayah', [RegionalAdminController::class, 'insert']);
 Route::post('/{id}/update-adminwilayah', [RegionalAdminController::class, 'update']);
 Route::post('/{id}/delete-adminwilayah', [RegionalAdminController::class, 'delete']);
+Route::get('/export-adminwilayah', [RegionalAdminController::class, 'export']);
 
 Route::post('/insert-kk', [KKController::class, 'insert']);
 Route::post('/{id}/update-kk', [KKController::class, 'update']);

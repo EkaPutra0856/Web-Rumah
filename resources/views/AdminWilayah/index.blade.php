@@ -30,6 +30,12 @@
                 Action
             </th>
         </tr>
+        <div class="flex justify-end mb-4 p-3 justify-center">
+            <a href="/export-adminwilayah"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Export to Excel
+            </a>
+        </div>
     </thead>
     <tbody>
         @foreach ($regionAdmin as $p)
