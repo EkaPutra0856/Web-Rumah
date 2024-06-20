@@ -51,8 +51,8 @@
         var femalePercentage = 0; // Variabel global untuk menyimpan persentase perempuan
 
         function showGenderChart() {
-            var maleCount = {{ $maleCount }};
-            var femaleCount = {{ $femaleCount }};
+            var maleCount = {{ $graphtype1 }};
+            var femaleCount = {{ $graphtype2 }};
             var total = maleCount + femaleCount;
 
             malePercentage = ((maleCount / total) * 100).toFixed(2);

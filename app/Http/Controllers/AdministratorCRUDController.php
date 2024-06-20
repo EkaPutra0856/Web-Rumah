@@ -18,10 +18,10 @@ class AdministratorCRUDController extends Controller
         $admin = Administrator::all();
         
         // Hitung jumlah pria dan wanita
-        $maleCount = $admin->where('gender', 'Pria')->count();
-        $femaleCount = $admin->where('gender', 'Wanita')->count();
+        $graphtype1 = $admin->where('gender', 'Pria')->count();
+        $graphtype2 = $admin->where('gender', 'Wanita')->count();
         
-        return view('Administrator.index', compact('admin', 'maleCount', 'femaleCount'));
+        return view('Administrator.index', compact('admin', 'graphtype1', 'graphtype2'));
     } else {
         return redirect("/")->withErrors('You are not allowed to access');
     }
