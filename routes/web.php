@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\AdministratorCRUDController;
 use App\Http\Controllers\KKController;
@@ -17,13 +18,13 @@ Route::post('/import-administrators', [ImportExportController::class, 'importAdm
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/map',[WebController::class,'map'])->name('map');
+Route::get('/map', [WebController::class, 'map'])->name('map');
 
-Route::get('/register',[AdministratorController::class,'indexRegister']);
+Route::get('/register', [AdministratorController::class, 'indexRegister']);
 Route::get('/login-regadmin', [AdministratorController::class, 'loginFormRegAdmin']);
 Route::post('/login-regadmin-post', [AdministratorController::class, 'loginRegAdmin']);
 
-Route::get('/login', [AdministratorController::class,'index'])->name ('login');
+Route::get('/login', [AdministratorController::class, 'index'])->name('login');
 
 Route::post('/register-administrator', [AdministratorController::class, 'register']);
 Route::post('/login-administrator', [AdministratorController::class, 'login']);
@@ -44,6 +45,7 @@ Route::post('/insert-wilayah', [RegionController::class, 'insert']);
 Route::post('/{id}/update-region', [RegionController::class, 'update']);
 Route::post('/{id}/delete-region', [RegionController::class, 'delete']);
 Route::get('/markers', [RegionController::class, 'getMarkers']);
+Route::get('/wilayah-export', [RegionController::class, 'export']);
 
 
 Route::post('/insert-adminwilayah', [RegionalAdminController::class, 'insert']);
@@ -62,11 +64,8 @@ Route::post('/insert-administrator', [AdministratorCRUDController::class, 'inser
 Route::post('/{id}/update-administrator', [AdministratorCRUDController::class, 'update']);
 Route::post('/{id}/delete-administrator', [AdministratorCRUDController::class, 'delete']);
 
-Route::middleware('auth:regadmin')->group(function (){
+Route::middleware('auth:regadmin')->group(function () {
     Route::get('/dashboard-adminwilayah', [AdministratorController::class, 'adminwilayah'])->name('admin.dashboard');
     Route::get('/kk', [KKController::class, 'index']);
     Route::get('/rumah', [RumahController::class, 'index']);
 });
-
-
-
