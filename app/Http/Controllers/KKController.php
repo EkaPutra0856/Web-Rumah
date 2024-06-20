@@ -25,8 +25,9 @@ class KKController extends Controller
     
             // Mengambil semua rumah yang terkait dengan wilayah yang dikelola oleh regadmin
             $rumah = Rumah::where('region_id', $regionId)->get();
-    
-            return view('KK.index', compact('kk', 'rumah'));
+            $graphtype1 = 1;
+            $graphtype2 =1; 
+            return view('KK.index', compact('kk', 'rumah', 'graphtype1', 'graphtype2'));
         } else {
             return redirect("/")->withErrors('You are not allowed to access');
         }

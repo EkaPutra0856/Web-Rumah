@@ -24,8 +24,9 @@ class RumahController extends Controller
             $rumah = Rumah::whereHas('region', function ($query) use ($regionId) {
                 $query->where('id', $regionId);
             })->get();
-    
-            return view('Rumah.index', compact('rumah'));
+            $graphtype1 = 1;
+            $graphtype2 =1; 
+            return view('Rumah.index', compact('rumah', 'graphtype1', 'graphtype2'));
         } else {
             return redirect("/")->withErrors('You are not allowed to access');
         }

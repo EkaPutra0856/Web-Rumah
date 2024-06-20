@@ -37,7 +37,7 @@
             </div>
             @yield('Insert Modal')
             @yield('Edit Modal')
-            @yield('Import Modal')
+            @yield('Import Modal Admin')
             @yield('Gender Chart Modal')
             @include('Layout.delete')
         </div>
