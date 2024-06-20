@@ -46,6 +46,7 @@ Route::post('/{id}/update-region', [RegionController::class, 'update']);
 Route::post('/{id}/delete-region', [RegionController::class, 'delete']);
 Route::get('/markers', [RegionController::class, 'getMarkers']);
 Route::get('/wilayah-export', [RegionController::class, 'export']);
+Route::post('/wilayah-import', [RegionController::class, 'import'])->name('import.region');
 
 
 Route::post('/insert-adminwilayah', [RegionalAdminController::class, 'insert']);

@@ -18,6 +18,10 @@
             <a href="/wilayah-export" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Export to Excel
             </a>
+            <button type="button" onclick="openImportModal()"
+                class="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                Import from Excel
+            </button>
         </div>
     </thead>
     <tbody>
@@ -50,4 +54,8 @@
 
 @section('Edit Modal')
     @include('Region.EditModal')
+@endsection
+
+@section('Import Modal')
+    @include('Region.ImportModal')
 @endsection

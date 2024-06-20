@@ -6,6 +6,7 @@ use App\Models\Region;
 use App\Models\Coordinate;
 use Illuminate\Http\Request;
 use App\Exports\RegionExport;
+use App\Imports\RegionImport;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -16,9 +17,9 @@ class RegionController extends Controller
         if (Auth::guard('administrators')->check()) {
             $userId = Auth::guard('administrators')->user()->id;
             $regions = Region::where('administrator_id', $userId)->get();
-             // Hitung jumlah pria dan wanita
-        $graphtype1 = 1;
-        $graphtype2 =1;
+            // Hitung jumlah pria dan wanita
+            $graphtype1 = 1;
+            $graphtype2 = 1;
             return view('Region.index', compact('regions', 'graphtype1', 'graphtype2'));
         } else {
             return redirect("/")->withErrors('You are not allowed to access');
@@ -109,5 +110,22 @@ class RegionController extends Controller
     public function export()
     {
         return Excel::download(new RegionExport, 'region.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'import_file' => 'required|file|mimes:xls,xlsx',
+        ]);
+
+        try {
+            Excel::import(new RegionImport(), $request->file('import_file'));
+
+            return redirect()->back()->with('success', 'Data imported successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to import data: ' . $e->getMessage());
+        }
+        // Excel::import(new RegionImport, $request->file('import_file'));
+        // return redirect('/wilayah');
     }
 }
