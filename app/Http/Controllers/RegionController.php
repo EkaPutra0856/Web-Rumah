@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Region;
 use App\Models\Coordinate;
 use Illuminate\Http\Request;
+use App\Exports\RegionExport;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RegionController extends Controller
 {
@@ -100,5 +102,9 @@ class RegionController extends Controller
         session()->flash('success', 'Delete Data Successfully!');
         return redirect('/wilayah');
     }
-}
 
+    public function export()
+    {
+        return Excel::download(new RegionExport, 'region.xlsx');
+    }
+}
