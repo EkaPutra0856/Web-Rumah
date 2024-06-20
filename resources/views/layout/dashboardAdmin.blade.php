@@ -42,12 +42,15 @@
 
         </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
             var myChart = null; // Variabel global untuk menyimpan objek chart
             var upperTenPercentage = 0; // Variabel global untuk menyimpan persentase laki-laki
             var lowerTenPercentage = 0; // Variabel global untuk menyimpan persentase perempuan
     
             function showChart() {
+                openChartModal();
+
                 var upperTen = {{ $graphtype1 }};
                 var lowerTen = {{ $graphtype2 }};
                 var total = upperTen + lowerTen;
@@ -64,7 +67,7 @@
                 myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Anggota > 10', 'Anggota < 10'],
+                        labels: ['Anggota Keluarga > 10', 'Anggota Keluarga < 10'],
                         datasets: [{
                             label: 'Family Members Distribution',
                             data: [upperTen, lowerTen],
@@ -100,9 +103,7 @@
                             }
                         }
                     }
-                });
-    
-                openChartModal();
+                });                
             }
     
             function openChartModal() {
@@ -124,11 +125,11 @@
                 ctx.fillStyle = '#000';
                 ctx.textAlign = 'center';
     
-                var malePercentageText = malePercentage.toString() + '%';
-                var femalePercentageText = femalePercentage.toString() + '%';
+                var upperTenPercentageText = upperTenPercentage.toString() + '%';
+                var lowerTenPercentageText = lowerTenPercentage.toString() + '%';
     
-                ctx.fillText('Male: ' + malePercentageText, chartCanvas.width / 2, 20);
-                ctx.fillText('Female: ' + femalePercentageText, chartCanvas.width / 2, 40);
+                ctx.fillText('Anggota Keluarga > 10: ' + upperTenPercentageText, chartCanvas.width / 2, 20);
+                ctx.fillText('Anggota Keluarga < 10: ' + lowerTenPercentageText, chartCanvas.width / 2, 40);
     
                 console.log(link.href); // Debug: Periksa URL yang dihasilkan sebelum diunduh
                 link.click();

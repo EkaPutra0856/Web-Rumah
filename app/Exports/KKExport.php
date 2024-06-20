@@ -17,7 +17,7 @@ class KKExport implements FromCollection, WithHeadings
     // }
     public function collection()
     {
-        return KK::all(); // Sesuaikan dengan nama kolom yang ingin diekspor
+        return KK::all(['rumah_id','nokk', 'namakk', 'anggota']); // Sesuaikan dengan nama kolom yang ingin diekspor
     }
 
     public function headings(): array
