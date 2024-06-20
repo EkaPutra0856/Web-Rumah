@@ -52,6 +52,7 @@ Route::post('/wilayah-import', [RegionController::class, 'import'])->name('impor
 Route::post('/insert-adminwilayah', [RegionalAdminController::class, 'insert']);
 Route::post('/{id}/update-adminwilayah', [RegionalAdminController::class, 'update']);
 Route::post('/{id}/delete-adminwilayah', [RegionalAdminController::class, 'delete']);
+Route::get('/export-adminwilayah', [RegionalAdminController::class, 'export']);
 
 Route::post('/insert-kk', [KKController::class, 'insert']);
 Route::post('/{id}/update-kk', [KKController::class, 'update']);

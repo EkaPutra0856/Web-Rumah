@@ -6,7 +6,9 @@ use App\Models\Administrator;
 use App\Models\Region;
 use App\Models\RegionalAdmin;
 use Illuminate\Http\Request;
+use App\Exports\RegionalAdminExport;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RegionalAdminController extends Controller
 {
@@ -15,7 +17,10 @@ class RegionalAdminController extends Controller
             $userId = Auth::guard('administrators')->user()->id;
             $regions = Region::where('administrator_id', $userId)->get();
             $regionAdmin = RegionalAdmin::where('administrator_id', $userId)->with('region')->get();
-            return view('AdminWilayah.index', compact('regionAdmin', 'regions'));
+            // Hitung jumlah pria dan wanita
+            $graphtype1 = 1;
+            $graphtype2 =1;
+            return view('AdminWilayah.index', compact('regionAdmin', 'regions', 'graphtype1', 'graphtype2'));
         } else {
             return redirect("/")->withErrors('You are not allowed to access');
         }
@@ -62,6 +67,10 @@ class RegionalAdminController extends Controller
         $penduduk->delete();
         session()->flash('success', 'Delete Data Successfully!');
         return redirect('/adminwilayah');
+    }
+    public function export()
+    {
+        return Excel::download(new RegionalAdminExport, 'adminwilayah.xlsx');
     }
 
 }
