@@ -1,6 +1,6 @@
 <div id="insertModal" class="hidden fixed inset-0 bg-gray-400 bg-opacity-60 justify-center items-center">
     <div class="bg-gray-800 rounded-lg w-1/2">
-        <form method="POST" action="insert-administrator" class="w-5/6 mx-auto my-5">
+        <form method="POST" action="insert-administrator" class="w-5/6 mx-auto my-5" onsubmit="return validateFormInsert()">
             @csrf
             <h2 class="text-center font-semibold text-lg text-white">Insert Administrator</h2><br>
 
@@ -26,7 +26,8 @@
             <div class="basis-1/2 mb-5">
                 <label for="password" class="block mb-2 text-sm font-medium text-white">Password</label>
                 <input name="password" type="password" id="password"
-                    class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                    class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" oninput="validatePassword()" required>
+                <span id="error-message-password" class="text-red-500 text-sm hidden">Password harus lebih dari atau sama dengan 6 karakter</span>
             </div>
             
             <div class="flex flex-wrap">
@@ -47,3 +48,30 @@
         </form>
     </div>
 </div>
+
+<script>
+    function validatePassword() {
+        const password = document.getElementById('password').value;
+        const errorMessagePassword = document.getElementById('error-message-password');
+
+        if (password.length < 6) {
+            errorMessagePassword.classList.remove('hidden');
+        } else {
+            errorMessagePassword.classList.add('hidden');
+        }
+    }
+
+    function validateFormInsert() {
+        const password = document.getElementById('password').value;
+        const errorMessagePassword = document.getElementById('error-message-password');
+
+        if (password.length < 6) {
+            errorMessagePassword.classList.remove('hidden');
+            return false;
+        } else {
+            errorMessagePassword.classList.add('hidden');
+        }
+
+        return true;
+    }
+</script>
