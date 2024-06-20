@@ -25,7 +25,9 @@ class RumahController extends Controller
                 $query->where('id', $regionId);
             })->get();
             $graphtype1 = 1;
+
             $graphtype2 =1; 
+
             return view('Rumah.index', compact('rumah', 'graphtype1', 'graphtype2'));
         } else {
             return redirect("/")->withErrors('You are not allowed to access');

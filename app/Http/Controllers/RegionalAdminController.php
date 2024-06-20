@@ -19,9 +19,11 @@ class RegionalAdminController extends Controller
             $regionAdmin = RegionalAdmin::where('administrator_id', $userId)->with('region')->get();
 
 
+
             $graphtype1 = 1;
             $graphtype2 =1;
             return view('AdminWilayah.index', compact('regionAdmin', 'regions', 'graphtype1', 'graphtype2'));
+
 
         } else {
             return redirect("/")->withErrors('You are not allowed to access');

@@ -33,6 +33,19 @@
                 Action
             </th>
         </tr>
+        <div class="flex justify-end mb-4 p-3 justify-center">
+            <a href="/export-rumah"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Export to Excel
+            </a>
+            <button type="button" onclick="openImportModal()"
+            class="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        Import from Excel
+    </button>
+    <button type="button" onclick="showGenderChart()" class="ml-4 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+        Distribution Chart
+    </button>
+        </div>
     </thead>
     <tbody>
         @foreach ($rumah as $p)
