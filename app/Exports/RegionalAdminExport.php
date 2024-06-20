@@ -10,7 +10,16 @@ class RegionalAdminExport implements FromCollection, WithHeadings
 {
     public function collection()
     {
-        return RegionalAdmin::all(['id','name', 'email', 'notelp', 'region_id']); // Sesuaikan dengan nama kolom yang ingin diekspor
+        return RegionalAdmin::with('region')->get()->map(function($admin) {
+            return [
+                'id' => $admin->id,
+                'name' => $admin->name,
+                'email' => $admin->email,
+                'notelp' => $admin->notelp,
+                'region_id' => $admin->region_id,
+                'kecamatan' => $admin->region->kecamatan, // Pastikan 'kecamatan' adalah kolom di tabel Region
+            ];
+        });
     }
 
     public function headings(): array
@@ -20,7 +29,8 @@ class RegionalAdminExport implements FromCollection, WithHeadings
             'Nama',
             'Email',
             'No Telp',
-            'ID Wilayah'
+            'ID Wilayah',
+            'Kecamatan'
         ];
     }
 }
