@@ -36,78 +36,177 @@
             </div>
             @yield('Insert Modal')
             @yield('Edit Modal')
+            @yield('Import Modal KK')
             @include('Layout.delete')
 
         </div>
 
         <script>
+            var myChart = null; // Variabel global untuk menyimpan objek chart
+            var malePercentage = 0; // Variabel global untuk menyimpan persentase laki-laki
+            var femalePercentage = 0; // Variabel global untuk menyimpan persentase perempuan
+    
+            function showGenderChart() {
+                var maleCount = {{ $graphtype1 }};
+                var femaleCount = {{ $graphtype2 }};
+                var total = maleCount + femaleCount;
+    
+                malePercentage = ((maleCount / total) * 100).toFixed(2);
+                femalePercentage = ((femaleCount / total) * 100).toFixed(2);
+    
+                if (myChart) {
+                    // Hapus chart yang sudah ada jika ada
+                    myChart.destroy();
+                }
+    
+                var ctx = document.getElementById('genderChart').getContext('2d');
+                myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Male', 'Female'],
+                        datasets: [{
+                            label: 'Gender Distribution',
+                            data: [maleCount, femaleCount],
+                          
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(tooltipItem) {
+                                        var label = tooltipItem.label || '';
+    
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        label += tooltipItem.raw.toLocaleString();
+    
+                                        if (tooltipItem.label === 'Male') {
+                                            label += ' (' + malePercentage + '%)';
+                                        } else if (tooltipItem.label === 'Female') {
+                                            label += ' (' + femalePercentage + '%)';
+                                        }
+    
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+    
+                openGenderChartModal();
+            }
+    
+            function openGenderChartModal() {
+                document.getElementById('genderChartModal').classList.remove('hidden');
+            }
+    
+            function closeGenderChartModal() {
+                document.getElementById('genderChartModal').classList.add('hidden');
+            }
+    
+            function downloadChartImage() {
+                var chartCanvas = document.getElementById('genderChart');
+                var link = document.createElement('a');
+                link.href = chartCanvas.toDataURL('image/png');
+                link.download = 'gender_chart.png';
+    
+                var ctx = chartCanvas.getContext('2d');
+                ctx.font = 'bold 14px Arial';
+                ctx.fillStyle = '#000';
+                ctx.textAlign = 'center';
+    
+                var malePercentageText = malePercentage.toString() + '%';
+                var femalePercentageText = femalePercentage.toString() + '%';
+    
+                ctx.fillText('Male: ' + malePercentageText, chartCanvas.width / 2, 20);
+                ctx.fillText('Female: ' + femalePercentageText, chartCanvas.width / 2, 40);
+    
+                console.log(link.href); // Debug: Periksa URL yang dihasilkan sebelum diunduh
+                link.click();
+            }
+    
+    
+    
+    
             function openInsertModal() {
                 var insertModal = document.getElementById('insertModal');
                 insertModal.classList.remove('hidden');
                 insertModal.classList.add('flex');
             }
-
+    
             function closeInsertModal() {
                 var insertModal = document.getElementById('insertModal');
                 insertModal.classList.add('hidden');
                 insertModal.classList.remove('flex');
             }
-
+    
             function openEditModal(x) {
                 let id = "editModal"
                 let result = id.concat(x)
                 document.getElementById(result).classList.add('flex');
                 document.getElementById(result).classList.remove('hidden');
-
             }
-
+    
             function closeEditModal(x) {
                 let id = "editModal"
                 let result = id.concat(x)
                 document.getElementById(result).classList.add('hidden');
                 document.getElementById(result).classList.remove('flex');
             }
-
+    
             function openDeleteModal(link) {
                 document.getElementById('deleteModal').classList.add('flex');
                 document.getElementById('deleteModal').classList.remove('hidden');
-
                 var deleteButton = document.getElementById('delete-button');
                 deleteButton.action = link;
             }
-
-            // Fungsi untuk menutup modal
+    
             function closeDeleteModal() {
                 document.getElementById('deleteModal').classList.remove('flex');
                 document.getElementById('deleteModal').classList.add('hidden');
             }
-
-            // Fungsi untuk menghapus data
-            function deleteData(link) {
-                // Tambahkan logika penghapusan data di sini
-                window.location.href = link;
-
-                // Setelah menghapus data, tutup modal
-                closeDeleteModal();
+    
+            function openImportModal() {
+                var importModal = document.getElementById('importModal');
+                if (importModal) {
+                    importModal.classList.remove('hidden');
+                } else {
+                    console.error('Element with ID "importModal" not found.');
+                }
             }
-
-
+    
+            function closeImportModal() {
+                var importModal = document.getElementById('importModal');
+                if (importModal) {
+                    importModal.classList.add('hidden');
+                } else {
+                    console.error('Element with ID "importModal" not found.');
+                }
+            }
+    
             window.addEventListener('click', function(event) {
                 var insertModal = document.getElementById('insertModal');
                 var deleteModal = document.getElementById('deleteModal');
                 var editModalPrefix = "editModal";
-
+    
                 if (event.target === insertModal) {
                     closeInsertModal();
                 }
-
+    
                 if (event.target === deleteModal) {
                     closeDeleteModal();
                 }
-
+    
                 if (event.target.id.startsWith(editModalPrefix)) {
                     var idNumber = event.target.id.substring(editModalPrefix.length);
-
                     closeEditModal(idNumber);
                 }
             });
