@@ -20,6 +20,7 @@ class KKImport implements ToModel, WithHeadingRow
             'nokk' => $row['nokk'],
             'namakk' => $row['namakk'],
             'anggota' => $row['anggota'],
+            'regional_admins_id' => $row['regadmin']
         ]);
     }
 }

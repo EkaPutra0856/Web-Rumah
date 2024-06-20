@@ -21,6 +21,7 @@ class AdministratorsImport implements ToModel, WithHeadingRow
             'gender' => $row['gender'],
             'password' => bcrypt($row['password']),
             'notelp' => $row['notelp'],
+           
         ]);
     }
 }
