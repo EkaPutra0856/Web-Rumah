@@ -79,7 +79,7 @@
     @include('Administrator.EditModal')
 @endsection
 
-@section('Import Modal')
+@section('Import Modal Admin')
     @include('Administrator.ImportModal')
 @endsection
 @section('Gender Chart Modal')

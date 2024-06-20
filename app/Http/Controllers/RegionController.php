@@ -17,8 +17,8 @@ class RegionController extends Controller
             $userId = Auth::guard('administrators')->user()->id;
             $regions = Region::where('administrator_id', $userId)->get();
              // Hitung jumlah pria dan wanita
-        $graphtype1 = 1;
-        $graphtype2 =1;
+       $graphtype1 = 1;
+        $graphtype2 =1; 
             return view('Region.index', compact('regions', 'graphtype1', 'graphtype2'));
         } else {
             return redirect("/")->withErrors('You are not allowed to access');
