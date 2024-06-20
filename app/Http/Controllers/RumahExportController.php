@@ -18,7 +18,7 @@ class RumahExportController extends Controller
 
 
 
-    public function importAdministrators(Request $request)
+    public function importRumah(Request $request)
     {
         $request->validate([
             'import_file' => 'required|file|mimes:xls,xlsx',

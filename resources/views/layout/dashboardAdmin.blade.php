@@ -37,6 +37,7 @@
             @yield('Insert Modal')
             @yield('Edit Modal')
             @yield('Import Modal KK')
+            @yield('Import Modal Rumah')
             @include('Layout.delete')
 
         </div>

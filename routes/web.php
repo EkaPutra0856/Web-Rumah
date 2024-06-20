@@ -17,7 +17,7 @@ Route::get('/export-administrators', [ImportExportController::class, 'exportAdmi
 Route::post('/import-administrators', [ImportExportController::class, 'importAdministrators'])->name('import.administrators');
 
 Route::get('/export-rumah', [RumahExportController::class, 'exportRumah'])->name('export.rumah');
-Route::post('/import-rumah', [ImportExportController::class, 'importRumah'])->name('import.rumah');
+Route::post('/import-rumah', [RumahExportController::class, 'importRumah'])->name('import.rumah');
 
 
 Route::get('/export-kk', [ImportExportKKController::class, 'exportKK'])->name('export.kk');
