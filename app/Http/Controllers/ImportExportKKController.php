@@ -1,6 +1,6 @@
 <?php
 
-// File: app/Http/Controllers/ImportExportController.php
+// File: app/Http/Controllers/ImportExportKKController.php
 
 namespace App\Http\Controllers;
 
@@ -27,7 +27,7 @@ class ImportExportKKController extends Controller
 
             return redirect()->back()->with('success', 'Data imported successfully.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to import data: ' . $e->getMessage());
+            return redirect()->back()->with('fail', 'Failed to import data: ' . $e->getMessage());
         }
     }
 }
