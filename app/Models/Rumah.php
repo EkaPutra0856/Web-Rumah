@@ -34,5 +34,9 @@ protected $primaryKey='id';
     {
         return $this->belongsTo(Region::class);
     }
+    public function regionalAdmin()
+    {
+        return $this->belongsTo(RegionalAdmin::class);
+    }
 
 }
