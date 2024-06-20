@@ -42,4 +42,3 @@ class Region extends Model
         return $this->hasMany(Coordinate::class);
     }
 }
-
