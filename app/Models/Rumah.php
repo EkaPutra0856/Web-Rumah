@@ -14,6 +14,7 @@ protected $primaryKey='id';
     protected $fillable = [
         'id',
         'regional_admins_id',
+        'region_id',
         'norumah',
         'alamat',
         'luas',

@@ -12,16 +12,16 @@ class RumahExport implements FromCollection, WithHeadings
     {
         return Rumah::with('regionalAdmin')->get()->map(function($admin) {
             return [
-                'id',
-                'regional_admins_id'=> $admin->region->kecamatan,
-                'norumah',
-                'alamat',
-                'luas',
-                'status',
-                'tahun',
-                'latitude', 
-                'longitude',
-                'renov',    
+                'id' => $admin->id,
+                'regional_admins_id' => $admin->region->kecamatan,
+                'norumah' => $admin->norumah,
+                'alamat' => $admin->alamat,
+                'luas' => $admin->luas,
+                'status' => $admin->status,
+                'tahun' => $admin->tahun,
+                'latitude' => $admin->latitude, 
+                'longitude' => $admin->longitude,
+                'renov' => $admin->renov,    
             ];
         });
         // return Rumah::all(); 

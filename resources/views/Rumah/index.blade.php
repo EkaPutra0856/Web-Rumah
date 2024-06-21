@@ -82,3 +82,6 @@
     @include('Rumah.EditModal')
 @endsection
 
+@section('Import Modal Rumah')
+    @include('Rumah.ImportModal')
+@endsection
