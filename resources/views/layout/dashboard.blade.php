@@ -51,7 +51,7 @@
         var malePercentage = 0; // Variabel global untuk menyimpan persentase laki-laki
         var femalePercentage = 0; // Variabel global untuk menyimpan persentase perempuan
 
-        function showGenderChart() {
+        function showChart() {
             var maleCount = {{ $graphtype1 }};
             var femaleCount = {{ $graphtype2 }};
             var total = maleCount + femaleCount;
@@ -106,14 +106,14 @@
                 }
             });
 
-            openGenderChartModal();
+            openChartModal();
         }
 
-        function openGenderChartModal() {
+        function openChartModal() {
             document.getElementById('genderChartModal').classList.remove('hidden');
         }
 
-        function closeGenderChartModal() {
+        function closeChartModal() {
             document.getElementById('genderChartModal').classList.add('hidden');
         }
 

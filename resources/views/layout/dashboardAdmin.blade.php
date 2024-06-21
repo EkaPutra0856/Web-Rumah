@@ -37,37 +37,44 @@
             @yield('Insert Modal')
             @yield('Edit Modal')
             @yield('Import Modal KK')
+
+            @yield('Family Member Chart Modal')
+
             @yield('Import Modal Rumah')
+
             @include('Layout.delete')
 
         </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
             var myChart = null; // Variabel global untuk menyimpan objek chart
-            var malePercentage = 0; // Variabel global untuk menyimpan persentase laki-laki
-            var femalePercentage = 0; // Variabel global untuk menyimpan persentase perempuan
+            var upperTenPercentage = 0; // Variabel global untuk menyimpan persentase laki-laki
+            var lowerTenPercentage = 0; // Variabel global untuk menyimpan persentase perempuan
     
-            function showGenderChart() {
-                var maleCount = {{ $graphtype1 }};
-                var femaleCount = {{ $graphtype2 }};
-                var total = maleCount + femaleCount;
+            function showChart() {
+                openChartModal();
+
+                var upperTen = {{ $graphtype1 }};
+                var lowerTen = {{ $graphtype2 }};
+                var total = upperTen + lowerTen;
     
-                malePercentage = ((maleCount / total) * 100).toFixed(2);
-                femalePercentage = ((femaleCount / total) * 100).toFixed(2);
+                upperTenPercentage = ((upperTen / total) * 100).toFixed(2);
+                lowerTenPercentage = ((lowerTen / total) * 100).toFixed(2);
     
                 if (myChart) {
                     // Hapus chart yang sudah ada jika ada
                     myChart.destroy();
                 }
     
-                var ctx = document.getElementById('genderChart').getContext('2d');
+                var ctx = document.getElementById('familyChart').getContext('2d');
                 myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Male', 'Female'],
+                        labels: ['Anggota Keluarga > 10', 'Anggota Keluarga < 10'],
                         datasets: [{
-                            label: 'Gender Distribution',
-                            data: [maleCount, femaleCount],
+                            label: 'Family Members Distribution',
+                            data: [upperTen, lowerTen],
                           
                         }]
                     },
@@ -88,10 +95,10 @@
                                         }
                                         label += tooltipItem.raw.toLocaleString();
     
-                                        if (tooltipItem.label === 'Male') {
-                                            label += ' (' + malePercentage + '%)';
-                                        } else if (tooltipItem.label === 'Female') {
-                                            label += ' (' + femalePercentage + '%)';
+                                        if (tooltipItem.label === 'Anggota > 10') {
+                                            label += ' (' + upperTenPercentage + '%)';
+                                        } else if (tooltipItem.label === 'Anggota < 10') {
+                                            label += ' (' + lowerTenPercentage + '%)';
                                         }
     
                                         return label;
@@ -100,35 +107,33 @@
                             }
                         }
                     }
-                });
-    
-                openGenderChartModal();
+                });                
             }
     
-            function openGenderChartModal() {
-                document.getElementById('genderChartModal').classList.remove('hidden');
+            function openChartModal() {
+                document.getElementById('familyMemberChartModal').classList.remove('hidden');
             }
     
-            function closeGenderChartModal() {
-                document.getElementById('genderChartModal').classList.add('hidden');
+            function closeChartModal() {
+                document.getElementById('familyMemberChartModal').classList.add('hidden');
             }
     
             function downloadChartImage() {
-                var chartCanvas = document.getElementById('genderChart');
+                var chartCanvas = document.getElementById('familyChart');
                 var link = document.createElement('a');
                 link.href = chartCanvas.toDataURL('image/png');
-                link.download = 'gender_chart.png';
+                link.download = 'family_chart.png';
     
                 var ctx = chartCanvas.getContext('2d');
                 ctx.font = 'bold 14px Arial';
                 ctx.fillStyle = '#000';
                 ctx.textAlign = 'center';
     
-                var malePercentageText = malePercentage.toString() + '%';
-                var femalePercentageText = femalePercentage.toString() + '%';
+                var upperTenPercentageText = upperTenPercentage.toString() + '%';
+                var lowerTenPercentageText = lowerTenPercentage.toString() + '%';
     
-                ctx.fillText('Male: ' + malePercentageText, chartCanvas.width / 2, 20);
-                ctx.fillText('Female: ' + femalePercentageText, chartCanvas.width / 2, 40);
+                ctx.fillText('Anggota Keluarga > 10: ' + upperTenPercentageText, chartCanvas.width / 2, 20);
+                ctx.fillText('Anggota Keluarga < 10: ' + lowerTenPercentageText, chartCanvas.width / 2, 40);
     
                 console.log(link.href); // Debug: Periksa URL yang dihasilkan sebelum diunduh
                 link.click();
