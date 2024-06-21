@@ -114,16 +114,23 @@ class RegionController extends Controller
 
     public function import(Request $request)
     {
-        $request->validate([
-            'import_file' => 'required|file|mimes:xls,xlsx',
-        ]);
-
         try {
+            // Validasi jenis file
+            $request->validate([
+                'import_file' => 'required|file|mimes:xls,xlsx',
+            ]);
+    
+            // Proses impor data
             Excel::import(new RegionImport(), $request->file('import_file'));
-
+    
+            // Jika sukses
             return redirect()->back()->with('success', 'Data imported successfully.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Jika validasi gagal
+            return redirect()->back()->with('fail', 'Failed to import data: ' . $e->getMessage());
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to import data: ' . $e->getMessage());
+            // Jika ada kesalahan lain
+            return redirect()->back()->with('fail', 'Failed to import data: ' . $e->getMessage());
         }
         // Excel::import(new RegionImport, $request->file('import_file'));
         // return redirect('/wilayah');

@@ -16,19 +16,24 @@ class ImportExportController extends Controller
         return Excel::download(new AdministratorsExport(), 'administrators.xlsx');
     }
 
-
-
     public function importAdministrators(Request $request)
     {
-        $request->validate([
-            'import_file' => 'required|file|mimes:xls,xlsx',
-        ]);
-
         try {
+            // Validasi jenis file
+            $request->validate([
+                'import_file' => 'required|file|mimes:xls,xlsx',
+            ]);
+    
+            // Proses impor data
             Excel::import(new AdministratorsImport(), $request->file('import_file'));
-
+    
+            // Jika sukses
             return redirect()->back()->with('success', 'Data imported successfully.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Jika validasi gagal
+            return redirect()->back()->with('fail', 'Failed to import data: ' . $e->getMessage());
         } catch (\Exception $e) {
+            // Jika ada kesalahan lain
             return redirect()->back()->with('fail', 'Failed to import data: ' . $e->getMessage());
         }
     }

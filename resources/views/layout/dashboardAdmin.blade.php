@@ -71,7 +71,7 @@
                 myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Anggota Keluarga > 10', 'Anggota Keluarga < 10'],
+                        labels: ['Anggota Keluarga > 10', 'Anggota Keluarga ≤ 10'],
                         datasets: [{
                             label: 'Family Members Distribution',
                             data: [upperTen, lowerTen],
@@ -97,7 +97,7 @@
     
                                         if (tooltipItem.label === 'Anggota > 10') {
                                             label += ' (' + upperTenPercentage + '%)';
-                                        } else if (tooltipItem.label === 'Anggota < 10') {
+                                        } else if (tooltipItem.label === 'Anggota ≤ 10') {
                                             label += ' (' + lowerTenPercentage + '%)';
                                         }
     
@@ -133,7 +133,7 @@
                 var lowerTenPercentageText = lowerTenPercentage.toString() + '%';
     
                 ctx.fillText('Anggota Keluarga > 10: ' + upperTenPercentageText, chartCanvas.width / 2, 20);
-                ctx.fillText('Anggota Keluarga < 10: ' + lowerTenPercentageText, chartCanvas.width / 2, 40);
+                ctx.fillText('Anggota Keluarga ≤ 10: ' + lowerTenPercentageText, chartCanvas.width / 2, 40);
     
                 console.log(link.href); // Debug: Periksa URL yang dihasilkan sebelum diunduh
                 link.click();
