@@ -37,5 +37,9 @@ class RegionalAdmin extends Authenticatable
     {
         return $this->belongsTo(Region::class);
     }
+    public function rumah()
+    {
+        return $this->hasMany(Rumah::class);
+    }
 }
 

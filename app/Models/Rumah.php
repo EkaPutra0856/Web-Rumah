@@ -14,6 +14,7 @@ protected $primaryKey='id';
     protected $fillable = [
         'id',
         'regional_admins_id',
+        'region_id',
         'norumah',
         'alamat',
         'luas',
@@ -33,6 +34,10 @@ protected $primaryKey='id';
     public function region()
     {
         return $this->belongsTo(Region::class);
+    }
+    public function regionalAdmin()
+    {
+        return $this->belongsTo(RegionalAdmin::class);
     }
 
 }
