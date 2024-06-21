@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ImportExportController;
 use App\Http\Controllers\ImportExportKKController;
+use App\Http\Controllers\TestController;
+
+Route::get('/test-create-rumah', [TestController::class, 'insert']);
 
 Route::get('/export-administrators', [ImportExportController::class, 'exportAdministrators'])->name('export.administrators');
 Route::post('/import-administrators', [ImportExportController::class, 'importAdministrators'])->name('import.administrators');
