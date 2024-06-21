@@ -7,6 +7,7 @@ use App\Models\Region;
 use App\Models\RegionalAdmin;
 use Illuminate\Http\Request;
 use App\Exports\RegionalAdminExport;
+use App\Imports\RegionalAdminImport;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -75,6 +76,22 @@ class RegionalAdminController extends Controller
     public function export()
     {
         return Excel::download(new RegionalAdminExport, 'adminwilayah.xlsx');
+    }
+    public function import(Request $request)
+    {
+        $request->validate([
+            'import_file' => 'required|file|mimes:xls,xlsx',
+        ]);
+
+        try {
+            Excel::import(new RegionalAdminImport(), $request->file('import_file'));
+
+            return redirect()->back()->with('success', 'Data imported successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to import data: ' . $e->getMessage());
+        }
+        // Excel::import(new RegionImport, $request->file('import_file'));
+        // return redirect('/wilayah');
     }
 
 }
