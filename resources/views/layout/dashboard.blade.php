@@ -37,7 +37,7 @@
             </div>
             @yield('Insert Modal')
             @yield('Edit Modal')
-            @yield('Import Modal Admin')
+            @yield('Import Modal')
             @yield('Gender Chart Modal')
             @yield('Import Modal Admin Wilayah')
             @include('Layout.delete')
@@ -72,7 +72,7 @@
                     datasets: [{
                         label: 'Gender Distribution',
                         data: [maleCount, femaleCount],
-                      
+
                     }]
                 },
                 options: {

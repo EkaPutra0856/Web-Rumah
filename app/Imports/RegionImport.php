@@ -10,9 +10,11 @@ class RegionImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
+        //mendapatkan ID administrator yang sedang masuk
+        $userId = auth()->guard('administrators')->user()->id;
+
         return new Region([
-            'id' => $row['id'],
-            'administrator_id' => $row['administrator_id'],
+            'administrator_id' => $userId,
             'kecamatan' => $row['kecamatan'],
             'kelurahan_desa' => $row['kelurahan_desa'],
             'kode_pos' => $row['kode_pos']

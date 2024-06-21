@@ -6,7 +6,6 @@
 @endsection
 
 @section('table')
-
     <thead>
         <tr>
             <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">
@@ -29,17 +28,17 @@
             </th>
         </tr>
         <div class="flex justify-end mb-4 p-3 justify-center">
-            <a href="/export-administrators"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <a href="/export-administrators" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Export to Excel
             </a>
             <button type="button" onclick="openImportModal()"
-            class="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-        Import from Excel
-    </button>
-    <button type="button" onclick="showChart()" class="ml-4 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
-        Distribution Chart
-    </button>
+                class="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                Import from Excel
+            </button>
+            <button type="button" onclick="showChart()"
+                class="ml-4 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                Distribution Chart
+            </button>
         </div>
     </thead>
     <tbody>
@@ -67,7 +66,7 @@
                 </td>
             </tr>
         @endforeach
-        
+
     </tbody>
 @endsection
 
@@ -79,7 +78,7 @@
     @include('Administrator.EditModal')
 @endsection
 
-@section('Import Modal Admin')
+@section('Import Modal')
     @include('Administrator.ImportModal')
 @endsection
 @section('Gender Chart Modal')
