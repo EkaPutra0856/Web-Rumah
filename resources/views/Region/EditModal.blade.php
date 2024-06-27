@@ -40,7 +40,7 @@
                         <label for="latitude1" class="block mb-2 text-sm font-medium text-white">Latitude 1</label>
                         <input name="latitude1" type="text" id="latitude1" required
                             class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
-                            value="{{ $p->latitude }}" required>
+                            value="{{ $p->latitude1 }}" required>
                     </div>
 
                     <div class="w-1/2 p-2">
@@ -53,14 +53,16 @@
                     <div class="w-1/2 p-2">
                         <label for="latitude2" class="block mb-2 text-sm font-medium text-white">Latitude 2</label>
                         <input name="latitude2" type="text" id="latitude2" required
-                            class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                            class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                            value="{{ $p->latitude1 }}" required>
                     </div>
 
                     <div class="w-1/2 p-2">
                         <label for="longitude2" class="block mb-2 text-sm font-medium text-white">Longitude 2</label>
                         <input name="longitude2" type="text" id="longitude2" required
-                            class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
-                    </div>
+                            class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500"
+                            value="{{ $p->longitude2}}" required>
+                        </div>
 
                     <div class="w-1/2 p-2">
                         <label for="latitude3" class="block mb-2 text-sm font-medium text-white">Latitude 3</label>

@@ -45,8 +45,6 @@ class WebController extends Controller
             $color = 'Chartreuse';
 
             
-
-           
             
                 // Jika kurang dari 3, tambahkan ke markers
                 foreach ($rumahMarkers as $marker) {
