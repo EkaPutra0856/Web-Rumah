@@ -76,7 +76,7 @@
                         @if ($p->image)
                             <img src="{{ Storage::url($p->image) }}" alt="Image" class="w-10 h-10 rounded-full">
                         @else
-                            <img src="{{ asset('images/default.png') }}" alt="No Image" class="w-10 h-10 rounded-full">
+                            <img src="{{ asset('image/default.jpg') }}" alt="No Image" class="w-10 h-10 rounded-full">
                         @endif
                     </td>
                     <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-500">

@@ -1,26 +1,65 @@
 <?php
-
 namespace App\Exports;
 
-use App\Models\Administrator;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class AdministratorsExport implements FromCollection, WithHeadings
+class AdministratorsExport implements FromView, WithStyles
 {
-    public function collection()
+    protected $admin;
+
+    public function __construct($admin)
     {
-        return Administrator::all(['id','name', 'email', 'notelp', 'gender']); // Sesuaikan dengan nama kolom yang ingin diekspor
+        $this->admin = $admin;
     }
 
-    public function headings(): array
+    public function view(): View
     {
-        return [
-            'id',
-            'Name',
-            'Email',
-            'No Telp',
-            'Gender'
+        return view('Administrator.excel', [
+            'admin' => $this->admin
+        ]);
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        // Mengatur gaya untuk header (baris pertama)
+        $headerStyle = [
+            'font' => [
+                'bold' => true,
+                'color' => ['argb' => 'FFFFFFFF']
+            ],
+            'fill' => [
+                'fillType' => 'solid',
+                'startColor' => ['argb' => 'FFADD8E6'] // Warna biru muda
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, // Teks di tengah
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+            ]
         ];
+
+        // Gaya untuk sel selain header
+        $cellStyle = [
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, // Teks di tengah
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+            ]
+        ];
+
+        // Menerapkan gaya header ke baris pertama
+        $sheet->getStyle('A1:D1')->applyFromArray($headerStyle);
+
+        // Menerapkan gaya sel ke seluruh kolom (A-D)
+        $sheet->getStyle('A2:D' . $sheet->getHighestRow())->applyFromArray($cellStyle);
+
+        // Mengatur lebar kolom
+        $sheet->getColumnDimension('A')->setWidth(20);
+        $sheet->getColumnDimension('B')->setWidth(30);
+        $sheet->getColumnDimension('C')->setWidth(20);
+        $sheet->getColumnDimension('D')->setWidth(20);
+
+        return [];
     }
 }
