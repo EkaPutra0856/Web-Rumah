@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\AdministratorCRUDController;
+use App\Http\Controllers\AdministratorSearchController;
 use App\Http\Controllers\KKController;
 use App\Http\Controllers\RegionalAdminController;
 use App\Http\Controllers\RegionController;
@@ -12,9 +13,10 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ImportExportController;
 use App\Http\Controllers\ImportExportKKController;
-use App\Http\Controllers\TestController;
 
-Route::get('/test-create-rumah', [TestController::class, 'insert']);
+
+Route::get('/search-administrators', [AdministratorSearchController::class, 'search']);
+Route::get('/export-PDF-administrators', [ImportExportController::class, 'exportPDF'])->name('export.pdf.administrators');
 
 Route::get('/export-administrators', [ImportExportController::class, 'exportAdministrators'])->name('export.administrators');
 Route::post('/import-administrators', [ImportExportController::class, 'importAdministrators'])->name('import.administrators');

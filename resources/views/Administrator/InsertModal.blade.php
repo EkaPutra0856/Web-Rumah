@@ -1,6 +1,6 @@
 <div id="insertModal" class="hidden fixed inset-0 bg-gray-400 bg-opacity-60 justify-center items-center">
     <div class="bg-gray-800 rounded-lg w-1/2">
-        <form method="POST" action="insert-administrator" class="w-5/6 mx-auto my-5" onsubmit="return validateFormInsert()">
+        <form method="POST" action="/insert-administrator" class="w-5/6 mx-auto my-5" enctype="multipart/form-data" onsubmit="return validateFormInsert()">
             @csrf
             <h2 class="text-center font-semibold text-lg text-white">Insert Administrator</h2><br>
 
@@ -34,6 +34,11 @@
                 <div class="w-1/2 mb-5 px-2">
                     <label for="notelp" class="block mb-2 text-sm font-medium text-white">No Telepon</label>
                     <input name="notelp" type="text" id="notelp"
+                        class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div class="w-1/2 mb-5 px-2">
+                    <label for="image" class="block mb-2 text-sm font-medium text-white">Image</label>
+                    <input name="image" type="file" id="image"
                         class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
                 </div>
                 
@@ -73,5 +78,9 @@
         }
 
         return true;
+    }
+
+    function closeInsertModal() {
+        document.getElementById('insertModal').classList.add('hidden');
     }
 </script>

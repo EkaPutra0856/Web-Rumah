@@ -6,8 +6,11 @@ namespace App\Http\Controllers;
 
 use App\Exports\AdministratorsExport;
 use App\Imports\AdministratorsImport;
+use App\Models\Administrator;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
 class ImportExportController extends Controller
 {
@@ -37,4 +40,12 @@ class ImportExportController extends Controller
             return redirect()->back()->with('fail', 'Failed to import data: ' . $e->getMessage());
         }
     }
+
+        // Method untuk mengekspor ke PDF
+        public function exportPDF()
+        {
+            $admin = Administrator::all(); // Ambil semua data administrator
+            $pdf = FacadePdf::loadView('Administrator.pdf', ['admin' => $admin]);
+            return $pdf->download('administrators.pdf');
+        }
 }

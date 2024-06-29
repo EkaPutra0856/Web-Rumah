@@ -22,6 +22,7 @@ class Administrator extends Authenticatable
         'password',
         'gender',
         'notelp',
+        'image'
     ];
 
     protected $hidden = [

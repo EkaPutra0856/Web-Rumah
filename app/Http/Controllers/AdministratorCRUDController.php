@@ -6,6 +6,7 @@ use App\Models\Administrator;
 use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AdministratorCRUDController extends Controller
 {
@@ -27,37 +28,74 @@ class AdministratorCRUDController extends Controller
     }
 }
 
-    public function insert(Request $request)
-    {
+public function insert(Request $request)
+{
+    $userId = Auth::guard('administrators')->user()->id;
 
-        $userId = Auth::guard('administrators')->user()->id;
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255',
+        'gender' => 'required|string',
+        'password' => 'required|string|min:6',
+        'notelp' => 'required|string|max:15',
+    ]);
 
-        $admin = new Administrator();
+    $admin = new Administrator();
 
-        $admin->name = $request->name;
-        $admin->email = $request->email;
-        $admin->gender = $request->gender;
-        $admin->password = bcrypt($request->password);
-        $admin->notelp = $request->notelp;
+    $admin->name = $request->name;
+    $admin->email = $request->email;
+    $admin->gender = $request->gender;
+    $admin->password = bcrypt($request->password);
+    $admin->notelp = $request->notelp;
 
-
-        $admin->save();
-        session()->flash('success', 'Save Data Successfully!');
-        return Redirect('/admintable');
+    if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('images', 'public');
+        $admin->image = $path;
     }
 
-    public function update(Request $request, $id)
-    {
-        $admin = Administrator::where('id', $id)->first();
-        $admin->name = $request->name;
-        $admin->email = $request->email;
-        $admin->gender = $request->gender;
+    $admin->save();
+
+    session()->flash('success', 'Save Data Successfully!');
+    return redirect('/admintable');
+}
+
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255',
+        'gender' => 'required|string',
+        'password' => 'nullable|string|min:6',
+        'notelp' => 'required|string|max:15',
+    ]);
+
+    $admin = Administrator::where('id', $id)->first();
+    $admin->name = $request->name;
+    $admin->email = $request->email;
+    $admin->gender = $request->gender;
+
+    if ($request->password) {
         $admin->password = bcrypt($request->password);
-        $admin->notelp = $request->notelp;
-        $admin->save();
-        session()->flash('success', 'Edit Data Successfully!');
-        return Redirect('/admintable');
     }
+
+    $admin->notelp = $request->notelp;
+
+    if ($request->hasFile('image')) {
+        if ($admin->image) {
+            Storage::disk('public')->delete($admin->image);
+        }
+        $path = $request->file('image')->store('images', 'public');
+        $admin->image = $path;
+    }
+
+    $admin->save();
+
+    dd($admin->image); // Untuk melihat path atau nama file gambar yang tersimpan
+
+    session()->flash('success', 'Edit Data Successfully!');
+    return redirect('/admintable');
+}
+
 
     public function delete(Request $request, $id)
     {

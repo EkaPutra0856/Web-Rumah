@@ -128,6 +128,11 @@ class AdministratorController extends Controller
 
 
 
+    
+
+
+
+
     public function loginFormRegAdmin()
     {
         // if (Auth::guard('administrators')->check() || Auth::guard('regadmin')->check()) {
