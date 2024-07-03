@@ -2,7 +2,7 @@
     <div id="editModal{{ $p->id }}"
         class="hidden fixed inset-0 bg-gray-400 bg-opacity-60 justify-center items-center">
         <div class="bg-gray-800 rounded-lg w-1/2">
-            <form method="POST" action="{{ url('/' . $p->id . '/update-kk') }}" class=" w-5/6 mx-auto my-5"
+            <form method="POST" action="{{ url('/' . $p->id . '/update-kk') }}" class=" w-5/6 mx-auto my-5" enctype="multipart/form-data"
                 onsubmit="return validateEditForm('{{ $p->id }}')">
                 @csrf
                 <h2 class=" text-center font-semibold text-lg text-white">Edit KK</h2><br>

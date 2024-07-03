@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('notelp');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

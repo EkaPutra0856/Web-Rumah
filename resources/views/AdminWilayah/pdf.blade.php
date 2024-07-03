@@ -30,8 +30,7 @@
                 <th>Email</th>
                 <th>No Telp</th>
                 <th>ID Wilayah</th>
-                <th>Kecamatan</th>
-                <th>Kelurahan</th>
+                <th>Nama Wilayah</th>
             </tr>
         </thead>
         <tbody>
@@ -41,7 +40,6 @@
                     <td>{{ $p->email }}</td>
                     <td>{{ $p->notelp }}</td>
                     <td>{{ $p->region_id }}</td>
-                    <td>{{ $p->region->kecamatan }}</td>
                     <td>{{ $p->region->kelurahan_desa }}</td>
                 </tr>
             @endforeach

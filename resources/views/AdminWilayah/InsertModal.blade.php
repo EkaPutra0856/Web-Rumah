@@ -31,7 +31,7 @@
                 <input name="email" type="text" id="email" required
                     class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
             </div>
-            <div class="basis-1/2 mb-3 relative">
+            <div class="basis-1/2 mb-5 relative">
                 <label for="password" class="block mb-2 text-sm font-medium text-white">Password</label>
                 <input name="password" type="password" id="password" required
                     oninput="validateNewPassword()"
@@ -63,7 +63,11 @@
                     <span id="error-message-region_id" class="text-red-500 text-sm hidden">Silakan pilih Region ID</span>
                 </div>
             </div>
-
+            <div class="basis-1/2 mb-5">
+                    <label for="image" class="block mb-2 text-sm font-medium text-white">Image</label>
+                    <input name="image" type="file" id="image" accept=".png,.jpg,.jpeg,.svg"
+                        class="form-control border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+            </div>
             <div class="flex flex-row gap-4 mt-5">
                 <button type="submit"
                     class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800 mb-5">Submit</button>

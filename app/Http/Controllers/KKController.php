@@ -40,12 +40,11 @@ class KKController extends Controller
     }
 
     public function insert(Request $request){
-
         $regadmin = Auth::guard('regadmin')->user()->id;
-    //         // Memeriksa apakah semua input terisi
-    // if(!$request->filled(['nokk', 'namakk', 'anggota'])) {
-    //     return redirect()->back()->withErrors('Input cannot be empty.');
-    // }
+        //         // Memeriksa apakah semua input terisi
+        // if(!$request->filled(['nokk', 'namakk', 'anggota'])) {
+        //     return redirect()->back()->withErrors('Input cannot be empty.');
+        // }
 
         $kk = new KK();
         $kk->nokk = $request->nokk;
@@ -67,7 +66,7 @@ class KKController extends Controller
 
     public function update(Request $request, $id)
     {
-        $kk = KK::where('id', $id)->first();
+        $kk = KK::findOrFail($id);
        
         $kk->nokk = $request->nokk;
         $kk->rumah_id = $request->rumah_id;

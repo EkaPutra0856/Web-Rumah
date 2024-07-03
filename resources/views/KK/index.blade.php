@@ -21,7 +21,7 @@
                 Jumlah Anggota Keluarga
             </th>
             <th class="py-2 px-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
-                File KK
+                File Scan KK
             </th>
             <th class="py-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
                 Action
