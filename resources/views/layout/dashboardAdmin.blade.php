@@ -39,7 +39,7 @@
             @yield('Import Modal KK')
 
             @yield('Family Member Chart Modal')
-
+            @yield('House Chart Modal')
             @yield('Import Modal Rumah')
 
             @include('Layout.delete')
@@ -109,15 +109,80 @@
                     }
                 });                
             }
+
+            function showHouseChart() {
+                openHouseChartModal();
+
+                var sehat = {{ $graphtype1 }};
+                var tidak_layak = {{ $graphtype2 }};
+                var total = sehat + tidak_layak;
+    
+                sehatPercentage = ((sehat / total) * 100).toFixed(2);
+                tidaklayakPercentage = ((tidak_layak / total) * 100).toFixed(2);
+    
+                if (myChart) {
+                    // Hapus chart yang sudah ada jika ada
+                    myChart.destroy();
+                }
+    
+                var ctx = document.getElementById('houseChart').getContext('2d');
+                myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Rumah Sehat', 'Rumah Tidak Layak'],
+                        datasets: [{
+                            label: 'House Status Distribution',
+                            data: [sehat, tidak_layak],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(tooltipItem) {
+                                        var label = tooltipItem.label || '';
+    
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        label += tooltipItem.raw.toLocaleString();
+    
+                                        if (tooltipItem.label === 'Rumah Sehat') {
+                                            label += ' (' + sehatPercentage + '%)';
+                                        } else if (tooltipItem.label === 'Rumah Tidak Layak') {
+                                            label += ' (' + tidaklayakPercentage + '%)';
+                                        }
+    
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });                
+            }
     
             function openChartModal() {
                 document.getElementById('familyMemberChartModal').classList.remove('hidden');
             }
-    
+            
+            function openHouseChartModal() {
+                document.getElementById('houseChartModal').classList.remove('hidden');
+            }
+
             function closeChartModal() {
                 document.getElementById('familyMemberChartModal').classList.add('hidden');
             }
-    
+            
+            function closeHouseChartModal() {
+                document.getElementById('houseChartModal').classList.add('hidden');
+            }
+
             function downloadChartImage() {
                 var chartCanvas = document.getElementById('familyChart');
                 var link = document.createElement('a');
@@ -139,7 +204,26 @@
                 link.click();
             }
     
+            function downloadHouseChartImage() {
+                var chartCanvas = document.getElementById('houseChart');
+                var link = document.createElement('a');
+                link.href = chartCanvas.toDataURL('image/png');
+                link.download = 'house_chart.png';
     
+                var ctx = chartCanvas.getContext('2d');
+                ctx.font = 'bold 14px Arial';
+                ctx.fillStyle = '#000';
+                ctx.textAlign = 'center';
+    
+                var sehatPercentageText = sehatPercentage.toString() + '%';
+                var tidaklayakPercentageText = tidaklayakPercentage.toString() + '%';
+    
+                ctx.fillText('Rumah Sehat: ' + sehatPercentageText, chartCanvas.width / 2, 20);
+                ctx.fillText('Rumah Tidak Layak: ' + tidaklayakPercentageText, chartCanvas.width / 2, 40);
+    
+                console.log(link.href); // Debug: Periksa URL yang dihasilkan sebelum diunduh
+                link.click();
+            }
     
     
             function openInsertModal() {

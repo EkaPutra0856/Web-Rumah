@@ -9,6 +9,9 @@
     <thead>
         <tr>
             <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">
+                Image
+            </th>
+            <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">
                 Id
             </th>
             <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">
@@ -41,7 +44,7 @@
             </form>
         </div>
         <div class="flex justify-end mb-4 p-3 justify-center">
-            <a href="/adminwilayah-table" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 mr-4 rounded">
+            <a href="/adminwilayah" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 mr-4 rounded">
                 Show All Data
             </a>
             <a href="/export-adminwilayah" class="bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded">
@@ -63,13 +66,20 @@
     <tbody>
         @if ($regionAdmin->isEmpty())
             <tr>
-                <td colspan="7" class="text-center p-4 text-gray-500">
+                <td colspan="8" class="text-center p-4 text-gray-500">
                     Tidak ada data yang sesuai.
                 </td>
             </tr>
         @else
             @foreach ($regionAdmin as $p)
                 <tr class="hover:bg-[#f5f5f5]">
+                    <td class="p-2 pl-16">
+                        @if ($p->image)
+                            <img src="{{ Storage::url($p->image) }}" alt="Image" class="w-10 h-10 rounded-full">
+                        @else
+                            <img src="{{ asset('image/default.jpg') }}" alt="No Image" class="w-10 h-10 rounded-full">
+                        @endif
+                    </td>
                     <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-500">
                         {{ $p->id }}
                     </td>

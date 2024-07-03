@@ -20,6 +20,9 @@
             <th class="py-2 px-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
                 Jumlah Anggota Keluarga
             </th>
+            <th class="py-2 px-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
+                File Scan KK
+            </th>
             <th class="py-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
                 Action
             </th>
@@ -35,7 +38,7 @@
             </form>
         </div>
         <div class="flex justify-end mb-4 p-3 justify-center">
-            <a href="/kk-table" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 mr-4 rounded">
+            <a href="/kk" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 mr-4 rounded">
                 Show All Data
             </a>
             <a href="/export-kk" class="bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded">
@@ -63,17 +66,21 @@
         @else
             @foreach ($kk as $p)
                 <tr class="hover:bg-[#f5f5f5]">
-                    <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->rumah_id}}
+                    <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->rumah_id }}</td>
+                    <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->nokk }}</td>
+                    <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->namakk }}</td>
+                    <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->anggota }}</td>
+                    <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">
+                        @if ($p->filekk)
+                            <a href="{{ Storage::url($p->filekk) }}" target="_blank" class="text-blue-500 hover:underline">View PDF</a>
+                        @else
+                            <p>No file.</p>
+                        @endif
                     </td>
-                    <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->nokk }}
-                    <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->namakk }}
-                    <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->anggota }}
                     <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">
                         <div class="flex flex-row gap-x-2 justify-center">
-                            <button type="button" onclick="openEditModal('{{ $p->id }}')"
-                                class=" text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-xs w-12 py-2.5 text-center bg-green-600 hover:bg-green-700 focus:ring-green-500">Edit</button>
-                            <button type="button" onclick="openDeleteModal('{{ url('/' . $p->id . '/delete-kk') }}')"
-                                class=" text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-xs w-12 py-2.5 text-center bg-red-600 hover:bg-red-700 focus:ring-red-500">Delete</button>
+                            <button type="button" onclick="openEditModal('{{ $p->id }}')" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-xs w-12 py-2.5 text-center bg-green-600 hover:bg-green-700 focus:ring-green-500">Edit</button>
+                            <button type="button" onclick="openDeleteModal('{{ url('/' . $p->id . '/delete-kk') }}')" class="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-xs w-12 py-2.5 text-center bg-red-600 hover:bg-red-700 focus:ring-red-500">Delete</button>
                         </div>
                     </td>
                 </tr>

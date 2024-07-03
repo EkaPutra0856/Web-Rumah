@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Exports\RegionalAdminExport;
 use App\Imports\RegionalAdminImport;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
@@ -36,9 +37,9 @@ class RegionalAdminController extends Controller
                     'count' => $regionCounts[$id] ?? 0
                 ];
             }
-  // Hitung jumlah wilayah yang ada
-  $graphtype1 = 1;
-  $graphtype2 = 1;
+            // Hitung jumlah wilayah yang ada
+            $graphtype1 = 1;
+            $graphtype2 = 1;
 
             session(['filtered_admin' => $regionAdmin]);
             return view('AdminWilayah.index', compact('regionAdmin', 'regions', 'graphtypes', 'graphtype1', 'graphtype2'));
@@ -66,6 +67,11 @@ class RegionalAdminController extends Controller
             
             $data->administrator_id = $userId;
 
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images', 'public');
+            $data->image = $path;
+        }
+
         $data -> save();
         session()->flash('success', 'Save Data Successfully!');
         return Redirect('/adminwilayah');
@@ -78,6 +84,14 @@ class RegionalAdminController extends Controller
         $data->email = $request->email;
         $data->notelp = $request->notelp;
         $data->region_id = $request->region_id;
+        if ($request->hasFile('image')) {
+            if ($data->image) {
+                Storage::disk('public')->delete($data->image);
+            }
+            $path = $request->file('image')->store('images', 'public');
+            $data->image = $path;
+        }
+    
         $data -> save();
         session()->flash('success', 'Edit Data Successfully!');
         return Redirect('/adminwilayah');

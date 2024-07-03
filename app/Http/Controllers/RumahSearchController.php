@@ -19,8 +19,8 @@ class RumahSearchController extends Controller
                               ->orWhere('renov', 'like', "%$query%")
                               ->get();
                               
-        $graphtype1 = $rumah->where('gender', 'Pria')->count();
-        $graphtype2 = $rumah->where('gender', 'Wanita')->count();
+        $graphtype1 = $rumah->where('status', 'Sehat')->count();
+        $graphtype2 = $rumah->where('status', 'Tidak Layak')->count(); 
     
         session(['filtered_admin' => $rumah]);
     

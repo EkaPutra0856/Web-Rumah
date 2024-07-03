@@ -8,6 +8,9 @@
 @section('table')
     <thead>
         <tr>
+        <th class="py-2 px-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
+                Image
+            </th>
             <th class="py-2 px-2 border-b-[1px] text-sm border-b-gray-200 font-semibold text-gray-300 ">
                 ID  Rumah
             </th>
@@ -44,7 +47,7 @@
             </form>
         </div>
         <div class="flex justify-end mb-4 p-3 justify-center">
-            <a href="/rumah-table" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 mr-4 rounded">
+            <a href="/rumah" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 mr-4 rounded">
                 Show All Data
             </a>
             <a href="/export-rumah" class="bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded">
@@ -57,10 +60,10 @@
                 class="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                 Import from Excel
             </button>
-            <!-- <button type="button" onclick="showChart()"
+            <button type="button" onclick="showHouseChart()"
                 class="ml-4 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                 Distribution Chart
-            </button> -->
+            </button>
         </div>
     </thead>
     <tbody>
@@ -73,6 +76,13 @@
         @else
         @foreach ($rumah as $p)
             <tr class="hover:bg-[#f5f5f5]">
+                <td class="p-2 pl-16">
+                        @if ($p->image)
+                            <img src="{{ Storage::url($p->image) }}" alt="Image" class="w-16 h-16 rounded-lg">
+                        @else
+                            <img src="{{ asset('image/default_rumah.png') }}" alt="No Image" class="w-16 h-16 rounded-lg">
+                        @endif
+                </td>
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->id }}
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->norumah }}
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">{{ $p->alamat }}
@@ -107,4 +117,8 @@
 
 @section('Import Modal Rumah')
     @include('Rumah.ImportModal')
+@endsection
+
+@section('House Chart Modal')
+    @include('Rumah.HouseChartModal')
 @endsection

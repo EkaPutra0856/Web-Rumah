@@ -22,7 +22,8 @@ protected $primaryKey='id';
         'tahun',
         'latitude', 
         'longitude',
-        'renov'
+        'renov',
+        'image'
     ];
 
     
