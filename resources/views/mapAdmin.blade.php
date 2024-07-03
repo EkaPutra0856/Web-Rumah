@@ -19,7 +19,7 @@
             height: 100%;
             width: 0;
             position: fixed;
-            z-index: 2;
+            z-index: 3;
             top: 0;
             right: 0;
             background-color: #fff;
@@ -59,7 +59,7 @@
             position: fixed;
             top: 10px;
             right: 10px;
-            z-index: 3;
+            z-index: 4;
         }
 
         .openbtn:hover {
@@ -73,8 +73,32 @@
             height: 100%;
             width: 100%;
             background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
+            z-index: 2;
             display: none;
+        }
+
+        /* CSS for legend container */
+        .legend-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .legend-item img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
         }
     </style>
 
@@ -103,10 +127,10 @@
     <!-- Sidebar -->
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" onclick="closeNav()">×</a>
-        <a href="/dashboard-adminwilayah">Dashboard</a>
-        <a href="/rumah">Rumah</a>
-        <a href="/kk">KK</a>
-        
+        <a href="/dashboard">Dashboard</a>
+        <a href="/admintable">Administrator</a>
+        <a href="/wilayah">Wilayah</a>
+        <a href="/adminwilayah">Admin Wilayah</a>
     </div>
 
     <!-- Open button -->
@@ -115,6 +139,17 @@
     <!-- Overlay -->
     <div id="overlay" class="overlay" onclick="closeNav()"></div>
 
+    <!-- Legend Container -->
+    <div class="legend-container">
+        <div class="legend-item">
+            <img src="https://icons.iconarchive.com/icons/icons-land/vista-map-markers/128/Map-Marker-Marker-Outside-Chartreuse-icon.png" alt="Sehat">
+            <span>Rumah Sehat</span>
+        </div>
+        <div class="legend-item">
+            <img src="https://icons.iconarchive.com/icons/icons-land/vista-map-markers/128/Map-Marker-Marker-Outside-Pink-icon.png" alt="Tidak Layak">
+            <span>Rumah Tidak Layak</span>
+        </div>
+    </div>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

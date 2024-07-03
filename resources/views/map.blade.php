@@ -19,7 +19,7 @@
             height: 100%;
             width: 0;
             position: fixed;
-            z-index: 2;
+            z-index: 3;
             top: 0;
             right: 0;
             background-color: #fff;
@@ -59,7 +59,7 @@
             position: fixed;
             top: 10px;
             right: 10px;
-            z-index: 3;
+            z-index: 4;
         }
 
         .openbtn:hover {
@@ -73,8 +73,32 @@
             height: 100%;
             width: 100%;
             background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
+            z-index: 2;
             display: none;
+        }
+
+        /* CSS for legend container */
+        .legend-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .legend-item img {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
         }
     </style>
 
@@ -115,6 +139,18 @@
     <!-- Overlay -->
     <div id="overlay" class="overlay" onclick="closeNav()"></div>
 
+    <!-- Legend Container -->
+    <div class="legend-container">
+        <div class="legend-item">
+            <img src="https://icons.iconarchive.com/icons/icons-land/vista-map-markers/128/Map-Marker-Marker-Outside-Chartreuse-icon.png" alt="Sehat">
+            <span>Rumah Sehat</span>
+        </div>
+        <div class="legend-item">
+            <img src="https://icons.iconarchive.com/icons/icons-land/vista-map-markers/128/Map-Marker-Marker-Outside-Pink-icon.png" alt="Tidak Layak">
+            <span>Rumah Tidak Layak</span>
+        </div>
+    </div>
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -140,18 +176,98 @@
                 });
             }
 
-            // Tampilkan marker
-            @foreach ($markers as $marker)
-                var iconMark;
-            if ("{{ $marker['status'] }}" == "Sehat") {
-                iconMark = createIconMarker("Chartreuse");
-            } else {
-                iconMark = createIconMarker("Pink");
+            let rightClickMarker;
+
+            // Function to show custom alert
+            function showAlert(message, lat, lng) {
+                // Create the alert container if it doesn't exist
+                if (!document.getElementById('customAlert')) {
+                    const alertContainer = document.createElement('div');
+                    alertContainer.id = 'customAlert';
+                    alertContainer.style.position = 'fixed';
+                    alertContainer.style.top = '50%';
+                    alertContainer.style.left = '50%';
+                    alertContainer.style.transform = 'translate(-50%, -50%)';
+                    alertContainer.style.backgroundColor = 'white';
+                    alertContainer.style.padding = '20px';
+                    alertContainer.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.5)';
+                    alertContainer.style.zIndex = 1001;
+                    alertContainer.style.borderRadius = '25px';
+
+                    const alertMessage = document.createElement('p');
+                    alertMessage.id = 'alertMessage';
+                    alertContainer.appendChild(alertMessage);
+
+                    const copyButton = document.createElement('button');
+                    copyButton.innerText = 'Copy';
+                    copyButton.style.marginTop = '10px';
+                    copyButton.style.marginLeft = '160px';
+
+                    copyButton.addEventListener('click', function () {
+                        const textToCopy = `${lat},  ${lng}`;
+                        navigator.clipboard.writeText(textToCopy).then(() => {
+                            closeAlert();
+                        });
+                    });
+
+                    alertContainer.appendChild(copyButton);
+                    document.body.appendChild(alertContainer);
+
+                    // Create the overlay if it doesn't exist
+                    if (!document.getElementById('alertOverlay')) {
+                        const overlay = document.createElement('div');
+                        overlay.id = 'alertOverlay';
+                        overlay.style.position = 'fixed';
+                        overlay.style.top = 0;
+                        overlay.style.left = 0;
+                        overlay.style.width = '100%';
+                        overlay.style.height = '100%';
+                        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+                        overlay.style.zIndex = 1000;
+                        document.body.appendChild(overlay);
+
+                        // Close alert when clicking on the overlay
+                        overlay.addEventListener('click', closeAlert);
+                    }
+                }
+
+                // Set the message and show the alert
+                document.getElementById('alertMessage').innerText = message;
+                document.getElementById('customAlert').style.display = 'block';
+                document.getElementById('alertOverlay').style.display = 'block';
             }
 
-            L.marker([{{ $marker['latitude'] }}, {{ $marker['longitude'] }}], {
-                icon: iconMark
-            }).addTo(leafletMap);
+            // Function to close the custom alert
+            function closeAlert() {
+                document.getElementById('customAlert').style.display = 'none';
+                document.getElementById('alertOverlay').style.display = 'none';
+            }
+
+            // Event listener untuk menampilkan lokasi koordinat dan menambahkan marker saat peta diklik kanan
+            leafletMap.on('contextmenu', function (e) {
+                if (rightClickMarker) {
+                    leafletMap.removeLayer(rightClickMarker);
+                }
+
+                rightClickMarker = L.marker([e.latlng.lat, e.latlng.lng], {
+                    icon: createIconMarker("Azure")
+                }).addTo(leafletMap);
+                showAlert("Koordinat: " + e.latlng.lat + ", " + e.latlng.lng, e.latlng.lat, e.latlng.lng);
+            });
+
+            // Tampilkan marker
+            @foreach ($markers as $marker)
+                var iconMark
+                console.log("{{ $marker['status'] }}")
+                if ("{{ $marker['status'] }}" == "Sehat") {
+                    iconMark = createIconMarker("Chartreuse")
+                } else {
+                    iconMark = createIconMarker("Pink")
+                }
+
+                L.marker([{{ $marker['latitude'] }}, {{ $marker['longitude'] }}], {
+                    icon: iconMark
+                }).addTo(leafletMap);
             @endforeach
 
             // Warna-warna yang akan digunakan secara berulang
@@ -163,88 +279,8 @@
                 var polygon = L.polygon(@json($polygon), {
                     color: colors[colorIndex % colors.length]
                 }).addTo(leafletMap);
-            colorIndex++;
+                colorIndex++;
             @endforeach
-
-            let rightClickMarker;
-
-// Function to show custom alert
-function showAlert(message, lat, lng) {
-    // Create the alert container if it doesn't exist
-    if (!document.getElementById('customAlert')) {
-        const alertContainer = document.createElement('div');
-        alertContainer.id = 'customAlert';
-        alertContainer.style.position = 'fixed';
-        alertContainer.style.top = '50%';
-        alertContainer.style.left = '50%';
-        alertContainer.style.transform = 'translate(-50%, -50%)';
-        alertContainer.style.backgroundColor = 'white';
-        alertContainer.style.padding = '20px';
-        alertContainer.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.5)';
-        alertContainer.style.zIndex = 1001;
-        alertContainer.style.borderRadius = '25px';
-
-        const alertMessage = document.createElement('p');
-        alertMessage.id = 'alertMessage';
-        alertContainer.appendChild(alertMessage);
-
-        const copyButton = document.createElement('button');
-        copyButton.innerText = 'Copy';
-        copyButton.style.marginTop = '10px';
-        copyButton.style.marginLeft = '160px';
-        
-        copyButton.addEventListener('click', function () {
-            const textToCopy = `${lat},  ${lng}`;
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                closeAlert();
-            });
-        });
-
-        alertContainer.appendChild(copyButton);
-        document.body.appendChild(alertContainer);
-
-        // Create the overlay if it doesn't exist
-        if (!document.getElementById('alertOverlay')) {
-            const overlay = document.createElement('div');
-            overlay.id = 'alertOverlay';
-            overlay.style.position = 'fixed';
-            overlay.style.top = 0;
-            overlay.style.left = 0;
-            overlay.style.width = '100%';
-            overlay.style.height = '100%';
-            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-            overlay.style.zIndex = 1000;
-            document.body.appendChild(overlay);
-
-            // Close alert when clicking on the overlay
-            overlay.addEventListener('click', closeAlert);
-        }
-    }
-
-    // Set the message and show the alert
-    document.getElementById('alertMessage').innerText = message;
-    document.getElementById('customAlert').style.display = 'block';
-    document.getElementById('alertOverlay').style.display = 'block';
-}
-
-// Function to close the custom alert
-function closeAlert() {
-    document.getElementById('customAlert').style.display = 'none';
-    document.getElementById('alertOverlay').style.display = 'none';
-}
-
-// Event listener untuk menampilkan lokasi koordinat dan menambahkan marker saat peta diklik kanan
-leafletMap.on('contextmenu', function (e) {
-    if (rightClickMarker) {
-        leafletMap.removeLayer(rightClickMarker);
-    }
-
-    rightClickMarker = L.marker([e.latlng.lat, e.latlng.lng], {
-        icon: createIconMarker("Azure")
-    }).addTo(leafletMap);
-    showAlert("Koordinat: " + e.latlng.lat + ", " + e.latlng.lng, e.latlng.lat, e.latlng.lng);
-});
-
 
             // Prevent default right-click menu
             leafletMap.getContainer().addEventListener('contextmenu', function (e) {
