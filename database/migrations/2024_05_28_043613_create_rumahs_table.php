@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('renov');
             $table->decimal('latitude', 10, 7);
             $table->decimal('longitude', 10, 7);
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

@@ -8,6 +8,7 @@ use App\Models\Rumah;
 use App\Models\RegionalAdmin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class RumahController extends Controller
 {
@@ -25,8 +26,9 @@ class RumahController extends Controller
                 $query->where('id', $regionId);
             })->get();
 
-            $graphtype1 = 1;
-            $graphtype2 =1; 
+            $rumah1 = Rumah::all();
+            $graphtype1 = $rumah1->where('status', 'Sehat')->count();
+            $graphtype2 = $rumah1->where('status', 'Tidak Layak')->count(); 
 
             session(['filtered_admin' => $rumah]);
             return view('Rumah.index', compact('rumah', 'graphtype1', 'graphtype2'));
@@ -55,6 +57,13 @@ class RumahController extends Controller
         $rumah->status = $request->status;
         $rumah->tahun = $request->tahun;
         $rumah->renov = $request->renov;
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images', 'public');
+            $rumah->image = $path;
+        }
+        //dd($rumah->image);
+
         $rumah->region_id = $regionId; // Menggunakan region_id yang didapatkan
 
         $rumah->latitude =  $request->latitude1;
@@ -71,13 +80,13 @@ class RumahController extends Controller
       
 
         // Mengambil id dari regadmin yang sedang login
-    $regadminId = Auth::guard('regadmin')->user()->id;
+        $regadminId = Auth::guard('regadmin')->user()->id;
 
-    // Menggunakan relasi untuk mengambil region yang terkait dengan regadmin
-    $regadmin = RegionalAdmin::with('region')->findOrFail($regadminId);
+        // Menggunakan relasi untuk mengambil region yang terkait dengan regadmin
+        $regadmin = RegionalAdmin::with('region')->findOrFail($regadminId);
 
-    // Mendapatkan region_id dari regadmin
-    $regionId = $regadmin->region->id;
+        // Mendapatkan region_id dari regadmin
+        $regionId = $regadmin->region->id;
 
         $rumah->norumah = $request->norumah;
         $rumah->alamat = $request->alamat;
@@ -88,6 +97,14 @@ class RumahController extends Controller
         $rumah->id = $request->id;
         $rumah->norumah = $request->norumah;
         
+        if ($request->hasFile('image')) {
+            if ($rumah->image) {
+                Storage::disk('public')->delete($rumah->image);
+            }
+            $path = $request->file('image')->store('images', 'public');
+            $rumah->image = $path;
+        }
+
         $rumah -> save();
         session()->flash('success', 'Edit Data Successfully!');
         return Redirect('/rumah');
@@ -101,5 +118,5 @@ class RumahController extends Controller
         return redirect('/rumah');
     }
 
-    
+
 }

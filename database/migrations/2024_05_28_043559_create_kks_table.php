@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nokk')->unique();
             $table->string('namakk');
             $table->integer('anggota');
+            $table->string('filekk')->nullable();
             $table->timestamps();
         });
     }

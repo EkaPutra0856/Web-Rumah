@@ -8,6 +8,7 @@ use App\Models\RegionalAdmin;
 use App\Models\Rumah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class KKController extends Controller
 {
@@ -47,15 +48,21 @@ class KKController extends Controller
     // }
 
         $kk = new KK();
-            $kk->nokk = $request->nokk;
-            $kk->rumah_id = $request->rumah_id;
-            $kk->namakk = $request->namakk;
-            $kk->anggota = $request->anggota;
-            $kk->regional_admins_id = $regadmin;
+        $kk->nokk = $request->nokk;
+        $kk->rumah_id = $request->rumah_id;
+        $kk->namakk = $request->namakk;
+        $kk->anggota = $request->anggota;
+        $kk->regional_admins_id = $regadmin;
+
+        if ($request->hasFile('filekk')) {
+            $path = $request->file('filekk')->store('pdfs', 'public');
+            $kk->filekk = $path;
+        }
+
         $kk -> save();
         
         session()->flash('success', 'Save Data Successfully!');
-        return Redirect('/kk');
+        return redirect('/kk');
     }
 
     public function update(Request $request, $id)
@@ -67,10 +74,26 @@ class KKController extends Controller
         $kk->namakk = $request->namakk;
         $kk->anggota = $request->anggota;
         
+        if ($request->hasFile('filekk')) {
+            if ($kk->filekk) {
+                Storage::disk('public')->delete($kk->filekk);
+            }
+            $path = $request->file('filekk')->store('pdfs', 'public');
+            $kk->filekk = $path;
+        }
+
         $kk -> save();
         session()->flash('success', 'Edit Data Successfully!');
-        return Redirect('/kk');
+        return redirect('/kk');
     }
+
+    public function checkNoKK(Request $request)
+    {
+        $nokk = $request->input('nokk');
+        $exists = KK::where('nokk', $nokk)->exists();
+    
+        return response()->json(['exists' => $exists]);
+    }    
 
     public function delete(Request $request, $id)
     {

@@ -20,7 +20,8 @@ protected $primaryKey = 'id';
         'rumah_id',
         'nokk',
         'namakk',
-        'anggota'
+        'anggota',
+        'filekk'
     ];
 
     

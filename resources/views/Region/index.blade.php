@@ -25,7 +25,7 @@
             </form>
         </div>
         <div class="flex justify-end mb-4 p-3 justify-center">
-            <a href="/wilayah-table" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 mr-4 rounded">
+            <a href="/wilayah" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 mr-4 rounded">
                 Show All Data
             </a>
             <a href="/export-wilayah" class="bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded">

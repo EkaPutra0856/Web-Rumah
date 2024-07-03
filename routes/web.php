@@ -60,7 +60,6 @@ Route::get('/export-wilayah', [RegionController::class, 'exportRegion']);
 Route::get('/export-PDF-wilayah', [RegionController::class, 'exportPDF']);
 Route::post('/wilayah-import', [RegionController::class, 'importRegion'])->name('import.region');
 Route::get('/search-wilayah', [RegionController::class, 'search']);
-Route::get('/wilayah-table', [RegionController::class, 'index']);
 
 Route::post('/insert-adminwilayah', [RegionalAdminController::class, 'insert']);
 Route::post('/{id}/update-adminwilayah', [RegionalAdminController::class, 'update']);
@@ -69,16 +68,15 @@ Route::get('/export-adminwilayah', [RegionalAdminController::class, 'exportRegio
 Route::get('/export-PDF-adminwilayah', [RegionalAdminController::class, 'exportPDF'])->name('export.pdf.adminwilayah');
 Route::post('/import-adminwilayah', [RegionalAdminController::class, 'importRegionalAdmin']);
 Route::get('/search-adminwilayah', [RegionalAdminController::class, 'search']);
-Route::get('/adminwilayah-table', [RegionalAdminController::class, 'index']);
 
 Route::post('/insert-kk', [KKController::class, 'insert']);
+Route::post('/check-nokk', [KKController::class, 'checkNoKK'])->name('check-nokk');
 Route::post('/{id}/update-kk', [KKController::class, 'update']);
 Route::post('/{id}/delete-kk', [KKController::class, 'delete']);
 Route::get('/export-kk', [KKImportExportController::class, 'exportKK'])->name('export.kk');
 Route::get('/export-PDF-kk', [KKImportExportController::class, 'exportPDF']);
 Route::post('/import-kk', [KKImportExportController::class, 'importKK'])->name('import.kk');
-Route::get('/search-kk', [KKSearchController::class, 'search']);
-Route::get('/kk-table', [KKController::class, 'index']);
+Route::get('/search-kk', [KKSearchController::class, 'search'])->name('search-kk');
 
 Route::post('/insert-rumah', [RumahController::class, 'insert']);
 Route::post('/{id}/update-rumah', [RumahController::class, 'update']);
@@ -87,7 +85,6 @@ Route::get('/export-rumah', [RumahImportExportController::class, 'exportRumah'])
 Route::get('/export-PDF-rumah', [RumahImportExportController::class, 'exportPDF']);
 Route::post('/import-rumah', [RumahImportExportController::class, 'importRumah'])->name('import.rumah');
 Route::get('/search-rumah', [RumahSearchController::class, 'search']);
-Route::get('/rumah-table', [RumahController::class, 'index']);
 
 Route::post('/insert-administrator', [AdministratorCRUDController::class, 'insert']);
 Route::post('/{id}/update-administrator', [AdministratorCRUDController::class, 'update']);
