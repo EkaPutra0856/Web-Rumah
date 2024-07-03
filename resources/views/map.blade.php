@@ -145,6 +145,7 @@
             <img src="https://icons.iconarchive.com/icons/icons-land/vista-map-markers/128/Map-Marker-Marker-Outside-Chartreuse-icon.png" alt="Sehat">
             <span>Rumah Sehat</span>
         </div>
+        
         <div class="legend-item">
             <img src="https://icons.iconarchive.com/icons/icons-land/vista-map-markers/128/Map-Marker-Marker-Outside-Pink-icon.png" alt="Tidak Layak">
             <span>Rumah Tidak Layak</span>
