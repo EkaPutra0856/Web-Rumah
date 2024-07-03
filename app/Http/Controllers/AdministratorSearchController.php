@@ -15,13 +15,14 @@ class AdministratorSearchController extends Controller
                               ->orWhere('gender', 'like', "%$query%")
                               ->orWhere('notelp', 'like', "%$query%")
                               ->get();
-                              
+        
+        $graphtypes = 1;
         $graphtype1 = $admin->where('gender', 'Pria')->count();
         $graphtype2 = $admin->where('gender', 'Wanita')->count();
     
         session(['filtered_admin' => $admin]);
     
-        return view('administrator.index', compact('admin', 'graphtype1', 'graphtype2'));
+        return view('administrator.index', compact('admin', 'graphtype1', 'graphtype2', 'graphtypes'));
     }
     
 }

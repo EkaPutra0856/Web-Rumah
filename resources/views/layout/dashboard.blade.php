@@ -142,97 +142,92 @@
         //regional admin
 
         function showChartRegionalAdmin() {
-    let graphtypes = @json($graphtypes); // Ambil data grafik dari blade
-    let canvas = document.getElementById('regAdminChart');
+            let graphtypes = @json($graphtypes); // Ambil data grafik dari blade
+            let canvas = document.getElementById('regAdminChart');
 
-    if (!canvas) {
-        console.error("Element with id 'regAdminChart' not found.");
-        return;
-    }
+            if (!canvas) {
+                console.error("Element with id 'regAdminChart' not found.");
+                return;
+            }
 
-    let ctx = canvas.getContext('2d');
+            let ctx = canvas.getContext('2d');
 
-    // Hancurkan objek Chart jika sudah ada sebelumnya
-    if (window.regionAdminChart) {
-        window.regionAdminChart.destroy();
-    }
+            // Hancurkan objek Chart jika sudah ada sebelumnya
+            if (window.regionAdminChart) {
+                window.regionAdminChart.destroy();
+            }
 
-    // Menyiapkan data untuk grafik
-    let labels = graphtypes.map(item => item.name);
-    let data = graphtypes.map(item => item.count);
+            // Menyiapkan data untuk grafik
+            let labels = graphtypes.map(item => item.name);
+            let data = graphtypes.map(item => item.count);
 
-    // Menyiapkan warna untuk setiap bagian grafik
-    let colors = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
-        '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
-        '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A',
-        '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
-        '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC',
-        '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399',
-        '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680',
-        '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
-        '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
-        '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'
-    ];
+            // Menyiapkan warna untuk setiap bagian grafik
+            let colors = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
+                '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+                '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A',
+                '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
+                '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC',
+                '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399',
+                '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680',
+                '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
+                '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
+                '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'
+            ];
 
-    // Membuat objek chart
-    window.regionAdminChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                data: data,
-                backgroundColor: colors
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false, // Mengatur agar tidak mempertahankan aspek rasio
-            plugins: {
-                legend: {
-                    position: 'top',
+            // Membuat objek chart
+            window.regionAdminChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors
+                    }]
                 },
-                tooltip: {
-                    callbacks: {
-                        label: function(tooltipItem) {
-                            return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(0);
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // Mengatur agar tidak mempertahankan aspek rasio
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(0);
+                                }
+                            }
                         }
                     }
                 }
-            }
+            });
+
+            // Menampilkan modal saat grafik siap
+            document.getElementById('RegionalAdminChartModal').classList.remove('hidden');
+            document.getElementById('RegionChartModal').classList.remove('hidden');
         }
-    });
 
-    // Menampilkan modal saat grafik siap
-    document.getElementById('RegionalAdminChartModal').classList.remove('hidden');
-}
+        function closeRegionChartModal() {
+            // Hancurkan objek Chart sebelum menutup modal
+            if (window.regionAdminChart) {
+                window.regionAdminChart.destroy();
+            }
 
-function closeChartModal() {
-    // Hancurkan objek Chart sebelum menutup modal
-    if (window.regionAdminChart) {
-        window.regionAdminChart.destroy();
-    }
-
-    // Menutup modal
-    document.getElementById('RegionalAdminChartModal').classList.add('hidden');
-}
+            // Menutup modal
+            document.getElementById('RegionalAdminChartModal').classList.add('hidden');
+            document.getElementById('RegionChartModal').classList.add('hidden');
+        }
 
 
-    function downloadChartImage() {
-        // Fungsi untuk mengunduh gambar grafik
-        let canvas = document.getElementById('regAdminChart');
-        let image = canvas.toDataURL('image/png');
-        let link = document.createElement('a');
-        link.href = image;
-        link.download = 'chart.png';
-        link.click();
-    }
-
-  
-
-
-
-
-
+        function downloadRegionChartImage() {
+            // Fungsi untuk mengunduh gambar grafik
+            let canvas = document.getElementById('regAdminChart');
+            let image = canvas.toDataURL('image/png');
+            let link = document.createElement('a');
+            link.href = image;
+            link.download = 'chart.png';
+            link.click();
+        }
 
 
         function openInsertModal() {

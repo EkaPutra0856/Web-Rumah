@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Region;
 use App\Models\Coordinate;
+use App\Models\RegionalAdmin;
 use Illuminate\Http\Request;
 use App\Exports\RegionExport;
 use App\Imports\RegionImport;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
@@ -19,13 +21,30 @@ class RegionController extends Controller
             $userId = Auth::guard('administrators')->user()->id;
             $regions = Region::where('administrator_id', $userId)->get();
 
+            // Mengumpulkan data untuk grafik
+            $kecamatanCounts = Region::where('administrator_id', $userId)
+                ->select('kecamatan', 'kelurahan_desa')
+                ->get()
+                ->groupBy('kecamatan')
+                ->map(function ($group) {
+                    return $group->count();
+                });
+
+            // Data untuk grafik
+            $graphtypes = [];
+            foreach ($kecamatanCounts as $kecamatan => $count) {
+                $graphtypes[] = [
+                    'name' => $kecamatan,
+                    'count' => $count
+                ];
+            }
+
             // Hitung jumlah wilayah yang ada
-            $graphtypes = 1;
             $graphtype1 = 1;
             $graphtype2 = 1;
 
             session(['filtered_admin' => $regions]);
-            return view('Region.index', compact('regions', 'graphtype1', 'graphtype2','graphtypes'));
+            return view('Region.index', compact('regions', 'graphtype1', 'graphtype2', 'graphtypes'));
         } else {
             return redirect("/")->withErrors('You are not allowed to access');
         }
@@ -49,6 +68,11 @@ class RegionController extends Controller
         $data->kecamatan = $request->kecamatan;
         $data->kelurahan_desa = $request->kelurahan_desa;
         $data->kode_pos = $request->kode_pos;
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images', 'public');
+            $data->image = $path;
+        }
 
         // Save initial region data
         $data->save();
@@ -77,6 +101,13 @@ class RegionController extends Controller
         $data->kecamatan = $request->kecamatan;
         $data->kelurahan_desa = $request->kelurahan_desa;
         $data->kode_pos = $request->kode_pos;
+        if ($request->hasFile('image')) {
+            if ($data->image) {
+                Storage::disk('public')->delete($data->image);
+            }
+            $path = $request->file('image')->store('images', 'public');
+            $data->image = $path;
+        }
         $data->save();
 
         // Delete old coordinates
@@ -159,11 +190,30 @@ class RegionController extends Controller
                             ->orWhere('kode_pos', 'like', "%$query%")
                             ->get();
                              
-        $graphtype1 = $regions->where('gender', 'Pria')->count();
-        $graphtype2 = $regions->where('gender', 'Wanita')->count();
+        // Mengumpulkan data untuk grafik
+        $kecamatanCounts = Region::where('administrator_id', $userId)
+        ->select('kecamatan', 'kelurahan_desa')
+        ->get()
+        ->groupBy('kecamatan')
+        ->map(function ($group) {
+            return $group->count();
+        });
+
+        // Data untuk grafik
+        $graphtypes = [];
+        foreach ($kecamatanCounts as $kecamatan => $count) {
+            $graphtypes[] = [
+                'name' => $kecamatan,
+                'count' => $count
+            ];
+        }
+
+        // Hitung jumlah wilayah yang ada
+        $graphtype1 = 1;
+        $graphtype2 = 1;
     
         session(['filtered_admin' => $regions]);
       
-        return view('Region.index', compact('regions', 'graphtype1', 'graphtype2'));
+        return view('Region.index', compact('regions', 'graphtype1', 'graphtype2', 'graphtypes'));
     }
 }

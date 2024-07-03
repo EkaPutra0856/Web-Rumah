@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('kecamatan');
             $table->string('kelurahan_desa');
             $table->string('kode_pos');
+            $table->string('image')->nullable();
        
-            $table->timestamps();        });
+            $table->timestamps();        
+        });
     }
 
     /**

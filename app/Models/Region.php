@@ -19,8 +19,7 @@ class Region extends Model
         'kecamatan',
         'kelurahan_desa',
         'kode_pos',
-        // 'latitude',
-        // 'longitude'
+        'image'        
     ];
 
     public function administrator()

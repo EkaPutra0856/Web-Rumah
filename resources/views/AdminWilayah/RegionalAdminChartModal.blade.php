@@ -6,9 +6,9 @@ class="hidden fixed inset-0 bg-gray-400 bg-opacity-60 flex justify-center items-
         <canvas id="regAdminChart" width="400" height="400"></canvas>
     </div>
     <div class="flex justify-center gap-4">
-        <button onclick="downloadChartImage()"
+        <button onclick="downloadRegionChartImage()"
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download Chart</button>
-        <button onclick="closeChartModal()"
+        <button onclick="closeRegionChartModal()"
             class="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Close</button>
     </div>
 </div>
