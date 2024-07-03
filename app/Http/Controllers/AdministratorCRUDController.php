@@ -90,7 +90,7 @@ public function update(Request $request, $id)
 
     $admin->save();
 
-    dd($admin->image); // Untuk melihat path atau nama file gambar yang tersimpan
+    // dd($admin->image); // Untuk melihat path atau nama file gambar yang tersimpan
 
     session()->flash('success', 'Edit Data Successfully!');
     return redirect('/admintable');
