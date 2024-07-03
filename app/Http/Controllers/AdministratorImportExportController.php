@@ -1,32 +1,40 @@
 <?php
 
-// File: app/Http/Controllers/ImportExportKKController.php
-
 namespace App\Http\Controllers;
 
-use App\Exports\KKExport;
-use App\Imports\KKImport;
+use App\Exports\AdministratorsExport;
+use App\Imports\AdministratorsImport;
+use App\Models\Administrator;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
-class ImportExportKKController extends Controller
+class AdministratorImportExportController extends Controller
 {
-    public function exportKK()
+    public function exportAdministrators()
     {
-        return Excel::download(new KKExport(), 'kk.xlsx');
+        $admin = session('filtered_admin', Administrator::all());
+        return Excel::download(new AdministratorsExport($admin), 'administrators.xlsx');
     }
 
-    public function importKK(Request $request)
+    public function exportPDF()
+    {
+        $admin = session('filtered_admin', Administrator::all());
+        $pdf = FacadePdf::loadView('Administrator.pdf', ['admin' => $admin]);
+        return $pdf->download('administrators.pdf');
+    }
+
+    public function importAdministrators(Request $request)
     {
         try {
             // Validasi jenis file
             $request->validate([
                 'import_file' => 'required|file|mimes:xls,xlsx',
             ]);
-    
+
             // Proses impor data
-            Excel::import(new KKImport(), $request->file('import_file'));
-    
+            Excel::import(new AdministratorsImport(), $request->file('import_file'));
+
             // Jika sukses
             return redirect()->back()->with('success', 'Data imported successfully.');
         } catch (\Illuminate\Validation\ValidationException $e) {

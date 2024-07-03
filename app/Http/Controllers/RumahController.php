@@ -24,10 +24,11 @@ class RumahController extends Controller
             $rumah = Rumah::whereHas('region', function ($query) use ($regionId) {
                 $query->where('id', $regionId);
             })->get();
-            $graphtype1 = 1;
 
+            $graphtype1 = 1;
             $graphtype2 =1; 
 
+            session(['filtered_admin' => $rumah]);
             return view('Rumah.index', compact('rumah', 'graphtype1', 'graphtype2'));
         } else {
             return redirect("/")->withErrors('You are not allowed to access');
@@ -100,5 +101,5 @@ class RumahController extends Controller
         return redirect('/rumah');
     }
 
-
+    
 }

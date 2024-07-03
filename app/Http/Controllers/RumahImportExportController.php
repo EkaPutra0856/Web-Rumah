@@ -6,17 +6,25 @@ namespace App\Http\Controllers;
 
 use App\Exports\RumahExport;
 use App\Imports\RumahImport;
+use App\Models\Rumah;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
-class RumahExportController extends Controller
+class RumahImportExportController extends Controller
 {
     public function exportRumah()
     {
-        return Excel::download(new RumahExport(), 'rumah.xlsx');
+        $rumah = session('filtered_admin', Rumah::all());
+        return Excel::download(new RumahExport($rumah), 'rumah.xlsx');
     }
 
-
+    public function exportPDF()
+    {
+        $rumah = session('filtered_admin', Rumah::all());
+        $pdf = FacadePdf::loadView('Rumah.pdf', ['rumah' => $rumah]);
+        return $pdf->download('rumah.pdf');
+    }
 
     public function importRumah(Request $request)
     {

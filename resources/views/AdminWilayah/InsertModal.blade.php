@@ -57,7 +57,7 @@
                         class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" >
                         <option disabled selected>Region ID</option>
                         @foreach ($regions as $p)
-                        <option value="{{$p->id}}">{{$p->kecamatan}}</option>
+                        <option value="{{$p->id}}">{{$p->kelurahan_desa}}</option>
                         @endforeach
                     </select>
                     <span id="error-message-region_id" class="text-red-500 text-sm hidden">Silakan pilih Region ID</span>

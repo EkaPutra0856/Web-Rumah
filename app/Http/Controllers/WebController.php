@@ -61,4 +61,55 @@ class WebController extends Controller
 
         return view('map', compact('markers', 'polygons'));
     }
+
+    public function map_region()
+    {
+        $markers = [];
+        $polygons = [];
+
+        $regions = Region::all();
+        foreach ($regions as $region) {
+            // Ambil semua marker berdasarkan region_id
+            $regionMarkers = Coordinate::where('region_id', $region->id)->get();
+
+            // Jika jumlah marker lebih dari 3, tambahkan ke polygons
+            if ($regionMarkers->count() >= 3) {
+                $polygonCoordinates = [];
+                foreach ($regionMarkers as $marker) {
+                    $polygonCoordinates[] = [$marker->latitude, $marker->longitude];
+                }
+                $polygons[] = $polygonCoordinates;
+            } else {
+                // Jika kurang dari 3, tambahkan ke markers
+                foreach ($regionMarkers as $marker) {
+                    $markers[] = [
+                        'latitude' => $marker->latitude,
+                        'longitude' => $marker->longitude,
+                    ];
+                }
+            }
+        }
+        $rumah = Rumah::all();
+        foreach ($rumah as $rumah) {
+            // Ambil semua marker berdasarkan region_id
+            $rumahMarkers = Rumah::where('id', $rumah->id)->get();
+
+            $color = 'Chartreuse';
+
+            
+            
+                // Jika kurang dari 3, tambahkan ke markers
+                foreach ($rumahMarkers as $marker) {
+                    $markers[] = [
+                        'latitude' => $marker->latitude,
+                        'longitude' => $marker->longitude,
+                        'status' => $marker->status
+                    ];
+                    
+                    
+                }
+            }
+        
+        return view('mapAdmin', compact('markers', 'polygons'));
+    }
 }

@@ -31,6 +31,7 @@ class KKController extends Controller
             $graphtype1 = $kk1->where('anggota', '>', 10)->count();
             $graphtype2 = $kk1->where('anggota', '<=', 10)->count();
 
+            session(['filtered_admin' => $kk]);
             return view('KK.index', compact('kk', 'rumah', 'graphtype1', 'graphtype2'));
         } else {
             return redirect("/")->withErrors('You are not allowed to access');

@@ -1,40 +1,42 @@
 <?php
 
+// File: app/Http/Controllers/ImportExportKKController.php
+
 namespace App\Http\Controllers;
 
-use App\Exports\AdministratorsExport;
-use App\Imports\AdministratorsImport;
-use App\Models\Administrator;
+use App\Exports\KKExport;
+use App\Imports\KKImport;
+use App\Models\KK;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
-class ImportExportController extends Controller
+class KKImportExportController extends Controller
 {
-    public function exportAdministrators()
+    public function exportKK()
     {
-        $admin = session('filtered_admin', Administrator::all());
-        return Excel::download(new AdministratorsExport($admin), 'administrators.xlsx');
+        $kk = session('filtered_admin', KK::all());
+        return Excel::download(new KKExport($kk), 'kk.xlsx');
     }
 
     public function exportPDF()
     {
-        $admin = session('filtered_admin', Administrator::all());
-        $pdf = FacadePdf::loadView('Administrator.pdf', ['admin' => $admin]);
-        return $pdf->download('administrators.pdf');
+        $kk = session('filtered_admin', KK::all());
+        $pdf = FacadePdf::loadView('KK.pdf', ['kk' => $kk]);
+        return $pdf->download('kk.pdf');
     }
 
-    public function importAdministrators(Request $request)
+    public function importKK(Request $request)
     {
         try {
             // Validasi jenis file
             $request->validate([
                 'import_file' => 'required|file|mimes:xls,xlsx',
             ]);
-
+    
             // Proses impor data
-            Excel::import(new AdministratorsImport(), $request->file('import_file'));
-
+            Excel::import(new KKImport(), $request->file('import_file'));
+    
             // Jika sukses
             return redirect()->back()->with('success', 'Data imported successfully.');
         } catch (\Illuminate\Validation\ValidationException $e) {

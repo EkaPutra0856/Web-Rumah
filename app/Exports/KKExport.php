@@ -2,31 +2,65 @@
 
 namespace App\Exports;
 
-use App\Models\KK;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class KKExport implements FromCollection, WithHeadings
+class KKExport implements FromView, WithStyles
 {
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    // public function collection()
-    // {
-    //     return Region::all();
-    // }
-    public function collection()
+    protected $kk;
+
+    public function __construct($kk)
     {
-        return KK::all(['rumah_id','nokk', 'namakk', 'anggota']); // Sesuaikan dengan nama kolom yang ingin diekspor
+        $this->kk = $kk;
     }
 
-    public function headings(): array
+    public function view(): View
     {
-        return [
-            'ID Rumah',
-            'Nomor KK',
-            'Kepala Keluarga',
-            'Anggota Keluarga'
+        return view('KK.excel', [
+            'kk' => $this->kk
+        ]);
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        // Mengatur gaya untuk header (baris pertama)
+        $headerStyle = [
+            'font' => [
+                'bold' => true,
+                'color' => ['argb' => 'FFFFFFFF']
+            ],
+            'fill' => [
+                'fillType' => 'solid',
+                'startColor' => ['argb' => 'FFADD8E6'] // Warna biru muda
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, // Teks di tengah
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+            ]
         ];
+
+        // Gaya untuk sel selain header
+        $cellStyle = [
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, // Teks di tengah
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+            ]
+        ];
+
+        // Menerapkan gaya header ke baris pertama
+        $sheet->getStyle('A1:D1')->applyFromArray($headerStyle);
+
+        // Menerapkan gaya sel ke seluruh kolom (A-D)
+        $sheet->getStyle('A2:D' . $sheet->getHighestRow())->applyFromArray($cellStyle);
+
+        // Mengatur lebar kolom
+        $sheet->getColumnDimension('A')->setWidth(20);
+        $sheet->getColumnDimension('B')->setWidth(30);
+        $sheet->getColumnDimension('C')->setWidth(20);
+        $sheet->getColumnDimension('D')->setWidth(20);
+
+        return [];
     }
 }

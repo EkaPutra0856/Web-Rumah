@@ -9,6 +9,7 @@ use App\Exports\RegionExport;
 use App\Imports\RegionImport;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
 class RegionController extends Controller
 {
@@ -20,6 +21,8 @@ class RegionController extends Controller
             // Hitung jumlah pria dan wanita
             $graphtype1 = 1;
             $graphtype2 = 1;
+
+            session(['filtered_admin' => $regions]);
             return view('Region.index', compact('regions', 'graphtype1', 'graphtype2'));
         } else {
             return redirect("/")->withErrors('You are not allowed to access');
@@ -107,12 +110,20 @@ class RegionController extends Controller
         return redirect('/wilayah');
     }
 
-    public function export()
+    public function exportRegion()
     {
-        return Excel::download(new RegionExport, 'region.xlsx');
+        $regions = session('filtered_admin', Region::all());
+        return Excel::download(new RegionExport($regions), 'wilayah.xlsx');
     }
 
-    public function import(Request $request)
+    public function exportPDF()
+    {
+        $regions = session('filtered_admin', Region::all());
+        $pdf = FacadePdf::loadView('Region.pdf', ['regions' => $regions]);
+        return $pdf->download('wilayah.pdf');
+    }
+
+    public function importRegion(Request $request)
     {
         try {
             // Validasi jenis file
@@ -132,5 +143,25 @@ class RegionController extends Controller
             // Jika ada kesalahan lain
             return redirect()->back()->with('fail', 'Failed to import data: ' . $e->getMessage());
         }
+    }
+
+    public function search(Request $request)
+    {
+        $userId = Auth::guard('administrators')->user()->id;
+        $regions = Region::where('administrator_id', $userId)->get();
+        
+        $query = $request->input('query');
+        $regions = Region::where('id', 'like', "%$query%")
+                            ->orWhere('kecamatan', 'like', "%$query%")
+                            ->orWhere('kelurahan_desa', 'like', "%$query%")
+                            ->orWhere('kode_pos', 'like', "%$query%")
+                            ->get();
+                             
+        $graphtype1 = $regions->where('gender', 'Pria')->count();
+        $graphtype2 = $regions->where('gender', 'Wanita')->count();
+    
+        session(['filtered_admin' => $regions]);
+      
+        return view('Region.index', compact('regions', 'graphtype1', 'graphtype2'));
     }
 }

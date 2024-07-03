@@ -14,17 +14,44 @@
             <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">Kode Pos</th>
             <th class="text-center border-b-[1px] font-semibold text-gray-700 dark:text-white">Action</th>
         </tr>
+        <div class="flex justify-end mb-4 p-3">
+            <form action="{{ url('/search-wilayah') }}" method="GET" class="flex items-center">
+                <input type="text" name="query" placeholder="Search region..."
+                       class="w-full py-2 px-4 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-md">
+                    Search
+                </button>
+            </form>
+        </div>
         <div class="flex justify-end mb-4 p-3 justify-center">
-            <a href="/wilayah-export" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <a href="/wilayah-table" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 mr-4 rounded">
+                Show All Data
+            </a>
+            <a href="/export-wilayah" class="bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded">
                 Export to Excel
+            </a>
+            <a href="/export-PDF-wilayah" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-4 rounded">
+                Export to PDF
             </a>
             <button type="button" onclick="openImportModal()"
                 class="ml-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                 Import from Excel
             </button>
+            <!-- <button type="button" onclick="showChart()"
+                class="ml-4 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                Distribution Chart
+            </button> -->
         </div>
     </thead>
     <tbody>
+        @if ($regions->isEmpty())
+            <tr>
+                <td colspan="5" class="text-center p-4 text-gray-500">
+                    Tidak ada data yang sesuai.
+                </td>
+            </tr>
+        @else
         @foreach ($regions as $p)
             <tr class="hover:bg-blue-100">
                 <td class="p-2 text-center border-b-[1px] text-xs border-b-gray-700 font-normal text-gray-400">
@@ -45,6 +72,7 @@
                 </td>
             </tr>
         @endforeach
+        @endif
     </tbody>
 @endsection
 

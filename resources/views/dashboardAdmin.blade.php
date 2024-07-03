@@ -16,7 +16,7 @@
 
         <div class="lg:w-2/3 text-center mx-auto">
             <h1 class="text-gray-900 dark:text-white font-bold text-5xl md:text-6xl xl:text-5xl mt-20">Welcome to
-                Dashboard Region Admin
+                Dashboard Regional Admin
             </h1>
         </div>
 

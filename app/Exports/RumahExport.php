@@ -2,44 +2,68 @@
 
 namespace App\Exports;
 
-use App\Models\Rumah;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class RumahExport implements FromCollection, WithHeadings
+class RumahExport implements FromView, WithStyles
 {
-    public function collection()
+    protected $rumah;
+
+    public function __construct($rumah)
     {
-        return Rumah::with('regionalAdmin')->get()->map(function($admin) {
-            return [
-                'id' => $admin->id,
-                'regional_admins_id' => $admin->region->kecamatan,
-                'norumah' => $admin->norumah,
-                'alamat' => $admin->alamat,
-                'luas' => $admin->luas,
-                'status' => $admin->status,
-                'tahun' => $admin->tahun,
-                'latitude' => $admin->latitude, 
-                'longitude' => $admin->longitude,
-                'renov' => $admin->renov,    
-            ];
-        });
-        // return Rumah::all(); 
+        $this->rumah = $rumah;
     }
 
-    public function headings(): array
+    public function view(): View
     {
-        return [
-            'ID',
-            'Admin Wilayah',
-            'Nomor Rumah',
-            'Alamat',
-            'Luas',
-            'Status',
-            'Tahun',
-            'Latitude',
-            'Longitude',
-            'Renovasi'
+        return view('Rumah.excel', [
+            'rumah' => $this->rumah
+        ]);
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        // Mengatur gaya untuk header (baris pertama)
+        $headerStyle = [
+            'font' => [
+                'bold' => true,
+                'color' => ['argb' => 'FFFFFFFF']
+            ],
+            'fill' => [
+                'fillType' => 'solid',
+                'startColor' => ['argb' => 'FFADD8E6'] // Warna biru muda
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, // Teks di tengah
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+            ]
         ];
+
+        // Gaya untuk sel selain header
+        $cellStyle = [
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER, // Teks di tengah
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER
+            ]
+        ];
+
+        // Menerapkan gaya header ke baris pertama
+        $sheet->getStyle('A1:G1')->applyFromArray($headerStyle);
+
+        // Menerapkan gaya sel ke seluruh kolom (A-D)
+        $sheet->getStyle('A2:G' . $sheet->getHighestRow())->applyFromArray($cellStyle);
+
+        // Mengatur lebar kolom
+        $sheet->getColumnDimension('A')->setWidth(20);
+        $sheet->getColumnDimension('B')->setWidth(30);
+        $sheet->getColumnDimension('C')->setWidth(20);
+        $sheet->getColumnDimension('D')->setWidth(20);
+        $sheet->getColumnDimension('E')->setWidth(20);
+        $sheet->getColumnDimension('F')->setWidth(20);
+        $sheet->getColumnDimension('G')->setWidth(20);
+
+        return [];
     }
 }

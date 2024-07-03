@@ -21,6 +21,8 @@ class AdministratorCRUDController extends Controller
         // Hitung jumlah pria dan wanita
         $graphtype1 = $admin->where('gender', 'Pria')->count();
         $graphtype2 = $admin->where('gender', 'Wanita')->count();
+
+        session(['filtered_admin' => $admin]);
         
         return view('Administrator.index', compact('admin', 'graphtype1', 'graphtype2'));
     } else {

@@ -10,6 +10,7 @@ use App\Exports\RegionalAdminExport;
 use App\Imports\RegionalAdminImport;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
 class RegionalAdminController extends Controller
 {
@@ -19,12 +20,11 @@ class RegionalAdminController extends Controller
             $regions = Region::where('administrator_id', $userId)->get();
             $regionAdmin = RegionalAdmin::where('administrator_id', $userId)->with('region')->get();
 
-
-
             $graphtype1 = 1;
-            $graphtype2 =1;
-            return view('AdminWilayah.index', compact('regionAdmin', 'regions', 'graphtype1', 'graphtype2'));
+            $graphtype2 = 1;
 
+            session(['filtered_admin' => $regionAdmin]);
+            return view('AdminWilayah.index', compact('regionAdmin', 'regions', 'graphtype1', 'graphtype2'));
 
         } else {
             return redirect("/")->withErrors('You are not allowed to access');
@@ -73,21 +73,31 @@ class RegionalAdminController extends Controller
         session()->flash('success', 'Delete Data Successfully!');
         return redirect('/adminwilayah');
     }
-    public function export()
+
+    public function exportRegionalAdmin()
     {
-        return Excel::download(new RegionalAdminExport, 'adminwilayah.xlsx');
+        $regionAdmin = session('filtered_admin', RegionalAdmin::all());
+        return Excel::download(new RegionalAdminExport($regionAdmin), 'adminwilayah.xlsx');
     }
-    public function import(Request $request)
+
+    public function exportPDF()
+    {
+        $regionAdmin = session('filtered_admin', RegionalAdmin::all());
+        $pdf = FacadePdf::loadView('AdminWilayah.pdf', ['regionAdmin' => $regionAdmin]);
+        return $pdf->download('adminwilayah.pdf');
+    }
+
+    public function importRegionalAdmin(Request $request)
     {
         try {
             // Validasi jenis file
             $request->validate([
                 'import_file' => 'required|file|mimes:xls,xlsx',
             ]);
-    
+
             // Proses impor data
             Excel::import(new RegionalAdminImport(), $request->file('import_file'));
-    
+
             // Jika sukses
             return redirect()->back()->with('success', 'Data imported successfully.');
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -97,8 +107,32 @@ class RegionalAdminController extends Controller
             // Jika ada kesalahan lain
             return redirect()->back()->with('fail', 'Failed to import data: ' . $e->getMessage());
         }
-        // Excel::import(new RegionImport, $request->file('import_file'));
-        // return redirect('/wilayah');
     }
 
+    public function search(Request $request)
+    {
+        $userId = Auth::guard('administrators')->user()->id;
+        $regions = Region::where('administrator_id', $userId)->get();
+        $regionAdmin = RegionalAdmin::where('administrator_id', $userId)->with('region')->get();
+        
+        $query = $request->input('query');
+        $regionAdmin = RegionalAdmin::where('administrator_id', $userId)
+                                    ->with('region')
+                                    ->whereHas('region', function ($q) use ($query) {
+                                        $q->where('kelurahan_desa', 'like', "%$query%");
+                                    })
+                                    ->orWhere('name', 'like', "%$query%")
+                                    ->orWhere('email', 'like', "%$query%")
+                                    ->orWhere('notelp', 'like', "%$query%")
+                                    ->orWhere('region_id', 'like', "%$query%")
+                                    ->get();
+
+                             
+        $graphtype1 = $regionAdmin->where('gender', 'Pria')->count();
+        $graphtype2 = $regionAdmin->where('gender', 'Wanita')->count();
+    
+        session(['filtered_admin' => $regionAdmin]);
+      
+        return view('AdminWilayah.index', compact('regionAdmin', 'regions', 'graphtype1', 'graphtype2'));
+    }
 }
