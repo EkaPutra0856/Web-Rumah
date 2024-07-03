@@ -20,11 +20,28 @@ class RegionalAdminController extends Controller
             $regions = Region::where('administrator_id', $userId)->get();
             $regionAdmin = RegionalAdmin::where('administrator_id', $userId)->with('region')->get();
 
-            $graphtype1 = 1;
-            $graphtype2 = 1;
+            // Mengumpulkan data untuk grafik
+            $regionCounts = RegionalAdmin::selectRaw('region_id, COUNT(*) as count')
+                ->where('administrator_id', $userId)
+                ->groupBy('region_id')
+                ->pluck('count', 'region_id');
+
+            $regionNames = Region::whereIn('id', $regionCounts->keys())->pluck('kelurahan_desa', 'id');
+
+            // Data untuk grafik
+            $graphtypes = [];
+            foreach ($regionNames as $id => $name) {
+                $graphtypes[] = [
+                    'name' => $name,
+                    'count' => $regionCounts[$id] ?? 0
+                ];
+            }
+  // Hitung jumlah wilayah yang ada
+  $graphtype1 = 1;
+  $graphtype2 = 1;
 
             session(['filtered_admin' => $regionAdmin]);
-            return view('AdminWilayah.index', compact('regionAdmin', 'regions', 'graphtype1', 'graphtype2'));
+            return view('AdminWilayah.index', compact('regionAdmin', 'regions', 'graphtypes', 'graphtype1', 'graphtype2'));
 
         } else {
             return redirect("/")->withErrors('You are not allowed to access');

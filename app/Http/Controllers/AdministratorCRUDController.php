@@ -18,13 +18,14 @@ class AdministratorCRUDController extends Controller
         $userId = Auth::guard('administrators')->user()->id;
         $admin = Administrator::all();
         
-        // Hitung jumlah pria dan wanita
+        // Hitung jumlah pria dan 
+        $graphtypes = 1;
         $graphtype1 = $admin->where('gender', 'Pria')->count();
         $graphtype2 = $admin->where('gender', 'Wanita')->count();
 
         session(['filtered_admin' => $admin]);
         
-        return view('Administrator.index', compact('admin', 'graphtype1', 'graphtype2'));
+        return view('Administrator.index', compact('graphtypes','admin', 'graphtype1', 'graphtype2'));
     } else {
         return redirect("/")->withErrors('You are not allowed to access');
     }
