@@ -16,6 +16,7 @@ use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\Route;
 
 
+Route::get('/search-kelurahan_desa', [RegionController::class, 'searchKelurahanDesa'])->name('search.kelurahan_desa');
 
 
 Route::get('/search-administrators', [AdministratorSearchController::class, 'search']);

@@ -216,4 +216,44 @@ class RegionController extends Controller
       
         return view('Region.index', compact('regions', 'graphtype1', 'graphtype2', 'graphtypes'));
     }
+
+    public function getRegions()
+    {
+        $regions = Region::all(['id', 'kelurahan_desa', 'image']);
+        return response()->json($regions);
+    }
+
+
+    public function getImageUrl($imageName)
+    {
+        $imagePath = 'images/' . $imageName;
+        
+        // Periksa apakah file gambar ada di storage/images
+        if (Storage::disk('public')->exists($imagePath)) {
+            $imageUrl = asset('storage/' . $imagePath);
+            return response()->json(['imageUrl' => $imageUrl]);
+        } else {
+            return response()->json(['error' => 'Image not found.'], 404);
+        }
+    }
+    public function searchKelurahanDesa(Request $request)
+    {
+        $query = $request->input('query');
+
+        $regions = Region::where('kelurahan_desa', 'like', "%$query%")->get();
+
+        return view('search_results', compact('regions'));
+    }
+
+    public function coordinates($id)
+    {
+        $coordinates = Coordinate::where('region_id', $id)->first();
+
+        if (!$coordinates) {
+            return response()->json(['error' => 'Coordinates not found'], 404);
+        }
+
+        return response()->json($coordinates);
+    }
+
 }
