@@ -135,10 +135,9 @@
   <!-- Sidebar -->
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" onclick="closeNav()">×</a>
-    <a href="/dashboard">Dashboard</a>
-    <a href="/admintable">Administrator</a>
-    <a href="/wilayah">Wilayah</a>
-    <a href="/adminwilayah">Admin Wilayah</a>
+    <a href="/dashboard-adminwilayah">Dashboard</a>
+    <a href="/rumah">Rumah</a>
+    <a href="/kk">KK</a>
 </div>
 
 
