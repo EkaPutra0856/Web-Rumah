@@ -112,4 +112,13 @@ class WebController extends Controller
         
         return view('mapAdmin', compact('markers', 'polygons'));
     }
+
+    public function landing() 
+    {
+        $rumah = Rumah::all();
+        $graphtype1 = $rumah->where('status', 'Sehat')->count();
+        $graphtype2 = $rumah->where('status', 'Tidak Layak')->count(); 
+
+        return view('welcome', compact('rumah', 'graphtype1', 'graphtype2'));
+    }
 }

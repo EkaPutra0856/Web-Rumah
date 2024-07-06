@@ -26,9 +26,12 @@ Route::post('/import-administrators', [AdministratorImportExportController::clas
 
 
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Route::get('/', [WebController::class, 'landing']);
+
 Route::get('/map', [WebController::class, 'map'])->name('map');
 Route::get('/map-region', [WebController::class, 'map_region']);
 

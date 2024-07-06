@@ -55,7 +55,121 @@
                 </div>
             </div>
         </div>
+        <div class="max-w-7xl my-5 mx-auto px-6 md:px-12 xl:px-6 flex justify-center">
+            <button type="button" onclick="openHouseWelcomeChartModal()" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 mr-4 rounded">
+                See House Chart
+            </button>
+        </div>
     </div>
 </main>
+
+<div id="houseWelcomeChartModal" class="hidden fixed inset-0 bg-gray-400 bg-opacity-60 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg w-1/2">
+        <h2 class="text-center text-lg font-semibold mb-4">House Distribution Chart</h2>
+        <div class="flex justify-center mb-4">
+            <canvas id="houseWelcomeChart" width="400" height="400"></canvas>
+        </div>
+        <div class="flex justify-center gap-4">
+            <button onclick="downloadHouseWelcomeChartImage()"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Download Chart</button>
+            <button onclick="closeHouseWelcomeChartModal()"
+                class="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Close</button>
+        </div>
+    </div>
+</div>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var myChart = null; // Variabel global untuk menyimpan objek chart
+    var sehatPercentage = 0; // Variabel global untuk menyimpan persentase laki-laki
+    var tidaklayakPercentage = 0; 
+
+    function showHouseWelcomeChart() {
+                openHouseWelcomeChartModal();
+
+                var sehat = {{ $graphtype1 }};
+                var tidak_layak = {{ $graphtype2 }};
+                var total = sehat + tidak_layak;
+    
+                sehatPercentage = ((sehat / total) * 100).toFixed(2);
+                tidaklayakPercentage = ((tidak_layak / total) * 100).toFixed(2);
+    
+                if (myChart) {
+                    // Hapus chart yang sudah ada jika ada
+                    myChart.destroy();
+                }
+    
+                var ctx = document.getElementById('houseWelcomeChart').getContext('2d');
+                myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Rumah Sehat', 'Rumah Tidak Layak'],
+                        datasets: [{
+                            label: 'House Status Distribution',
+                            data: [sehat, tidak_layak],
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(tooltipItem) {
+                                        var label = tooltipItem.label || '';
+    
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        label += tooltipItem.raw.toLocaleString();
+    
+                                        if (tooltipItem.label === 'Rumah Sehat') {
+                                            label += ' (' + sehatPercentage + '%)';
+                                        } else if (tooltipItem.label === 'Rumah Tidak Layak') {
+                                            label += ' (' + tidaklayakPercentage + '%)';
+                                        }
+    
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });                
+            }
+    
+            function openHouseWelcomeChartModal() {
+                document.getElementById('houseWelcomeChartModal').classList.remove('hidden');
+            }
+
+            function closeHouseWelcomeChartModal() {
+                document.getElementById('houseWelcomeChartModal').classList.add('hidden');
+            }
+
+            function downloadHouseWelcomeChartImage() {
+                var chartCanvas = document.getElementById('houseWelcomeChart');
+                var link = document.createElement('a');
+                link.href = chartCanvas.toDataURL('image/png');
+                link.download = 'house_chart.png';
+    
+                var ctx = chartCanvas.getContext('2d');
+                ctx.font = 'bold 14px Arial';
+                ctx.fillStyle = '#000';
+                ctx.textAlign = 'center';
+    
+                var sehatPercentageText = sehatPercentage.toString() + '%';
+                var tidaklayakPercentageText = tidaklayakPercentage.toString() + '%';
+    
+                ctx.fillText('Rumah Sehat: ' + sehatPercentageText, chartCanvas.width / 2, 20);
+                ctx.fillText('Rumah Tidak Layak: ' + tidaklayakPercentageText, chartCanvas.width / 2, 40);
+    
+                console.log(link.href); // Debug: Periksa URL yang dihasilkan sebelum diunduh
+                link.click();
+            }
+</script>
 </html>
+
