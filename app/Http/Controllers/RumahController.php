@@ -26,9 +26,9 @@ class RumahController extends Controller
                 $query->where('id', $regionId);
             })->get();
 
-            $rumah1 = Rumah::all();
-            $graphtype1 = $rumah1->where('status', 'Sehat')->count();
-            $graphtype2 = $rumah1->where('status', 'Tidak Layak')->count(); 
+            //$rumah1 = Rumah::all();
+            $graphtype1 = $rumah->where('status', 'Sehat')->count();
+            $graphtype2 = $rumah->where('status', 'Tidak Layak')->count(); 
 
             session(['filtered_admin' => $rumah]);
             return view('Rumah.index', compact('rumah', 'graphtype1', 'graphtype2'));

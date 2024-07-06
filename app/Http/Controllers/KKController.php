@@ -28,9 +28,9 @@ class KKController extends Controller
             // Mengambil semua rumah yang terkait dengan wilayah yang dikelola oleh regadmin
             $rumah = Rumah::where('region_id', $regionId)->get();
 
-            $kk1 = KK::all();
-            $graphtype1 = $kk1->where('anggota', '>', 10)->count();
-            $graphtype2 = $kk1->where('anggota', '<=', 10)->count();
+            //$kk1 = KK::all();
+            $graphtype1 = $kk->where('anggota', '>', 10)->count();
+            $graphtype2 = $kk->where('anggota', '<=', 10)->count();
 
             session(['filtered_admin' => $kk]);
             return view('KK.index', compact('kk', 'rumah', 'graphtype1', 'graphtype2'));
